@@ -1,11 +1,11 @@
 // 1. Bootstrap Functions
-@import "../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/functions";
 
 // 2. 自定義變數 (覆蓋 Bootstrap 預設變數)
 @import './utils/variables';
 
 // 3. Bootstrap 核心
-@import "../../node_modules/bootstrap";
+@import "../../../node_modules/bootstrap";
 
 // 4. Base (字體、reset)
 @import "./base/typography";   // 字體/排版設定
