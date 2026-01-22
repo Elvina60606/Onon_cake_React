@@ -8,7 +8,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        quietDeps: true
+        quietDeps: true //暫時關閉bootstrap sass 尚未更新之報錯//
       }
     }
   },
