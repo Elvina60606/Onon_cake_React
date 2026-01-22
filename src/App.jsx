@@ -1,7 +1,7 @@
 
 import axios from "axios";
-import Header from "./pages/Header";
-import Footer from "./pages/Footer";
+import Header from "./Component/Header";
+import Footer from "./Component/Footer";
 import ListInfo from "./pages/ListInfo";
 
 
