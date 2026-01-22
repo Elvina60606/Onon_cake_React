@@ -3,7 +3,8 @@ import avatar from '../assets/images/avatar.png'
 function Home() {
     return (
     <>
-    <main className="container py-md-12 py-8 mb-auto">
+    <div className=' bg-secondary-50'>
+      <main className="container py-md-12 py-8 mb-auto">
         <div className="row justify-content-center">
         {/*--桌機版side bar--*/}
           <aside className="col-3 d-none d-lg-block">
@@ -332,6 +333,8 @@ function Home() {
             </div>
           </div>
       </main>
+      
+    </div>
     
     
     </>
