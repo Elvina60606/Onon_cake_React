@@ -29,7 +29,7 @@ function Home() {
                               aria-controls="member-center" 
                               aria-selected="true">
                               <span className="fs-6 text-primary-700 ps-6">
-                                <i className="bi bi-person-fill"></i>
+                                <i className="bi bi-person-fill me-2"></i>
                                 會員中心
                               </span>
                       </button>
@@ -44,7 +44,7 @@ function Home() {
                               aria-controls="changePassword" 
                               aria-selected="false">
                               <span className="fs-6 text-primary-700 ps-6">
-                              <i className="bi bi-pencil-fill"></i>
+                              <i className="bi bi-pencil-fill me-2"></i>
                                 修改會​員​資料</span>
                       </button>
                   </li>
@@ -58,7 +58,7 @@ function Home() {
                               aria-controls="shoppingHistory" 
                               aria-selected="false">
                               <span className="fs-6 text-primary-700 ps-6">
-                                <span className="material-symbols-outlined align-bottom">lock</span>
+                                <span className="material-symbols-outlined align-bottom me-2">lock</span>
                                 修改密碼
                               </span>
                       </button>
@@ -73,7 +73,7 @@ function Home() {
                               aria-controls="couponAndPoint" 
                               aria-selected="false">
                               <span className="fs-6 text-primary-700 ps-6">
-                              <span className="material-symbols-outlined align-bottom">credit_card</span>
+                              <span className="material-symbols-outlined align-bottom me-2">credit_card</span>
                                 訂單紀錄
                               </span>
                       </button>
@@ -88,7 +88,7 @@ function Home() {
                               aria-controls="prePaidPlan" 
                               aria-selected="false">
                               <span className="fs-6 text-primary-700 ps-6">
-                                <span className="material-symbols-outlined align-bottom">local_activity</span>
+                                <span className="material-symbols-outlined align-bottom me-2">local_activity</span>
                                 優惠券＆點數
                               </span>
                       </button>
@@ -103,7 +103,7 @@ function Home() {
                               aria-controls="prePaidPlan" 
                               aria-selected="false">
                               <span className="fs-6 text-primary-700 ps-6">
-                                <span className="material-symbols-outlined align-bottom">takeout_dining</span>
+                                <span className="material-symbols-outlined align-bottom me-2">takeout_dining</span>
                                 寄甜商品
                               </span>
                       </button>
@@ -114,7 +114,7 @@ function Home() {
                               data-bs-target="#desk-logOut" 
                               type="button">
                               <span className="fs-6 text-primary-700 ps-6">
-                                <span className="material-symbols-outlined align-bottom">logout</span>
+                                <span className="material-symbols-outlined align-bottom me-2">logout</span>
                                 登出
                               </span>
                       </button>
