@@ -1,0 +1,152 @@
+@import "../../assets/scss/all"; 
+
+.login-container {
+  padding: 80px 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("../../assets/images/canele-bg.png") center repeat;
+    z-index: -1;
+  }
+  
+  > * {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.login-title-mobile {
+  font-size: 28px;
+  margin: 0 0 24px 0;
+}
+.input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.login-input {
+  outline: none;
+  &:focus { box-shadow: none; }
+}
+
+.icon-hover-secondary,
+.hover-secondary {
+  transition: color 0.2s ease;
+  &:hover { color: $secondary-500 !important; }
+}
+
+.btn-login {
+  background-color: $primary-700;
+  transition: background-color 0.3s;
+  &:hover { background-color: $secondary-500 !important; }
+}
+
+.btn-register {
+  border: 1px solid $primary-700;
+  transition: all 0.3s;
+  &:hover {
+    background-color: $secondary-500 !important;
+    border-color: $secondary-500 !important;
+    color: #ffffff !important;
+  }
+}
+
+.login-title-mobile {
+  font-size: 28px;
+  margin-bottom: 24px;
+}
+
+.login-card {
+  width: 1296px;
+  height: 671px;
+  border-radius: 40px;
+  gap: 24px;
+}
+
+.login-image {
+  width: 636px;
+}
+
+.login-content {
+  width: 636px;
+  padding: 0 20px;
+}
+
+.login-title-desktop {
+  margin: 100px 0 56px;
+  font-size: 32px;
+}
+
+.login-form {
+  width: 416px;
+}
+
+.form-group {
+  width: 100%;
+}
+
+.register-footer {
+  width: 416px;
+}
+
+.register-footer {
+  height: 72px;
+  margin-bottom: 100px;
+}
+
+@media (max-width: 991px) {
+  .login-container {
+    padding: 40px 0 0;
+    min-height: auto;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 375px;
+    height: auto;
+    flex-direction: column;
+    border-radius: 40px 40px 0 0;
+    gap: 0;
+    border: 1px solid $secondary-500;
+  }
+
+  .login-image {
+    display: none;
+  }
+
+  .login-content {
+    width: 100%;
+    padding: 0 12px;
+  }
+
+  .login-form {
+    width: 100%;
+    
+    .form-group:nth-child(1) {
+      margin: 40px 0 24px;
+    }
+    
+    .form-group:nth-child(2) {
+      margin-bottom: 24px;
+    }
+  }
+
+  .btn-login {
+    height: 48px;
+    margin-bottom: 16px;
+  }
+  
+  // 手機版忘記密碼置中
+  .forgot-password--mobile {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .register-footer {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "products": [
+    {
+      "id": "canele-classic-01",
+      "category": "可麗露",
+      "title": "經典原味可麗露",
+      "description": "外酥內嫩焦糖香，法式經典一口入魂",
+      "content": "經典法式甜點，職人手作酥脆外殼與軟Q內餡，蘊含醇厚蘭姆酒與香草莢芬芳，在高溫烘烤下完美結合，演繹最單純的優雅與濃郁焦糖韻味。",
+      "price": 390,
+      "unit": "6入/盒",
+      "num": 1,
+      "is_enabled": 1,
+      "imageUrl": "",
+      "imagesUrl": ["", "", ""]
+    },
+    {
+      "id": "canele-lemon-01",
+      "category": "可麗露",
+      "title": "檸檬凝乳可麗露",
+      "description": "酸香清爽，濃郁檸檬奶香交織",
+      "content": "手工熬煮檸檬凝乳夾餡，清新果皮香氣平衡焦糖甜度，入口清爽不膩，尾韻留下淡雅檸檬芬芳，是一款結合果香與經典酥脆口感的迷人甜點。",
+      "price": 420,
+      "unit": "6入/盒",
+      "num": 1,
+      "is_enabled": 1,
+      "imageUrl": "",
+      "imagesUrl": ["", "", ""]
+    },
+    {
+      "id": "canele-almond-01",
+      "category": "可麗露",
+      "title": "焦糖杏仁可麗露",
+      "description": "焦糖脆香，融合杏仁酥脆口感",
+      "content": "微苦焦糖外殼與低溫烘烤的杏仁碎片完美融合，溫潤香草內餡隨後在舌尖綻放。外酥內柔且層次分明，細膩的堅果香氣讓整體風味更顯深邃。",
+      "price": 420,
+      "unit": "6入/盒",
+      "num": 1,
+      "is_enabled": 1,
+      "imageUrl": "",
+      "imagesUrl": ["", "", ""]
+    },
+    {
+      "id": "canele-orange-chocolate-01",
+      "category": "可麗露",
+      "title": "橙香巧克力可麗露",
+      "description": "柑橘清香與濃巧克力完美結合",
+      "content": "醇厚法式可可與明亮柑橘在舌尖交融，演繹大人系的精緻層次。每一口都能品嚐到甜中帶酸的優雅平衡，是巧克力愛好者不容錯過的華麗首選。",
+      "price": 420,
+      "unit": "6入/盒",
+      "num": 1,
+      "is_enabled": 1,
+      "imageUrl": "",
+      "imagesUrl": ["", "", ""]
+    },
+    {
+      "id": "canele-matcha-01",
+      "category": "可麗露",
+      "title": "日本焙茶可麗露",
+      "description": "茶香馥郁，甘醇回韻伴隨焦糖脆皮",
+      "content": "嚴選日本焙茶入餡，將烘焙茶香鎖進Q彈內餡中。外層焦糖香與深邃茶韻相輔相成，散發細膩木質煙燻感，讓內斂茶香在回甘中帶來療癒時光。",
+      "price": 420,
+      "unit": "6入/盒",
+      "num": 1,
+      "is_enabled": 1,
+      "imageUrl": "",
+      "imagesUrl": ["", "", ""]
+    },
+    {
+      "id": "basque-classic-01",
+      "category": "巴斯克",
+      "title": "經典原味巴斯克",
+      "description": "乳香濃郁，入口綿密焦香迷人",
+      "content": "採用頂級乳酪製作，透過高溫烘烤出獨特焦色表皮，內層質地如絲緞般滑順。濃郁奶香與焦糖氣息在口中化開，呈現經典乳酪蛋糕的不凡深度。",
+      "price": 590,
+      "unit": "6吋/盒",
+      "num": 1,
+      "is_enabled": 1,
+      "imageUrl": "",
+      "imagesUrl": ["", "", ""]
+    },
+    {
+      "id": "basque-chocolate-01",
+      "category": "巴斯克",
+      "title": "法國巧克力巴斯克",
+      "description": "濃厚可可，綿密口感極致奢華享受",
+      "content": "融合法國進口深焙巧克力，讓巴斯克蛋糕增添了醇厚可可層次。低溫熟成帶來極致綿密口感，乳酪與巧克力的奢華交響，是大人專屬的甜美慰藉。",
+      "price": 590,
+      "unit": "6吋/盒",
+      "num": 1,
+      "is_enabled": 1,
+      "imageUrl": "",
+      "imagesUrl": ["", "", ""]
+    },
+    {
+      "id": "madeleine-lemon-01",
+      "category": "瑪德蓮",
+      "title": "糖漬檸檬瑪德蓮",
+      "description": "檸檬清香，甜中帶酸爽口不膩",
+      "content": "嚴選在地新鮮檸檬，慢火熬煮手工糖漬丁並拌入優質發酵奶油麵糊。清新果香浸透濕潤鬆軟的蛋糕體，每一口都散發如陽光般燦爛的優雅滋味。",
+      "price": 360,
+      "unit": "6入/盒",
+      "num": 1,
+      "is_enabled": 1,
+      "imageUrl": "",
+      "imagesUrl": ["", "", ""]
+    },
+    {
+      "id": "brittany-sable-01",
+      "category": "布列塔尼酥餅",
+      "title": "布列塔尼酥餅",
+      "description": "奶油濃香，鬆脆口感經典法式風味",
+      "content": "源自法國西北部的經典名點，加入大量頂級發酵奶油製作。鬆脆厚實的餅體帶有天然海鹽的微鹹回甘，純粹的乳香與蛋黃香氣，最能撫慰人心。",
+      "price": 480,
+      "unit": "6入/盒",
+      "num": 1,
+      "is_enabled": 1,
+      "imageUrl": "",
+      "imagesUrl": ["", "", ""]
+    }
+  ]
+}
