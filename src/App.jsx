@@ -2,7 +2,8 @@
 import axios from "axios";
 import Header from "./Component/Header";
 import Footer from "./Component/Footer";
-import ListInfo from "./pages/ListInfo";
+import OrdersList from "./pages/OrdersList";
+import Coupon from "./pages/Coupon";
 
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
     <>
       <div>
         <Header />
-        <ListInfo />
+        <Coupon />
         <Footer />
       </div>
     </>

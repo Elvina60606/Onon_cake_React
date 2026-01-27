@@ -1,6 +1,6 @@
 import avatar from '../assets/images/avatar.png'
 
-function Home() {
+function OrdersList() {
     return (
     <>
     <div className=' bg-secondary-50'>
@@ -341,4 +341,4 @@ function Home() {
     )
 }
 
-export default Home;
+export default OrdersList;
