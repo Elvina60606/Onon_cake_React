@@ -21,7 +21,7 @@ function OrdersList() {
                 </div>
                 <ul className="li-style-none d-flex flex-column justify-content-start p-0">
                   <li className="mx-6" role="presentation">
-                      <button className="nav-link w-100 py-2 mb-2 rounded-3 text-start sideBar-hover active" 
+                      <button className="nav-link w-100 py-2 mb-2 rounded-3 text-start sideBar-hover" 
                               id="member-center-tab" 
                               data-bs-toggle="tab" 
                               data-bs-target="#member-center" 
@@ -30,7 +30,7 @@ function OrdersList() {
                               aria-controls="member-center" 
                               aria-selected="true">
                               <span className="fs-6 text-primary-700 ps-6">
-                                <i className="bi bi-person-fill me-2"></i>
+                                <span className="material-symbols-outlined fill align-bottom me-2">person</span>
                                 會員中心
                               </span>
                       </button>
@@ -45,7 +45,7 @@ function OrdersList() {
                               aria-controls="changePassword" 
                               aria-selected="false">
                               <span className="fs-6 text-primary-700 ps-6">
-                              <i className="bi bi-pencil-fill me-2"></i>
+                              <span className="material-symbols-outlined fill align-bottom me-2">edit</span>
                                 修改會​員​資料</span>
                       </button>
                   </li>
@@ -59,19 +59,19 @@ function OrdersList() {
                               aria-controls="shoppingHistory" 
                               aria-selected="false">
                               <span className="fs-6 text-primary-700 ps-6">
-                                <span className="material-symbols-outlined align-bottom me-2">lock</span>
+                                <span className="material-symbols-outlined fill align-bottom me-2">lock</span>
                                 修改密碼
                               </span>
                       </button>
                   </li>
                   <li className="mx-6" role="presentation">
                       <button className="nav-link w-100 py-2 mb-2 rounded-3 text-start sideBar-hover" 
-                              id="couponAndPoint-tab" 
+                              id="ordersList-tab" 
                               data-bs-toggle="tab" 
-                              data-bs-target="#couponAndPoint" 
+                              data-bs-target="#ordersList" 
                               type="button" 
                               role="tab" 
-                              aria-controls="couponAndPoint" 
+                              aria-controls="ordersList" 
                               aria-selected="false">
                               <span className="fs-6 text-primary-700 ps-6">
                               <span className="material-symbols-outlined align-bottom me-2">credit_card</span>
@@ -89,7 +89,7 @@ function OrdersList() {
                               aria-controls="prePaidPlan" 
                               aria-selected="false">
                               <span className="fs-6 text-primary-700 ps-6">
-                                <span className="material-symbols-outlined align-bottom me-2">local_activity</span>
+                                <span className="material-symbols-outlined fill align-bottom me-2">local_activity</span>
                                 優惠券＆點數
                               </span>
                       </button>
@@ -104,7 +104,7 @@ function OrdersList() {
                               aria-controls="prePaidPlan" 
                               aria-selected="false">
                               <span className="fs-6 text-primary-700 ps-6">
-                                <span className="material-symbols-outlined align-bottom me-2">takeout_dining</span>
+                                <span className="material-symbols-outlined fill align-bottom me-2">takeout_dining</span>
                                 寄甜商品
                               </span>
                       </button>
@@ -157,9 +157,9 @@ function OrdersList() {
             <div className="tab-content">
         {/*--訂單紀錄內容--*/}
               <div className="tab-pane active" 
-                   id="shoppingHistory" 
+                   id="ordersList" 
                    role="tabpanel" 
-                   aria-labelledby="shoppingHistory-tab"
+                   aria-labelledby="ordersList-tab"
                    tabIndex="0">
                     <h3 className="mb-6">訂單紀錄</h3>
         {/*--手機版--*/}
@@ -254,7 +254,7 @@ function OrdersList() {
                         <td className="text-center">-</td>
                         <td className="text-center"><span className="border border-0 rounded-pill bg-alert-50 text-alert-700 px-3 py-2">已成立</span></td>
                         <td>寄甜計劃12入</td>
-                        <td>NT$ 800</td>
+                        <td className="text-end">NT$ 800</td>
                       </tr>
                     </tbody>
                   </table>
@@ -309,27 +309,7 @@ function OrdersList() {
                     </div>
                 </div>
               </div>
-          
-
-
-                  {/*--優惠卷＆點數內容--*/}
-                        <div className="tab-pane" 
-                             id="couponAndPoint" 
-                             role="tabpanel" 
-                             aria-labelledby="couponAndPoint-tab" 
-                             tabIndex="0">
-                              <p className="fs-4">優惠卷＆點數功能待開發中...</p>
-                        </div>
-                  {/*--寄甜計劃內容--*/}
-                        <div className="tab-pane" 
-                             id="prePaidPlan" 
-                             role="tabpanel" 
-                             aria-labelledby="prePaidPlan-tab" 
-                             tabIndex="0">
-                              <p className="fs-4">寄甜計畫功能待開發中...</p>
-                        </div>
               </div>
-
             </div>
           </div>
       </main>
