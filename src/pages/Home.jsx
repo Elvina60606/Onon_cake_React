@@ -1,19 +1,25 @@
-import caneleBanner from '../assets/images/caneleBanner.jpg';
-import caneleBannerMd from '../assets/images/caneleBannerMd.jpg';
-import midautumnfestivalBanner from '../assets/images/midautumnfestivalBanner.jpg';
-import midautumnfestivalBannerMd from '../assets/images/midautumnfestivalBannerMd.jpg';
-import discountsBanner from '../assets/images/discountsBanner.jpg';
-import discountsBannerMd from '../assets/images/discountsBannerMd.jpg';
-import vector1 from '../assets/images/vector1.png';
-import vector2 from '../assets/images/vector2.png';
-import vector3 from '../assets/images/vector3.png';
-import rectangle303 from '../assets/images/rectangle303.png';
+import basque from '../assets/images/basque.png';
 import cake from '../assets/images/cake.png';
 import cake2 from '../assets/images/cake2.png';
 import cake3 from '../assets/images/cake3.png';
 import canele from '../assets/images/canele.png';
+import canele2 from '../assets/images/canele2.png';
+import caneleSub from '../assets/images/caneleSub.png';
+import caneleVector from '../assets/images/caneleVector.png';
+import caneleBanner from '../assets/images/caneleBanner.jpg';
+import caneleBannerMd from '../assets/images/caneleBannerMd.jpg';
+import discountsBanner from '../assets/images/discountsBanner.jpg';
+import discountsBannerMd from '../assets/images/discountsBannerMd.jpg';
+import joinUs from '../assets/images/joinUs.png';
 import lemonMadeleine from '../assets/images/lemonMadeleine.png';
-import basque from '../assets/images/basque.png';
+import midautumnfestivalBanner from '../assets/images/midautumnfestivalBanner.jpg';
+import midautumnfestivalBannerMd from '../assets/images/midautumnfestivalBannerMd.jpg';
+import rectangle303 from '../assets/images/rectangle303.png';
+import rectangle304 from '../assets/images/rectangle304.svg';
+import vector1 from '../assets/images/vector1.png';
+import vector2 from '../assets/images/vector2.png';
+import vector3 from '../assets/images/vector3.png';
+import vector4 from '../assets/images/vector4.png';
 
 const Home = () => {
 
@@ -251,10 +257,119 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-
-
-
-
+        {/* 可麗露寄甜計畫 */}
+            <section className="sub-section-bg">
+                <img className="d-none d-lg-block"
+                     src={rectangle304}
+                     alt="背景波浪圖" />
+                <div className="container position-relative">
+                    <div className="row my-8 my-lg-0">
+                    {/* 左側 可麗露擺盤圖 */}
+                        <div className="col-12 col-lg-7 position-relative z-3">
+                            <div className="py-lg-12 mb-8 mb-lg-0">
+                                <img src={caneleSub} alt="可麗露圖" />
+                            </div>
+                        </div>
+                    {/* 右側 不規則背景+文案 */}
+                      {/* 手機版 */}
+                        <div className="d-lg-none">
+                            <div className="col-12">
+                                <div className="text-center shape-bg mb-12">
+                                    <img className="mb-6"
+                                         src={caneleVector}
+                                         alt="可麗露" />
+                                    <h2 className="fs-1 text-primary-800 mb-6">可麗露・寄甜計劃</h2>
+                                    <h3 className="fs-5 text-primary-700 mb-6">
+                                        品嚐一顆可麗露，體現職人精神
+                                        <br />
+                                        將這份職人甜點，寄給未來的你
+                                    </h3>
+                                    <a href="#" className="btn btn-primary">點我了解寄甜計劃</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* 桌機版 */}
+                    <div className="d-none d-lg-block">
+                        <div className="col-lg-7 pt-lg-12 position-absolute top-0 end-0 z-1">
+                            <img src={vector4} alt="裝飾向量圖案4" />
+                            <div className="position-absolute top-50 start-50 translate-middle z-2">
+                                <div className="py-12 text-center">
+                                    <img className="mb-6"
+                                         src={caneleVector}
+                                         alt="可麗露" />
+                                    <h2 className="fs-3 text-primary-800 mb-6">可麗露・寄甜計劃</h2>
+                                    <h3 className="fs-5 text-primary-700 mb-6">
+                                        品嚐一顆可麗露，體現職人精神
+                                        <br />
+                                        將這份職人甜點，寄給未來的你
+                                    </h3>
+                                    <a href="#" className="btn btn-primary">點我了解寄甜計劃</a>
+                            {/* 寄甜計劃modal */}
+                                    <div className="modal fade" 
+                                         id="prePaidPlan" 
+                                         data-bs-backdrop="static" 
+                                         data-bs-keyboard="false" 
+                                         tabIndex="-1" 
+                                         aria-labelledby="prePaidPlanLabel" 
+                                         aria-hidden="true">
+                                        <div className="modal-dialog modal-dialog-centered">
+                                            <div className="modal-content">
+                                                <div className="modal-header border-bottom-0">
+                                                    <button type="button" 
+                                                            className="btn-close" 
+                                                            data-bs-dismiss="modal" 
+                                                            aria-label="Close">
+                                                    </button>
+                                                </div>
+                                                <div className="modal-body row justify-content-center align-items-center mb-7">
+                                                    <div className="col-3">
+                                                        <img src={canele2} alt="canele2" />
+                                                    </div>
+                                                    <div className="col-7">
+                                                        <h6 className="fs-lg-5 mb-1">恭喜您註冊成功！</h6>
+                                                        <p className="fs-7 fs-lg-6 mb-2">首購折扣優惠卷已匯入您的帳戶</p>
+                                                        <a className="d-block btn btn-confirm btn-primary-300 text-white w-75 mb-2 me-auto pointer" href='#'>立即登入</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {/* 加入會員 */}
+            <section className="bg-primary-500">
+                <div className="container">
+                    <div className="py-8 py-lg-0">
+                        <div className="row">
+                            <div className="col-12 col-lg-7">
+                                <div className="my-lg-12 pt-8 px-lg-8 py-lg-12 text-center text-lg-start">
+                                    <h2 className="fs-3 fs-lg-1 text-primary-800 mb-6">
+                                        加入會員，即享首購不限金額88折
+                                    </h2>
+                                    <p className="fs-6 text-primary-700 mb-6">
+                                        會員可享多重優惠：專屬折扣、紅利點數、生日優惠，現在加入會員，首購優惠與寄甜計畫合併使用，即贈經典原味可麗露乙份，贈品數量有限贈完為止，敬請把握優惠。本活動不可與其他優惠合併使用。
+                                    </p>
+                                    <a href="#" 
+                                       className="btn btn-primary mb-6 mb-lg-0">點我手刀加入會員
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="col-12 col-lg-5">
+                                <div className="pb-8 pb-lg-12 text-center text-lg-start">
+                                    <img className="img-excess"
+                                         src={joinUs}
+                                         alt="加入會員插圖" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </>
     )
 }
