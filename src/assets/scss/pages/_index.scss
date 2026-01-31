@@ -216,19 +216,6 @@
         overflow: hidden;
       }
 
-      /* 手機版圖片替換 */
-      .carousel-item:nth-child(1) img {
-        content: url('/assets/images/canele-banner-md.jpg');
-      }
-
-      .carousel-item:nth-child(2) img {
-        content: url('/assets/images/midautumnfestival-banner-md.jpg');
-      }
-
-      .carousel-item:nth-child(3) img {
-        content: url('/assets/images/discounts-banner-md.jpg');
-      }
-
       .hero-content .hero-text h2,
       .mid-content .mid-text h2,
       .mid-content .mid-text p,
