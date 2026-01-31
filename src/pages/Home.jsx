@@ -4,6 +4,13 @@ import midautumnfestivalBanner from '../assets/images/midautumnfestivalBanner.jp
 import midautumnfestivalBannerMd from '../assets/images/midautumnfestivalBannerMd.jpg';
 import discountsBanner from '../assets/images/discountsBanner.jpg';
 import discountsBannerMd from '../assets/images/discountsBannerMd.jpg';
+import vector1 from '../assets/images/vector1.png';
+import vector2 from '../assets/images/vector2.png';
+import vector3 from '../assets/images/vector3.png';
+import rectangle303 from '../assets/images/rectangle303.png';
+import cake from '../assets/images/cake.png';
+import cake2 from '../assets/images/cake2.png';
+import cake3 from '../assets/images/cake3.png';
 
 const Home = () => {
 
@@ -122,10 +129,37 @@ const Home = () => {
                     </div>
                 </div>
                 <img className="vector1-img"
-                     src="/assets/images/vector1.png"
+                     src={vector1}
                      alt="裝飾向量圖案1" />
             </section>
-
+        {/* 品牌故事區塊 */}
+            <section class="story-container">
+                <div class="story-content text-primary-800">
+                    <h3 class="fs-lg-1 fs-3 mb-6 fw-bold lh-48 story-title">品牌故事</h3>
+                    <p class="fw-normal lh-24 mb-4">
+                        2020年，從日本結束兩年的甜點研習後回到台灣，心中始終懷抱著一個小小夢想 —— 擁有一家屬於自己的甜點店。於是，ONON CAKE 二溫菓子 誕生了。
+                    </p>
+                    <p class="fw-normal lh-24 mb-2">2022｜二溫菓子 品牌創立</p>
+                    <p class="fw-normal lh-24 mb-2">2023｜中壢中原分店 開幕</p>
+                    <p class="fw-normal lh-24 mb-4">2024｜桃園藝文分店 開幕</p>
+                    <p class="fw-normal">在平淡的生活中，用甜點找回你的心跳</p>
+                </div>
+                    <img class="cake-img" src={cake} alt="杯子蛋糕" />
+                    <img class="cake2-img" src={cake2} alt="切片蛋糕" />
+                    <img class="cake3-img" src={cake3} alt="法國麵包" />
+                    <img class="vector11-img"
+                         src={vector1}
+                         alt="裝飾向量圖案1" />
+                    <img class="vector2-img"
+                         src={vector2}
+                         alt="裝飾向量圖案2" />
+                    <img class="vector3-img"
+                         src={vector3}
+                         alt="裝飾向量圖案3" />
+                    <img class="rectangle303-img"
+                         src={rectangle303}
+                         alt="背景波浪圖案"/>
+            </section>
 
 
 
