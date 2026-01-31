@@ -1,6 +1,6 @@
 import Header from '../Component/Header';
 
-import Home from '../pages/Home';
+import Home from '../pages/Home/Home';
 import Login from '../pages/Login/Login';
 import Products from '../pages/Products';
 import Carts from '../pages/Carts';

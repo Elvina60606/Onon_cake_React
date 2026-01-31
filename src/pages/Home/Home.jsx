@@ -1,25 +1,26 @@
-import basque from '../assets/images/basque.png';
-import cake from '../assets/images/cake.png';
-import cake2 from '../assets/images/cake2.png';
-import cake3 from '../assets/images/cake3.png';
-import canele from '../assets/images/canele.png';
-import canele2 from '../assets/images/canele2.png';
-import caneleSub from '../assets/images/caneleSub.png';
-import caneleVector from '../assets/images/caneleVector.png';
-import caneleBanner from '../assets/images/caneleBanner.jpg';
-import caneleBannerMd from '../assets/images/caneleBannerMd.jpg';
-import discountsBanner from '../assets/images/discountsBanner.jpg';
-import discountsBannerMd from '../assets/images/discountsBannerMd.jpg';
-import joinUs from '../assets/images/joinUs.png';
-import lemonMadeleine from '../assets/images/lemonMadeleine.png';
-import midautumnfestivalBanner from '../assets/images/midautumnfestivalBanner.jpg';
-import midautumnfestivalBannerMd from '../assets/images/midautumnfestivalBannerMd.jpg';
-import rectangle303 from '../assets/images/rectangle303.png';
-import rectangle304 from '../assets/images/rectangle304.svg';
-import vector1 from '../assets/images/vector1.png';
-import vector2 from '../assets/images/vector2.png';
-import vector3 from '../assets/images/vector3.png';
-import vector4 from '../assets/images/vector4.png';
+import basque from '../../assets/images/basque.png';
+import cake from '../../assets/images/cake.png';
+import cake2 from '../../assets/images/cake2.png';
+import cake3 from '../../assets/images/cake3.png';
+import canele from '../../assets/images/canele.png';
+import canele2 from '../../assets/images/canele2.png';
+import caneleSub from '../../assets/images/caneleSub.png';
+import caneleVector from '../../assets/images/caneleVector.png';
+import caneleBanner from '../../assets/images/caneleBanner.jpg';
+import caneleBannerMd from '../../assets/images/caneleBannerMd.jpg';
+import discountsBanner from '../../assets/images/discountsBanner.jpg';
+import discountsBannerMd from '../../assets/images/discountsBannerMd.jpg';
+import joinUs from '../../assets/images/joinUs.png';
+import lemonMadeleine from '../../assets/images/lemonMadeleine.png';
+import midautumnfestivalBanner from '../../assets/images/midautumnfestivalBanner.jpg';
+import midautumnfestivalBannerMd from '../../assets/images/midautumnfestivalBannerMd.jpg';
+import rectangle303 from '../../assets/images/rectangle303.png';
+import rectangle304 from '../../assets/images/rectangle304.svg';
+import vector1 from '../../assets/images/vector1.png';
+import vector2 from '../../assets/images/vector2.png';
+import vector3 from '../../assets/images/vector3.png';
+import vector4 from '../../assets/images/vector4.png';
+import Footer from '../../Component/Footer';
 
 const Home = () => {
 
@@ -370,6 +371,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+            <Footer />
         </>
     )
 }
