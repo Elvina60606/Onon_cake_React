@@ -1,14 +1,11 @@
-import facebook from '../assets/images/facebook-white.svg';
-import instagram from '../assets/images/instagram-white.svg';
-import line from '../assets/images/line-white.svg';
-import ononLogoWhite from '../assets/images/onon_logo-white.svg';
+import images from '@/assets/images/images.js';
 
 function Footer() {
     return (
         <>
             <div className="bg-primary-800">
                 <div className="container py-8 d-flex flex-column flex-lg-row align-items-center justify-content-between">
-                <img className="mb-6 mb-lg-0" src={ononLogoWhite} alt="onon_logo-white" />
+                <img className="mb-6 mb-lg-0" src={images.ononLogoWhite} alt="onon_logo-white" />
     {/*--contact info--*/}
                 <div className="mb-6 mb-lg-0">
                     <p className="fs-7 text-white py-2 py-lg-1 d-flex align-items-center justify-content-center justify-content-lg-start">
@@ -30,17 +27,17 @@ function Footer() {
                     <div className="d-flex flex-column align-items-center align-items-lg-end">
                         <div className="mb-4">
                             <a href="#">
-                                <img src={facebook}
+                                <img src={images.facebookWhite}
                                      alt="facebook-white"
                                      className="border border-white rounded-circle p-2 me-2" />
                             </a>
                             <a href="#">
-                                <img src={instagram} 
+                                <img src={images.instagramWhite} 
                                      alt="instagram-white"
                                      className="border border-white rounded-circle p-2 me-2" />
                             </a>
                             <a href="#">
-                                <img src={line} 
+                                <img src={images.lineWhite} 
                                      alt="line-white"
                                      className="border border-white rounded-circle p-2" />
                             </a>

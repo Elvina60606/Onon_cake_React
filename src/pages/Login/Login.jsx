@@ -3,9 +3,7 @@ import { Link } from "react-router";
 import "./login.scss";
 
 // 引入圖片資源
-import loginHero from "../../assets/images/login-hero.jpg";
-// 因為你提到沒有 md 這張圖，暫時註解掉以防報錯
-// import loginHeroMd from "../../assets/images/login-hero-md.jpg";
+import images from '@/assets/images/images.js';
 
 function Login() {
   // 1. 狀態管理：控制密碼顯示/隱藏、圖示顏色
@@ -33,13 +31,13 @@ function Login() {
       <div className="login-card d-flex bg-secondary-50 border border-secondary-500 overflow-hidden">
         <div className="login-image flex-shrink-0">
           <img
-            src={loginHero}
+            src={images.loginHero}
             alt="店舖情境圖"
             className="d-none d-lg-block w-100 h-100 object-fit-cover"
           />
           {/* 由於實體檔案不存在，暫時讓手機版也吃同張圖，或是註解掉 img */}
           <img
-            src={loginHero} 
+            src={images.loginHero} 
             alt="店舖情境圖"
             className="d-block d-lg-none w-100 h-100 object-fit-cover"
           />
