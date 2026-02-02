@@ -73,22 +73,23 @@ const images = {
     vector3,
     vector4,
 
-
+    //Coupon
+    logo3,
+    contentcopy,
     
     avatar,
+    
     bretonBiscuit,
     canele1,
     caneleBg,
     caramelAlmondCanele,
     chocolateBasque,
-    contentcopy,
     facebookWhite,
     hojichaCanele,
     instagramWhite,
     lemonCurdCanele,
     lineWhite,
     loginHero,
-    logo3,
     madeleine,
     madeleineMobile,
     ononLogo,

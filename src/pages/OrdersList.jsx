@@ -1,4 +1,4 @@
-import avatar from '../assets/images/avatar.png'
+import images from '@/assets/images/images.js';
 
 function OrdersList() {
     return (
@@ -15,7 +15,7 @@ function OrdersList() {
                 <div className="bg-white w-100 text-center align-middle px-6 py-7">
                     <img style={{width: '80px', height: '80px'}}
                          className="border rounded-circle mb-4" 
-                         src={avatar}
+                         src={images.avatar}
                          alt="avatar" />
                     <p className="fs-6 border-bottom pb-7">Claire158872</p>
                 </div>

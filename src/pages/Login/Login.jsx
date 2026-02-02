@@ -2,7 +2,6 @@ import { useState, useRef } from "react";
 import { Link } from "react-router";
 import "./login.scss";
 
-// 引入圖片資源
 import images from '@/assets/images/images.js';
 
 function Login() {
