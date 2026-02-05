@@ -3,7 +3,6 @@ import Footer from '@/Component/Footer';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
-import Home from './Home/Home';
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
@@ -19,13 +18,21 @@ const Product =() => {
             try {
                 const response = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/product/${id}`)
                 console.log(response.data.product)
-                setProduct(response.data.product)
+                
+                const productData = response.data.product;
+                const newProductData = {
+                    ...productData,
+                    imagesUrl: productData.imagesUrl?.slice(0, 3) || []
+                }
+
+                setProduct(newProductData);
+                
             } catch (error) {
                 console.log("setProduct:", error)
             }
         })()
 
-    },[])
+    },[id])
 
     return(
         <>
