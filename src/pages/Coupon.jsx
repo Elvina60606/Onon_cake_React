@@ -1,6 +1,4 @@
-import avatar from '../assets/images/avatar.png';
-import logo3 from '../assets/images/logo3.svg';
-import contentcopy from '../assets/images/contentcopy.svg';
+import images from '@/assets/images/images.js';
 
 const Coupon =() => {
     return(
@@ -17,7 +15,7 @@ const Coupon =() => {
                                 <div className="bg-white w-100 text-center align-middle px-6 py-7">
                                     <img style={{width: '80px', height: '80px'}}
                                          className="border rounded-circle mb-4" 
-                                         src={avatar}
+                                         src={images.avatar}
                                          alt="avatar" />
                                     <p className="fs-6 border-bottom pb-7">Claire158872</p>
                                 </div>
@@ -192,7 +190,7 @@ const Coupon =() => {
                                                     <div className="d-flex justify-content-center coupon-card-up rounded-4 rounded-bottom-0">
                                                         <img className="me-3" 
                                                             style={{width: 24, height: 24}}
-                                                            src={logo3} alt="canele-logo" />
+                                                            src={images.logo3} alt="canele-logo" />
                                                         <span className="h4 text-primary-700">12%  off</span>
                                                     </div>
                                                     <div className="p-4 rounded-4 rounded-top-0">
@@ -210,7 +208,7 @@ const Coupon =() => {
                                                                         className="form-control ms-3 border-end-0" placeholder="firsttime" />
                                                                     <button className="btn border rounded-1 border-start-0" 
                                                                             type="button">
-                                                                            <img src={contentcopy} alt="content-copy" />
+                                                                            <img src={images.contentcopy} alt="content-copy" />
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -268,7 +266,7 @@ const Coupon =() => {
                                                         <div className="d-flex flex-column justify-content-center align-items-center coupon-card-left rounded-4 rounded-end-0">
                                                             <img className="mb-3"
                                                                 style={{width: 24, height: 24}} 
-                                                                src={logo3} alt="canele-logo" />
+                                                                src={images.logo3} alt="canele-logo" />
                                                             <h4 className="text-primary-700 text-nowrap">12%  off</h4>
                                                         </div>
                                                         <div className="p-4 rounded-4 rounded-start-0">
@@ -286,7 +284,7 @@ const Coupon =() => {
                                                                             className="form-control ms-3 border-end-0" placeholder="firsttime" />
                                                                         <button className="btn border rounded-1 border-start-0" 
                                                                                 type="button">
-                                                                                <img src={contentcopy} alt="content-copy" />
+                                                                                <img src={images.contentcopy} alt="content-copy" />
                                                                         </button>
                                                                     </div>
                                                                 </div>

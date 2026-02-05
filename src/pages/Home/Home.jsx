@@ -1,25 +1,5 @@
-import basque from '../../assets/images/basque.png';
-import cake from '../../assets/images/cake.png';
-import cake2 from '../../assets/images/cake2.png';
-import cake3 from '../../assets/images/cake3.png';
-import canele from '../../assets/images/canele.png';
-import canele2 from '../../assets/images/canele2.png';
-import caneleSub from '../../assets/images/caneleSub.png';
-import caneleVector from '../../assets/images/caneleVector.png';
-import caneleBanner from '../../assets/images/caneleBanner.jpg';
-import caneleBannerMd from '../../assets/images/caneleBannerMd.jpg';
-import discountsBanner from '../../assets/images/discountsBanner.jpg';
-import discountsBannerMd from '../../assets/images/discountsBannerMd.jpg';
-import joinUs from '../../assets/images/joinUs.png';
-import lemonMadeleine from '../../assets/images/lemonMadeleine.png';
-import midautumnfestivalBanner from '../../assets/images/midautumnfestivalBanner.jpg';
-import midautumnfestivalBannerMd from '../../assets/images/midautumnfestivalBannerMd.jpg';
-import rectangle303 from '../../assets/images/rectangle303.png';
-import rectangle304 from '../../assets/images/rectangle304.svg';
-import vector1 from '../../assets/images/vector1.png';
-import vector2 from '../../assets/images/vector2.png';
-import vector3 from '../../assets/images/vector3.png';
-import vector4 from '../../assets/images/vector4.png';
+import images from '@/assets/images/images.js';
+
 import Footer from '../../Component/Footer';
 
 const Home = () => {
@@ -38,10 +18,10 @@ const Home = () => {
                                   {/* 第一張幻燈片 - 法式可麗露 */}
                                     <div className="carousel-item active">
                                         <div className="d-flex justify-content-center">
-                                            <img  src={caneleBanner}
+                                            <img  src={images.caneleBanner}
                                                   alt='caneleBanner.jpg'
                                                   className='d-none d-lg-block'/>
-                                            <img  src={caneleBannerMd}
+                                            <img  src={images.caneleBannerMd}
                                                   alt='caneleBannerMd.jpg' 
                                                   className='d-lg-none' />
                                             <div className="hero-content">
@@ -59,10 +39,10 @@ const Home = () => {
                                   {/* 第二張幻燈片 - 中秋禮盒 */}
                                     <div className="carousel-item">
                                         <div className="d-flex justify-content-center">
-                                            <img src={midautumnfestivalBanner}
+                                            <img src={images.midautumnfestivalBanner}
                                                  alt="midautumnfestivalBanner.jpg"
                                                  className='d-none d-lg-block' />
-                                            <img src={midautumnfestivalBannerMd}
+                                            <img src={images.midautumnfestivalBannerMd}
                                                  alt="midautumnfestivalBannerMd.jpg"
                                                  className='d-lg-none' />
                                             <div className="mid-content">
@@ -85,10 +65,10 @@ const Home = () => {
                                   {/* 第三張幻燈片 - 折扣優惠 */}
                                     <div className="carousel-item">
                                         <div className="d-flex justify-content-center">
-                                            <img src={discountsBanner}
+                                            <img src={images.discountsBanner}
                                                  alt="discountsBanner.jpg" 
                                                  className='d-none d-lg-block'/>
-                                            <img src={discountsBannerMd}
+                                            <img src={images.discountsBannerMd}
                                                  alt="discountsBannerMd.jpg" 
                                                  className='d-lg-none'/>
                                             <div className="discounts-content">
@@ -139,7 +119,7 @@ const Home = () => {
                     </div>
                 </div>
                 <img className="vector1-img"
-                     src={vector1}
+                     src={images.vector1}
                      alt="裝飾向量圖案1" />
             </section>
         {/* 品牌故事區塊 */}
@@ -154,20 +134,20 @@ const Home = () => {
                     <p className="fw-normal lh-24 mb-4">2024｜桃園藝文分店 開幕</p>
                     <p className="fw-normal">在平淡的生活中，用甜點找回你的心跳</p>
                 </div>
-                    <img className="cake-img" src={cake} alt="杯子蛋糕" />
-                    <img className="cake2-img" src={cake2} alt="切片蛋糕" />
-                    <img className="cake3-img" src={cake3} alt="法國麵包" />
+                    <img className="cake-img" src={images.cake} alt="杯子蛋糕" />
+                    <img className="cake2-img" src={images.cake2} alt="切片蛋糕" />
+                    <img className="cake3-img" src={images.cake3} alt="法國麵包" />
                     <img className="vector11-img"
-                         src={vector1}
+                         src={images.vector1}
                          alt="裝飾向量圖案1" />
                     <img className="vector2-img"
-                         src={vector2}
+                         src={images.vector2}
                          alt="裝飾向量圖案2" />
                     <img className="vector3-img"
-                         src={vector3}
+                         src={images.vector3}
                          alt="裝飾向量圖案3" />
                     <img className="rectangle303-img"
-                         src={rectangle303}
+                         src={images.rectangle303}
                          alt="背景波浪圖案"/>
             </section>
         {/* 熱銷排行 */}
@@ -181,7 +161,7 @@ const Home = () => {
                             <div className="card card-shadow rounded-xl h-100 overflow-hidden">
                                 <span className="badge rank-badge fs-6">第一名</span>
                                 <div className="overflow-hidden">
-                                    <img src={canele}
+                                    <img src={images.canele}
                                          className="card-img-top dessert-card"
                                          alt="經典原味可麗露" />
                                 </div>
@@ -206,7 +186,7 @@ const Home = () => {
                             <div className="card card-shadow rounded-xl h-100 overflow-hidden">
                                 <span className="badge rank-badge fs-6">第二名</span>
                                 <div className="overflow-hidden">
-                                    <img src={lemonMadeleine}
+                                    <img src={images.lemonMadeleine}
                                         className="card-img-top dessert-card"
                                         alt="糖漬檸檬瑪德蓮"/>
                                 </div>
@@ -231,7 +211,7 @@ const Home = () => {
                             <div className="card card-shadow rounded-xl h-100 overflow-hidden">
                                 <span className="badge rank-badge fs-6">第三名</span>
                                 <div className="overflow-hidden">
-                                    <img src={basque}
+                                    <img src={images.basque}
                                          className="card-img-top dessert-card"
                                          alt="超濃厚巴斯克" />
                                 </div>
@@ -261,14 +241,14 @@ const Home = () => {
         {/* 可麗露寄甜計畫 */}
             <section className="sub-section-bg">
                 <img className="d-none d-lg-block"
-                     src={rectangle304}
+                     src={images.rectangle304}
                      alt="背景波浪圖" />
                 <div className="container position-relative">
                     <div className="row my-8 my-lg-0">
                     {/* 左側 可麗露擺盤圖 */}
                         <div className="col-12 col-lg-7 position-relative z-3">
                             <div className="py-lg-12 mb-8 mb-lg-0">
-                                <img src={caneleSub} alt="可麗露圖" />
+                                <img src={images.caneleSub} alt="可麗露圖" />
                             </div>
                         </div>
                     {/* 右側 不規則背景+文案 */}
@@ -277,7 +257,7 @@ const Home = () => {
                             <div className="col-12">
                                 <div className="text-center shape-bg mb-12">
                                     <img className="mb-6"
-                                         src={caneleVector}
+                                         src={images.caneleVector}
                                          alt="可麗露" />
                                     <h2 className="fs-1 text-primary-800 mb-6">可麗露・寄甜計劃</h2>
                                     <h3 className="fs-5 text-primary-700 mb-6">
@@ -293,11 +273,11 @@ const Home = () => {
                     {/* 桌機版 */}
                     <div className="d-none d-lg-block">
                         <div className="col-lg-7 pt-lg-12 position-absolute top-0 end-0 z-1">
-                            <img src={vector4} alt="裝飾向量圖案4" />
+                            <img src={images.vector4} alt="裝飾向量圖案4" />
                             <div className="position-absolute top-50 start-50 translate-middle z-2">
                                 <div className="py-12 text-center">
                                     <img className="mb-6"
-                                         src={caneleVector}
+                                         src={images.caneleVector}
                                          alt="可麗露" />
                                     <h2 className="fs-3 text-primary-800 mb-6">可麗露・寄甜計劃</h2>
                                     <h3 className="fs-5 text-primary-700 mb-6">
@@ -325,7 +305,7 @@ const Home = () => {
                                                 </div>
                                                 <div className="modal-body row justify-content-center align-items-center mb-7">
                                                     <div className="col-3">
-                                                        <img src={canele2} alt="canele2" />
+                                                        <img src={images.canele2} alt="canele2" />
                                                     </div>
                                                     <div className="col-7">
                                                         <h6 className="fs-lg-5 mb-1">恭喜您註冊成功！</h6>
@@ -363,7 +343,7 @@ const Home = () => {
                             <div className="col-12 col-lg-5">
                                 <div className="pb-8 pb-lg-12 text-center text-lg-start">
                                     <img className="img-excess"
-                                         src={joinUs}
+                                         src={images.joinUs}
                                          alt="加入會員插圖" />
                                 </div>
                             </div>

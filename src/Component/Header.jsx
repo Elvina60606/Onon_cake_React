@@ -1,6 +1,5 @@
-import ononLogoSm from '../assets/images/onon_logo-sm.svg';
-import ononLogo from '../assets/images/onon_logo.svg';
-import avatar from '../assets/images/avatar.png'
+import images from '@/assets/images/images.js';
+
 import { Outlet, Link } from 'react-router';
 
 function Header() {
@@ -11,10 +10,10 @@ function Header() {
                {/* navbar logo */}
                     <Link  to='/'
                            className="navbar-brand me-auto py-0">
-                        <img src={ononLogoSm} 
+                        <img src={images.ononLogoSm} 
                             alt="onon_logo-sm"
                             className="d-lg-none" />
-                        <img src={ononLogo} 
+                        <img src={images.ononLogo} 
                             alt="onon_logo"
                             className="d-none d-lg-block" />
                     </Link>
@@ -42,7 +41,7 @@ function Header() {
                         </form>
                         <div className="bg-primary-500 d-lg-none w-100 my-5" style={{height: "4px"}}></div>
                         <div className='mb-5 d-flex'>
-                            <img src={avatar} alt="avatar"
+                            <img src={images.avatar} alt="avatar"
                                  style={{width:60, height:60}}
                                  className='border rounded-circle' />
                             <div className='ms-6'>
@@ -119,7 +118,7 @@ function Header() {
                         </li>
                         <li className="nav-item">
                             <div className="dropdown-center">
-                                <img src={avatar}  alt='avatar'
+                                <img src={images.avatar}  alt='avatar'
                                      style={{width:40, height:40}}
                                      className="dropdown-toggle border rounded-circle"
                                      data-bs-toggle="dropdown" 
