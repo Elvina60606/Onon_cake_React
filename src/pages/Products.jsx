@@ -1,8 +1,26 @@
 import images from '@/assets/images/images.js';
 import Footer from '@/Component/Footer';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router';
+
+const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
 
 const Products = () => {
+    const [ products, setProducts ] = useState([]);
+    useEffect(() => {
+        (async() => {
+            try {
+                const response = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/products/all`)
+                console.log(response.data.products)
+                setProducts(response.data.products)
+            } catch (error) {
+                console.log("setProducts:",error.message)
+            }
+        })()
+    },[]);
+
     return(
         <>
             <main className="container py-8 py-md-12">
@@ -59,31 +77,38 @@ const Products = () => {
                         </div>
                     {/* 商品資料 */}
                         <div className="row py-6 py-md-8 g-6">
-                            <div className="col-12 col-sm-6 col-lg-4">
-                                <div className="card h-100">
-                                    <a href="#">
-                                        <img src={images.canele}
-                                            className="card-img-top"
-                                            alt="canele"/>
-                                    </a>
-                                    <div className="card-body d-flex flex-column">
-                                        <a href="product-detail.html">
-                                            <h4 className="card-title text-primary-800">經典原味可麗露</h4>
-                                        </a>
-                                        <p className="card-text text-primary-600 mb-4">
-                                            外酥內嫩焦糖香，法式經典一口入魂
-                                        </p>
-                                        <div className="mt-auto d-flex justify-content-between align-items-center">
-                                            <h4 className="text-primary-700">NT$ 180</h4>
-                                            <button className="btn btn-card-cart px-6">
-                                                <span className="material-symbols-outlined fill align-bottom">
-                                                    shopping_cart
-                                                </span>
-                                            </button>
+                            {
+                                products.map((product) => {
+                                    return (
+                                        <div className="col-12 col-sm-6 col-lg-4" key={product.id}>
+                                            <div className="card h-100">
+                                                <Link to={`/product/${product.id}`}>
+                                                    <img src={product.imageUrl}
+                                                        className="card-img-top object-fit-cover"
+                                                        alt="canele"
+                                                        style={{height:150}}/>
+                                                </Link>
+                                                <div className="card-body d-flex flex-column">
+                                                    <a href="product-detail.html">
+                                                        <h4 className="card-title text-primary-800">{product.title}</h4>
+                                                    </a>
+                                                    <p className="card-text text-primary-600 mb-4">
+                                                        {product.content}
+                                                    </p>
+                                                    <div className="mt-auto d-flex justify-content-between align-items-center">
+                                                        <h4 className="text-primary-700">NT$ {product.price}</h4>
+                                                        <button className="btn btn-card-cart px-6">
+                                                            <span className="material-symbols-outlined fill align-bottom">
+                                                                shopping_cart
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    )
+                                })
+                            }
                         </div>
                     {/* desktop-pagination */}
                         <div className="py-4 d-none d-md-block">
