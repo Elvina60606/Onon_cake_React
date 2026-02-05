@@ -1,8 +1,8 @@
-import HeroBanner from "@/components/signup/HeroBanner";
-import MemberInfoSection from "@/components/signup/MemberInfoSection";
-import PasswordSection from "@/components/signup/PasswordSection";
-import TermsSection from "@/components/signup/TermsSection";
-import SignUpSuccessModal from "@/components/signup/SignUpSuccessModal";
+import HeroBanner from "@/Component/signup/HeroBanner";
+import MemberInfoSection from "@/Component/signup/MemberInfoSection";
+import PasswordSection from "@/Component/signup/PasswordSection";
+import TermsSection from "@/Component/signup/TermsSection";
+import SignUpSuccessModal from "@/Component/signup/SignUpSuccessModal";
 
 
 const MemberSignUp=() => {
