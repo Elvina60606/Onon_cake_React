@@ -30,7 +30,7 @@ function Header() {
                         <span className="material-symbols-outlined">menu</span>
                     </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                {/* 手機版 */}
+                {/* mobile */}
                     <ul className="navbar-nav ms-auto mb-5 d-lg-none text-primary-800">
                         <form className="position-relative d-lg-none mt-5 w-100">
                             <span className="material-symbols-outlined position-absolute top-50 translate-middle-y ps-5 text-primary">search</span>
@@ -85,8 +85,7 @@ function Header() {
                     </ul>
                     
                     <div className="empty-section d-lg-none"></div>
-                {/* 手機版end */}
-                {/* 桌機版start */}
+                {/* desktop */}
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0 gap-6 align-items-center d-none d-lg-flex">
                         <li className="nav-item">
                             <a className="nav-link" href="#">最新消息</a>
