@@ -44,7 +44,7 @@ const routes = [
                 element: <OrdersList />,
             },
             {
-                path: '/MemberSignUp',
+                path: '/membersignup',
                 element: <MemberSignUp />,
             },
         ]

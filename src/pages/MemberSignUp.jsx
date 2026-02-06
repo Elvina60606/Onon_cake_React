@@ -5,7 +5,7 @@ import TermsSection from "@/Component/signup/TermsSection";
 import SignUpSuccessModal from "@/Component/signup/SignUpSuccessModal";
 
 
-const MemberSignUp=() => {
+const MemberSignUp =() => {
   return (
     <>     
       <HeroBanner />

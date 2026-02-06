@@ -53,7 +53,7 @@ function Header() {
                             <Link to='/login' className='py-3 w-100'>會員中心</Link>
                         </li>
                         <li>
-                            <a href="" className='py-3 w-100'>修改會​員​資料​</a>
+                            <Link to='/membersignup' className='py-3 w-100'>修改會​員​資料​</Link>
                         </li>
                         <li>
                             <a href="" className='py-3 w-100'>修改密碼</a>
@@ -133,7 +133,7 @@ function Header() {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to='/' className="dropdown-item px-6 py-2">
+                                        <Link to='/membersignup' className="dropdown-item px-6 py-2">
                                             <span className="fs-6 text-primary-700">
                                                 <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">edit</span>修改會​員​資料
                                             </span>
