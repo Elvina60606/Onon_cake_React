@@ -174,10 +174,9 @@ function Header() {
                                         </Link>
                                     </li>           
                                 </ul>
-                                </div>
+                            </div>
                         </li>
                     </ul> 
-                {/* 桌機版end */}
                 </div>
                 </div>
             </nav>
