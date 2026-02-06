@@ -7,6 +7,7 @@ import Product from '@/pages/Product';
 import Carts from '../pages/Carts';
 import Coupon from '../pages/Coupon';
 import OrdersList from '../pages/OrdersList';
+import MemberSignUp from '../pages/MemberSignUp';
 
 
 const routes = [
@@ -41,6 +42,10 @@ const routes = [
             {
                 path: '/orders',
                 element: <OrdersList />,
+            },
+            {
+                path: '/MemberSignUp',
+                element: <MemberSignUp />,
             },
         ]
     },    
