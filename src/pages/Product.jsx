@@ -1,5 +1,7 @@
 import images from '@/assets/images/images.js';
 import Footer from '@/Component/Footer';
+import ImagesChange from '@/Component/ImagesChange';
+
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
@@ -7,32 +9,33 @@ import { Link, useParams } from 'react-router';
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
 
+
 const Product =() => {
     const paramas = useParams();
     const { id } = paramas;
 
     const [ product, setProduct ] = useState({});
+    const [ showImages, setShowImages ] = useState([]);
 
     useEffect(() => {
         (async() => {
             try {
-                const response = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/product/${id}`)
-                console.log(response.data.product)
-                
+                const response = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/product/${id}`);
                 const productData = response.data.product;
                 const newProductData = {
                     ...productData,
-                    imagesUrl: productData.imagesUrl?.slice(0, 3) || []
+                    imagesUrl: productData.imagesUrl?.slice(0, 3) || [],
                 }
-
                 setProduct(newProductData);
-                
-            } catch (error) {
-                console.log("setProduct:", error)
+                setShowImages([
+                    productData.imageUrl,
+                    ...productData.imagesUrl?.slice(0, 3) || []
+                ])
+                } catch (error) {
+                console.log("setProduct:", error);
             }
-        })()
-
-    },[id])
+        })();
+    },[id]);
 
     return(
         <>
@@ -50,31 +53,8 @@ const Product =() => {
                             </ol>
                         </nav>
                         <div className="row">
-                        {/* 縮圖（桌機：左直排，手機：下方橫排） */}
-                            <div className="col-12 col-lg-1 order-2 order-lg-1">
-                                <div className="row flex-lg-column align-items-center justify-content-between mb-6 pe-lg-1">
-                                    {product.imagesUrl?.map((image, index) => {
-                                        return (
-                                            <div className="col-4 col-lg-10 g-lg-0 g-6 pb-lg-6" 
-                                                 key={index}>
-                                                    <div className='ratio ratio-1x1'>
-                                                        <img src={image}
-                                                            alt=''
-                                                            className="w-100 h-100 object-fit-cover border-4 border-secondary-500 rounded-3"/>
-                                                    </div>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-
-                        { /* 主圖 */}
-                            <div className="col-12 col-lg-4 order-1 order-lg-2 pe-lg-6">
-                                <img id="mainImage"
-                                    src={product.imageUrl}
-                                    alt="商品主圖"
-                                    className="img-fluid rounded w-100 rounded-4"/>
-                            </div>
+                            <ImagesChange setShowImages={setShowImages}
+                                          showImages={showImages}/>
 
                         { /* 商品資訊 */}
                             <div className="col-12 col-lg-7 order-3 ps-lg-8">
