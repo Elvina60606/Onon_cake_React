@@ -19,7 +19,7 @@ export default function PasswordSection() {
             </span>
           </div>
           <small className="text-neutral-400">
-            <i class="bi bi-check-square-fill me-1"></i>
+            <i className="bi bi-check-square-fill me-1"></i>
             8–16 碼英文字母或數字
           </small>
         </div>

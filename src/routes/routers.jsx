@@ -1,9 +1,9 @@
 import Header from '../Component/Header';
 
-import Home from '../pages/Home/Home';
+import Home from '../pages/Home';
 import Login from '../pages/Login/Login';
 import Products from '../pages/Products';
-import Product from '@/pages/Product';
+import Product from '../pages/Product';
 import Carts from '../pages/Carts';
 import Coupon from '../pages/Coupon';
 import OrdersList from '../pages/OrdersList';

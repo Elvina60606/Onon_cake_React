@@ -1,11 +1,11 @@
 import images from '@/assets/images/images.js';
 import Footer from '@/Component/Footer';
 import HotSellingProducts from '@/Component/HotSellingProducts';
-import ImagesChange from '@/Component/ImagesChange';
+import ImagesChange from '@/Component/product/ImagesChange';
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router';dev/elvina
+import { Link, useParams } from 'react-router';
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
