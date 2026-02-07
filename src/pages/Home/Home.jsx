@@ -1,5 +1,5 @@
 import images from '@/assets/images/images.js';
-
+import { Outlet, Link } from 'react-router';
 import Footer from '../../Component/Footer';
 
 const Home = () => {
@@ -335,9 +335,9 @@ const Home = () => {
                                     <p className="fs-6 text-primary-700 mb-6">
                                         會員可享多重優惠：專屬折扣、紅利點數、生日優惠，現在加入會員，首購優惠與寄甜計畫合併使用，即贈經典原味可麗露乙份，贈品數量有限贈完為止，敬請把握優惠。本活動不可與其他優惠合併使用。
                                     </p>
-                                    <a href="#" 
+                                    <Link to='/MemberSignUp' 
                                        className="btn btn-primary mb-6 mb-lg-0">點我手刀加入會員
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="col-12 col-lg-5">
@@ -351,6 +351,7 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+            <Outlet />
             <Footer />
         </>
     )
