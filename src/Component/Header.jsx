@@ -17,12 +17,12 @@ function Header() {
                             alt="onon_logo"
                             className="d-none d-lg-block" />
                     </Link>
-                    <a href="shopping-cart.html" className="nav-link d-lg-none">
+                    <Link to='/shoppingcart' className="nav-link d-lg-none">
                     <div className="position-relative">
                         <span className="material-symbols-outlined fill align-bottom text-primary"> shopping_cart</span>
                         <span className="position-absolute top-0 start-100 translate-middle badge border border-white bg-secondary-500">0</span>
                     </div>
-                    </a>
+                    </Link>
                 {/* 漢堡按鈕 */}
                     <button className="navbar-toggler border-0" type="button"   
                             data-bs-toggle="collapse" 
@@ -108,7 +108,7 @@ function Header() {
                             </button>
                         </li>
                         <li className="nav-item">
-                            <Link to='/carts' className="nav-link">
+                            <Link to='/shoppingcart' className="nav-link">
                                 <div className="position-relative">
                                     <span className="material-symbols-outlined fill align-bottom"> shopping_cart</span>
                                     <span className="position-absolute top-0 start-100 translate-middle badge border border-white bg-secondary-500">0</span>
@@ -180,8 +180,6 @@ function Header() {
                 </div>
                 </div>
             </nav>
-
-            <Outlet />
         </>
     )
 }

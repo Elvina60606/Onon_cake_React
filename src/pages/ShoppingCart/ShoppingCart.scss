@@ -1,0 +1,147 @@
+@import "@/assets/scss/all.scss";
+
+.shopping-cart-page {
+  // 卡片外框
+  .cart-border {
+    border: 1px solid $neutral-300;
+    border-radius: 16px;
+    background-color: $neutral-0;
+  }
+
+  // 填寫資訊容器
+  .shipping-info {
+    max-width: 1296px;
+    margin: 0 auto;
+  }
+
+  // 移除 Textarea 拉伸
+  .resize-none {
+    resize: none;
+  }
+
+  // 統一處理所有輸入框的 Placeholder
+  .form-control,
+  .form-select {
+    &.placeholder-neutral-500,
+    &.coupons {
+      color: $neutral-800; // 輸入後的文字顏色
+
+      &::placeholder {
+        color: $neutral-500;
+        opacity: 1;
+      }
+
+      // 瀏覽器兼容性
+      &:-ms-input-placeholder {
+        color: $neutral-500;
+      }
+      &::-ms-input-placeholder {
+        color: $neutral-500;
+      }
+    }
+  }
+
+  // 日期選擇器觸發按鈕
+  .date-text-trigger {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    border: 1px solid $neutral-300;
+    border-left: none;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: $neutral-0;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: $secondary-500;
+      border-color: $secondary-500;
+      color: $neutral-0;
+      cursor: pointer;
+    }
+  }
+
+  // 專屬自定義按鈕 (使用按鈕)
+  .use-btn {
+    background-color: $primary-300;
+    color: $neutral-0;
+    border: none;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: darken($primary-300, 10%);
+      color: $neutral-0;
+    }
+  }
+
+  // 購物車清單項目
+  .list-group-item {
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+    border: 1px solid transparent;
+
+    &:hover {
+      background-color: rgba(
+        $primary-500,
+        0.3
+      ); // 輕微底色，不建議直接蓋掉整個底色
+      border-color: $primary-200;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  // 垃圾桶按鈕
+  .hover-danger {
+    color: $neutral-500;
+    transition: color 0.2s;
+    &:hover {
+      color: $alert-500; // 假設你變數中有危險色
+    }
+  }
+
+  // 地址欄位響應式邏輯
+  @media (min-width: 1400px) {
+    .address-col-200 {
+      flex: 0 0 200px;
+      width: 200px;
+    }
+    .address-col-624 {
+      flex: 0 0 624px;
+      width: 624px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1399.98px) {
+    .address-col-200 {
+      flex: 1 1 150px; // 允許縮小一點
+    }
+    .address-col-624 {
+      flex: 2 1 300px;
+    }
+    .d-flex.flex-md-nowrap {
+      gap: 0.5rem !important; // 縮小間距防止擠壓
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .address-col-200,
+    .address-col-624 {
+      flex: 0 0 100%;
+      width: 100%;
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  // 移除 Chrome/Safari/Firefox 數字輸入框箭頭
+  input[type="number"] {
+    -moz-appearance: textfield;
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}

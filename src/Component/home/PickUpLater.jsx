@@ -1,6 +1,5 @@
 import Modal from 'bootstrap/js/dist/modal';
 
-
 import images from '@/assets/images/images.js';
 import { useRef, useEffect } from 'react';
 
@@ -108,7 +107,6 @@ const PickUpLater =() => {
                     </div>
                 </div>
             </div> 
-        
         </>
     )
 

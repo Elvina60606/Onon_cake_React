@@ -207,7 +207,6 @@ const Products = () => {
                     </section>
                 </div>
             </main>
-            <Footer />
         </>
     )
 }
