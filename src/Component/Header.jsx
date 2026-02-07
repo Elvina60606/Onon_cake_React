@@ -180,8 +180,6 @@ function Header() {
                 </div>
                 </div>
             </nav>
-
-            <Outlet />
         </>
     )
 }

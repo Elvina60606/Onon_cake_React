@@ -53,7 +53,7 @@ const routes = [
                 element: <NotFound />,
             },
         ]
-    },    
+    }    
 ]
 
 export default routes;
