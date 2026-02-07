@@ -1,5 +1,6 @@
 import images from '@/assets/images/images.js';
 import { Outlet, Link } from 'react-router';
+
 import HotSellingProducts from '@/Component/HotSellingProducts';
 import PickUpLater from '@/Component/home/PickUpLater';
 
