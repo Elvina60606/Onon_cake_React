@@ -9,6 +9,7 @@ import Coupon from '../pages/Coupon';
 import OrdersList from '../pages/OrdersList';
 import MemberSignUp from '../pages/MemberSignUp';
 import NotFound from '@/pages/NotFound';
+import SidebarLayout from '@/pages/SidebarLayout';
 
 
 const routes = [
@@ -37,16 +38,22 @@ const routes = [
                 element: <ShoppingCart />,
             },
             {
-                path: '/coupon',
-                element: <Coupon />,
-            },
-            {
-                path: '/orders',
-                element: <OrdersList />,
-            },
-            {
                 path: '/membersignup',
                 element: <MemberSignUp />,
+            },
+            {
+                path: '/sidebarlayout',
+                element: <SidebarLayout />,
+                children: [
+                    {
+                        path: 'orders',
+                        element: <OrdersList />,
+                    },
+                    {
+                        path: 'coupon',
+                        element: <Coupon />,
+                    },
+                ]
             },
             {
                 path: '*',

@@ -59,10 +59,10 @@ function Header() {
                             <a href="" className='py-3 w-100'>修改密碼</a>
                         </li>
                         <li>
-                            <Link to='/orders' className='py-3 w-100'>訂單紀錄</Link>
+                            <Link to='/sidebarlayout/orders' className='py-3 w-100'>訂單紀錄</Link>
                         </li>
                         <li>
-                            <Link to='/coupon' className='py-3 w-100'>優惠券＆點數</Link>
+                            <Link to='/sidebarlayout/coupon' className='py-3 w-100'>優惠券＆點數</Link>
                         </li>
                         <li>
                             <a href="" className='py-3 w-100'>寄甜商品</a>
@@ -146,14 +146,14 @@ function Header() {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to='/orders' className="dropdown-item px-6 py-2">
+                                        <Link to='/sidebarlayout/orders' className="dropdown-item px-6 py-2">
                                             <span className="fs-6 text-primary-700">
                                                 <span className="material-symbols-outlined align-bottom me-2 text-primary-300">credit_card</span>訂單紀錄
                                             </span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to='/coupon' className="dropdown-item px-6 py-2">
+                                        <Link to='/sidebarlayout/coupon' className="dropdown-item px-6 py-2">
                                             <span className="fs-6 text-primary-700">
                                                 <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">local_activity</span>優惠券＆點數
                                             </span>
