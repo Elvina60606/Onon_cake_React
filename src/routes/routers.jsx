@@ -1,4 +1,4 @@
-import Header from '../Component/Header';
+import Layout from '@/pages/Layout';
 
 import Home from '../pages/Home';
 import Login from '../pages/Login/Login';
@@ -8,12 +8,13 @@ import ShoppingCart from '../pages/ShoppingCart/ShoppingCart';
 import Coupon from '../pages/Coupon';
 import OrdersList from '../pages/OrdersList';
 import MemberSignUp from '../pages/MemberSignUp';
+import NotFound from '@/pages/NotFound';
 
 
 const routes = [
     {
         path: '/',
-        element: <Header />,
+        element: <Layout />,
         children: [
             {
                 path: '/',
@@ -47,10 +48,12 @@ const routes = [
                 path: '/membersignup',
                 element: <MemberSignUp />,
             },
+            {
+                path: '*',
+                element: <NotFound />,
+            },
         ]
     },    
 ]
-
-
 
 export default routes;

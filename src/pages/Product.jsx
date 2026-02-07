@@ -242,8 +242,6 @@ const Product =() => {
 
           { /* 熱銷排行 */}
               <HotSellingProducts />
-
-            <Footer />
         </>
     )
 }

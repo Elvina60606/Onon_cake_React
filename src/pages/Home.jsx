@@ -1,6 +1,5 @@
 import images from '@/assets/images/images.js';
 
-import Footer from '../Component/Footer';
 import HotSellingProducts from '@/Component/HotSellingProducts';
 import PickUpLater from '@/Component/home/PickUpLater';
 
@@ -188,7 +187,6 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-            <Footer />
         </>
     )
 }
