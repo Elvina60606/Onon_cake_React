@@ -1,5 +1,5 @@
 import images from '@/assets/images/images.js';
-import { Outlet, Link } from 'react-router';
+import { Link } from 'react-router';
 
 import HotSellingProducts from '@/Component/HotSellingProducts';
 import PickUpLater from '@/Component/home/PickUpLater';
@@ -124,6 +124,7 @@ const Home = () => {
                      src={images.vector1}
                      alt="裝飾向量圖案1" />
             </section>
+
         {/* 品牌故事區塊 */}
             <section className="story-container">
                 <div className="story-content text-primary-800">
@@ -152,13 +153,13 @@ const Home = () => {
                          src={images.rectangle303}
                          alt="背景波浪圖案"/>
             </section>
+
         {/* 熱銷排行 */}
             <HotSellingProducts />
 
         {/* 可麗露寄甜計畫 */}
             <PickUpLater /> 
-
-            
+    
         {/* 加入會員 */}
             <section className="bg-primary-500">
                 <div className="container">
@@ -188,7 +189,6 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-            <Outlet />
         </>
     )
 }
