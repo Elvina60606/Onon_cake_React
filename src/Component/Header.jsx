@@ -17,12 +17,12 @@ function Header() {
                             alt="onon_logo"
                             className="d-none d-lg-block" />
                     </Link>
-                    <a href="shopping-cart.html" className="nav-link d-lg-none">
+                    <Link to='/shoppingcart' className="nav-link d-lg-none">
                     <div className="position-relative">
                         <span className="material-symbols-outlined fill align-bottom text-primary"> shopping_cart</span>
                         <span className="position-absolute top-0 start-100 translate-middle badge border border-white bg-secondary-500">0</span>
                     </div>
-                    </a>
+                    </Link>
                 {/* 漢堡按鈕 */}
                     <button className="navbar-toggler border-0" type="button"   
                             data-bs-toggle="collapse" 
@@ -30,7 +30,7 @@ function Header() {
                         <span className="material-symbols-outlined">menu</span>
                     </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                {/* 手機版 */}
+                {/* mobile */}
                     <ul className="navbar-nav ms-auto mb-5 d-lg-none text-primary-800">
                         <form className="position-relative d-lg-none mt-5 w-100">
                             <span className="material-symbols-outlined position-absolute top-50 translate-middle-y ps-5 text-primary">search</span>
@@ -53,7 +53,7 @@ function Header() {
                             <Link to='/login' className='py-3 w-100'>會員中心</Link>
                         </li>
                         <li>
-                            <a href="" className='py-3 w-100'>修改會​員​資料​</a>
+                            <Link to='/membersignup' className='py-3 w-100'>修改會​員​資料​</Link>
                         </li>
                         <li>
                             <a href="" className='py-3 w-100'>修改密碼</a>
@@ -85,8 +85,7 @@ function Header() {
                     </ul>
                     
                     <div className="empty-section d-lg-none"></div>
-                {/* 手機版end */}
-                {/* 桌機版start */}
+                {/* desktop */}
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0 gap-6 align-items-center d-none d-lg-flex">
                         <li className="nav-item">
                             <a className="nav-link" href="#">最新消息</a>
@@ -109,7 +108,7 @@ function Header() {
                             </button>
                         </li>
                         <li className="nav-item">
-                            <Link to='/carts' className="nav-link">
+                            <Link to='/shoppingcart' className="nav-link">
                                 <div className="position-relative">
                                     <span className="material-symbols-outlined fill align-bottom"> shopping_cart</span>
                                     <span className="position-absolute top-0 start-100 translate-middle badge border border-white bg-secondary-500">0</span>
@@ -133,7 +132,7 @@ function Header() {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to='/' className="dropdown-item px-6 py-2">
+                                        <Link to='/membersignup' className="dropdown-item px-6 py-2">
                                             <span className="fs-6 text-primary-700">
                                                 <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">edit</span>修改會​員​資料
                                             </span>
@@ -175,15 +174,12 @@ function Header() {
                                         </Link>
                                     </li>           
                                 </ul>
-                                </div>
+                            </div>
                         </li>
                     </ul> 
-                {/* 桌機版end */}
                 </div>
                 </div>
             </nav>
-
-            <Outlet />
         </>
     )
 }

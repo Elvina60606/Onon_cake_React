@@ -1,5 +1,8 @@
 import images from '@/assets/images/images.js';
 import Footer from '@/Component/Footer';
+import HotSellingProducts from '@/Component/HotSellingProducts';
+import ImagesChange from '@/Component/product/ImagesChange';
+
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
@@ -7,32 +10,33 @@ import { Link, useParams } from 'react-router';
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
 
+
 const Product =() => {
     const paramas = useParams();
     const { id } = paramas;
 
     const [ product, setProduct ] = useState({});
+    const [ showImages, setShowImages ] = useState([]);
 
     useEffect(() => {
         (async() => {
             try {
-                const response = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/product/${id}`)
-                console.log(response.data.product)
-                
+                const response = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/product/${id}`);
                 const productData = response.data.product;
                 const newProductData = {
                     ...productData,
-                    imagesUrl: productData.imagesUrl?.slice(0, 3) || []
+                    imagesUrl: productData.imagesUrl?.slice(0, 3) || [],
                 }
-
                 setProduct(newProductData);
-                
-            } catch (error) {
-                console.log("setProduct:", error)
+                setShowImages([
+                    productData.imageUrl,
+                    ...productData.imagesUrl?.slice(0, 3) || []
+                ])
+                } catch (error) {
+                console.log("setProduct:", error);
             }
-        })()
-
-    },[id])
+        })();
+    },[id]);
 
     return(
         <>
@@ -50,31 +54,8 @@ const Product =() => {
                             </ol>
                         </nav>
                         <div className="row">
-                        {/* 縮圖（桌機：左直排，手機：下方橫排） */}
-                            <div className="col-12 col-lg-1 order-2 order-lg-1">
-                                <div className="row flex-lg-column align-items-center justify-content-between mb-6 pe-lg-1">
-                                    {product.imagesUrl?.map((image, index) => {
-                                        return (
-                                            <div className="col-4 col-lg-10 g-lg-0 g-6 pb-lg-6" 
-                                                 key={index}>
-                                                    <div className='ratio ratio-1x1'>
-                                                        <img src={image}
-                                                            alt=''
-                                                            className="w-100 h-100 object-fit-cover border-4 border-secondary-500 rounded-3"/>
-                                                    </div>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-
-                        { /* 主圖 */}
-                            <div className="col-12 col-lg-4 order-1 order-lg-2 pe-lg-6">
-                                <img id="mainImage"
-                                    src={product.imageUrl}
-                                    alt="商品主圖"
-                                    className="img-fluid rounded w-100 rounded-4"/>
-                            </div>
+                            <ImagesChange setShowImages={setShowImages}
+                                          showImages={showImages}/>
 
                         { /* 商品資訊 */}
                             <div className="col-12 col-lg-7 order-3 ps-lg-8">
@@ -260,85 +241,7 @@ const Product =() => {
               </section>
 
           { /* 熱銷排行 */}
-              <section className="bg-secondary-50">
-                <div className="index-container">
-                    <div className="text-center pb-6 pt-8 py-lg-8">
-                        <h1 className="fs-3 fs-lg-1">熱銷排行</h1>
-                    </div>
-                    <div className="row row-cols-1 row-cols-md-3 g-6">
-                        <div className="col mb-2 mb-lg-12">
-                            <div className="card card-shadow rounded-xl h-100 overflow-hidden">
-                                    <span className="badge rank-badge fs-6">第一名</span>
-                                <div className="overflow-hidden">
-                                    <img src={images.canele}
-                                        className="card-img-top dessert-card"
-                                        alt="經典原味可麗露"/>
-                                </div>
-                                <div className="card-body p-4">
-                                    <h4 className="pb-2 text-primary-800">經典原味可麗露</h4>
-                                    <p className="fs-6 text-primary-600 pb-4">外酥內嫩焦糖香，法式經典一口入魂</p>
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        <p className="h4 text-primary-700">NT$ 180</p>
-                                        <button type="button"
-                                                className="btn btn-outline-secondary rounded-pill btn-card-shopping-cart">
-                                            <span className="material-symbols-outlined fill">shopping_cart</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col mb-2 mb-lg-12">
-                            <div className="card card-shadow rounded-xl h-100 overflow-hidden">
-                                <span className="badge rank-badge fs-6">第二名</span>
-                                <div className="overflow-hidden">
-                                    <img src={images.lemonMadeleine}
-                                    className="card-img-top dessert-card"
-                                    alt="糖漬檸檬瑪德蓮"/>
-                                </div>
-                                <div className="card-body p-4">
-                                    <h4 className="pb-2 text-primary-800">糖漬檸檬瑪德蓮</h4>
-                                    <p className="fs-6 text-primary-600 pb-4">清香檸檬糖漬點綴，鬆軟口感酸甜平衡剛剛好</p>
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        <p className="h4 text-primary-700">NT$ 150</p>
-                                        <button type="button"
-                                                className="btn btn-outline-secondary rounded-pill btn-card-shopping-cart">
-                                            <span className="material-symbols-outlined fill"> shopping_cart </span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col mb-6 mb-lg-12">
-                            <div className="card card-shadow rounded-xl h-100 overflow-hidden">
-                                <span className="badge rank-badge fs-6">第三名</span>
-                                <div className="overflow-hidden">
-                                    <img src={images.basque}
-                                        className="card-img-top dessert-card"
-                                        alt="超濃厚巴斯克"/>
-                                </div>
-                                <div className="card-body p-4">
-                                    <h4 className="pb-2 text-primary-800">超濃厚巴斯克</h4>
-                                    <p className="fs-6 text-primary-600 pb-4">香氣濃烈滑順綿密，入口即化的極致濃厚感</p>
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        <p className="h4 text-primary-700">NT$ 240</p>
-                                        <button type="button"
-                                                className="btn btn-outline-secondary rounded-pill btn-card-shopping-cart">
-                                            <span className="material-symbols-outlined fill"> shopping_cart </span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="d-flex justify-content-center align-items-center pb-8 d-lg-none">
-                        <a href="#" 
-                           className="btn btn-light fs-6">更多商品
-                        </a>
-                    </div>
-                </div>
-              </section>
-
-            <Footer />
+              <HotSellingProducts />
         </>
     )
 }

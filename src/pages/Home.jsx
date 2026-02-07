@@ -1,6 +1,7 @@
 import images from '@/assets/images/images.js';
 import { Outlet, Link } from 'react-router';
-import Footer from '../../Component/Footer';
+import HotSellingProducts from '@/Component/HotSellingProducts';
+import PickUpLater from '@/Component/home/PickUpLater';
 
 const Home = () => {
 
@@ -151,177 +152,12 @@ const Home = () => {
                          alt="背景波浪圖案"/>
             </section>
         {/* 熱銷排行 */}
-            <section className="bg-secondary-50">
-                <div className="index-container">
-                    <div className="text-center pb-6 pt-8 py-lg-8">
-                        <h1 className="fs-3 fs-lg-1">熱銷排行</h1>
-                    </div>
-                    <div className="row row-cols-1 row-cols-md-3 g-6">
-                        <div className="col mb-2 mb-lg-8">
-                            <div className="card card-shadow rounded-xl h-100 overflow-hidden">
-                                <span className="badge rank-badge fs-6">第一名</span>
-                                <div className="overflow-hidden">
-                                    <img src={images.canele}
-                                         className="card-img-top dessert-card"
-                                         alt="經典原味可麗露" />
-                                </div>
-                                <div className="card-body p-4">
-                                    <h4 className="pb-2 text-primary-800">經典原味可麗露</h4>
-                                    <p className="fs-6 text-primary-600 pb-4">
-                                        外酥內嫩焦糖香，法式經典一口入魂
-                                    </p>
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        <p className="h4 text-primary-700">NT$ 180</p>
-                                        <button type="button"
-                                                className="btn btn-outline-secondary rounded-pill btn-card-shopping-cart">
-                                            <span className="material-symbols-outlined fill">
-                                                shopping_cart
-                                            </span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col mb-2 mb-lg-8">
-                            <div className="card card-shadow rounded-xl h-100 overflow-hidden">
-                                <span className="badge rank-badge fs-6">第二名</span>
-                                <div className="overflow-hidden">
-                                    <img src={images.lemonMadeleine}
-                                        className="card-img-top dessert-card"
-                                        alt="糖漬檸檬瑪德蓮"/>
-                                </div>
-                                <div className="card-body p-4">
-                                    <h4 className="pb-2 text-primary-800">糖漬檸檬瑪德蓮</h4>
-                                    <p className="fs-6 text-primary-600 pb-4">
-                                        清香檸檬糖漬點綴，鬆軟口感酸甜平衡剛剛好
-                                    </p>
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        <p className="h4 text-primary-700">NT$ 150</p>
-                                        <button type="button"
-                                                className="btn btn-outline-secondary rounded-pill btn-card-shopping-cart">
-                                            <span className="material-symbols-outlined fill">   
-                                                shopping_cart 
-                                            </span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col mb-6 mb-lg-8">
-                            <div className="card card-shadow rounded-xl h-100 overflow-hidden">
-                                <span className="badge rank-badge fs-6">第三名</span>
-                                <div className="overflow-hidden">
-                                    <img src={images.basque}
-                                         className="card-img-top dessert-card"
-                                         alt="超濃厚巴斯克" />
-                                </div>
-                                <div className="card-body p-4">
-                                    <h4 className="pb-2 text-primary-800">超濃厚巴斯克</h4>
-                                    <p className="fs-6 text-primary-600 pb-4">
-                                        香氣濃烈滑順綿密，入口即化的極致濃厚感
-                                    </p>
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        <p className="h4 text-primary-700">NT$ 240</p>
-                                        <button type="button"
-                                                className="btn btn-outline-secondary rounded-pill btn-card-shopping-cart">
-                                            <span className="material-symbols-outlined fill"> 
-                                                shopping_cart 
-                                            </span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="d-flex justify-content-center align-items-center pb-8">
-                        <a href="product.html" className="btn btn-light fs-6">更多商品</a>
-                    </div>
-                </div>
-            </section>
+            <HotSellingProducts />
+
         {/* 可麗露寄甜計畫 */}
-            <section className="sub-section-bg">
-                <img className="d-none d-lg-block"
-                     src={images.rectangle304}
-                     alt="背景波浪圖" />
-                <div className="container position-relative">
-                    <div className="row my-8 my-lg-0">
-                    {/* 左側 可麗露擺盤圖 */}
-                        <div className="col-12 col-lg-7 position-relative z-3">
-                            <div className="py-lg-12 mb-8 mb-lg-0">
-                                <img src={images.caneleSub} alt="可麗露圖" />
-                            </div>
-                        </div>
-                    {/* 右側 不規則背景+文案 */}
-                      {/* 手機版 */}
-                        <div className="d-lg-none">
-                            <div className="col-12">
-                                <div className="text-center shape-bg mb-12">
-                                    <img className="mb-6"
-                                         src={images.caneleVector}
-                                         alt="可麗露" />
-                                    <h2 className="fs-1 text-primary-800 mb-6">可麗露・寄甜計劃</h2>
-                                    <h3 className="fs-5 text-primary-700 mb-6">
-                                        品嚐一顆可麗露，體現職人精神
-                                        <br />
-                                        將這份職人甜點，寄給未來的你
-                                    </h3>
-                                    <a href="#" className="btn btn-primary">點我了解寄甜計劃</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* 桌機版 */}
-                    <div className="d-none d-lg-block">
-                        <div className="col-lg-7 pt-lg-12 position-absolute top-0 end-0 z-1">
-                            <img src={images.vector4} alt="裝飾向量圖案4" />
-                            <div className="position-absolute top-50 start-50 translate-middle z-2">
-                                <div className="py-12 text-center">
-                                    <img className="mb-6"
-                                         src={images.caneleVector}
-                                         alt="可麗露" />
-                                    <h2 className="fs-3 text-primary-800 mb-6">可麗露・寄甜計劃</h2>
-                                    <h3 className="fs-5 text-primary-700 mb-6">
-                                        品嚐一顆可麗露，體現職人精神
-                                        <br />
-                                        將這份職人甜點，寄給未來的你
-                                    </h3>
-                                    <a href="#" className="btn btn-primary">點我了解寄甜計劃</a>
-                            {/* 寄甜計劃modal */}
-                                    <div className="modal fade" 
-                                         id="prePaidPlan" 
-                                         data-bs-backdrop="static" 
-                                         data-bs-keyboard="false" 
-                                         tabIndex="-1" 
-                                         aria-labelledby="prePaidPlanLabel" 
-                                         aria-hidden="true">
-                                        <div className="modal-dialog modal-dialog-centered">
-                                            <div className="modal-content">
-                                                <div className="modal-header border-bottom-0">
-                                                    <button type="button" 
-                                                            className="btn-close" 
-                                                            data-bs-dismiss="modal" 
-                                                            aria-label="Close">
-                                                    </button>
-                                                </div>
-                                                <div className="modal-body row justify-content-center align-items-center mb-7">
-                                                    <div className="col-3">
-                                                        <img src={images.canele2} alt="canele2" />
-                                                    </div>
-                                                    <div className="col-7">
-                                                        <h6 className="fs-lg-5 mb-1">恭喜您註冊成功！</h6>
-                                                        <p className="fs-7 fs-lg-6 mb-2">首購折扣優惠卷已匯入您的帳戶</p>
-                                                        <a className="d-block btn btn-confirm btn-primary-300 text-white w-75 mb-2 me-auto pointer" href='#'>立即登入</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <PickUpLater /> 
+
+            
         {/* 加入會員 */}
             <section className="bg-primary-500">
                 <div className="container">
@@ -352,7 +188,6 @@ const Home = () => {
                 </div>
             </section>
             <Outlet />
-            <Footer />
         </>
     )
 }

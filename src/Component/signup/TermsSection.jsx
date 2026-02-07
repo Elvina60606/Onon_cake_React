@@ -10,7 +10,7 @@ export default function TermsSection() {
             您已詳閱我們的
             <a
               href="privacy-policy.html"
-              class="text-decoration-underline text-secondary-500"
+              className="text-decoration-underline text-secondary-500"
             >
               隱私權政策/服務條款
             </a>

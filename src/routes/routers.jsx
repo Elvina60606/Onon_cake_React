@@ -1,19 +1,20 @@
-import Header from '../Component/Header';
+import Layout from '@/pages/Layout';
 
-import Home from '../pages/Home/Home';
+import Home from '../pages/Home';
 import Login from '../pages/Login/Login';
 import Products from '../pages/Products';
-import Product from '@/pages/Product';
-import Carts from '../pages/Carts';
+import Product from '../pages/Product';
+import ShoppingCart from '../pages/ShoppingCart/ShoppingCart';
 import Coupon from '../pages/Coupon';
 import OrdersList from '../pages/OrdersList';
 import MemberSignUp from '../pages/MemberSignUp';
+import NotFound from '@/pages/NotFound';
 
 
 const routes = [
     {
         path: '/',
-        element: <Header />,
+        element: <Layout />,
         children: [
             {
                 path: '/',
@@ -32,8 +33,8 @@ const routes = [
                 element: <Product />,
             },
             {
-                path: '/carts',
-                element: <Carts />,
+                path: '/shoppingcart',
+                element: <ShoppingCart />,
             },
             {
                 path: '/coupon',
@@ -44,13 +45,15 @@ const routes = [
                 element: <OrdersList />,
             },
             {
-                path: '/MemberSignUp',
+                path: '/membersignup',
                 element: <MemberSignUp />,
             },
+            {
+                path: '*',
+                element: <NotFound />,
+            },
         ]
-    },    
+    }    
 ]
-
-
 
 export default routes;
