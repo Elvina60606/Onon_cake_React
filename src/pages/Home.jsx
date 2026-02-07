@@ -1,4 +1,5 @@
 import images from '@/assets/images/images.js';
+import { Link } from 'react-router';
 
 import HotSellingProducts from '@/Component/HotSellingProducts';
 import PickUpLater from '@/Component/home/PickUpLater';
@@ -123,6 +124,7 @@ const Home = () => {
                      src={images.vector1}
                      alt="裝飾向量圖案1" />
             </section>
+
         {/* 品牌故事區塊 */}
             <section className="story-container">
                 <div className="story-content text-primary-800">
@@ -151,13 +153,13 @@ const Home = () => {
                          src={images.rectangle303}
                          alt="背景波浪圖案"/>
             </section>
+
         {/* 熱銷排行 */}
             <HotSellingProducts />
 
         {/* 可麗露寄甜計畫 */}
             <PickUpLater /> 
-
-            
+    
         {/* 加入會員 */}
             <section className="bg-primary-500">
                 <div className="container">
@@ -171,9 +173,9 @@ const Home = () => {
                                     <p className="fs-6 text-primary-700 mb-6">
                                         會員可享多重優惠：專屬折扣、紅利點數、生日優惠，現在加入會員，首購優惠與寄甜計畫合併使用，即贈經典原味可麗露乙份，贈品數量有限贈完為止，敬請把握優惠。本活動不可與其他優惠合併使用。
                                     </p>
-                                    <a href="#" 
+                                    <Link to='/MemberSignUp' 
                                        className="btn btn-primary mb-6 mb-lg-0">點我手刀加入會員
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                             <div className="col-12 col-lg-5">
