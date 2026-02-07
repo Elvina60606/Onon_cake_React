@@ -7,7 +7,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: url("../../assets/images/canele-bg.png") center repeat;
+    background: url("../../assets/images/caneleBg.png") center repeat;
     z-index: -1;
   }
   
@@ -17,10 +17,6 @@
   }
 }
 
-.login-title-mobile {
-  font-size: 28px;
-  margin: 0 0 24px 0;
-}
 .input-wrapper {
   display: flex;
   align-items: center;
@@ -31,24 +27,48 @@
   &:focus { box-shadow: none; }
 }
 
+// 修正:hover 效果統一處理
 .icon-hover-secondary,
-.hover-secondary {
+.hover-secondary,
+a.forgot-password {
   transition: color 0.2s ease;
-  &:hover { color: $secondary-500 !important; }
+  
+  &:hover,
+  &:focus {
+    color: $secondary-500 !important;
+  }
 }
 
-.btn-login {
+// 修正:登入按鈕樣式
+.btn.btn-login {
   background-color: $primary-700;
-  transition: background-color 0.3s;
-  &:hover { background-color: $secondary-500 !important; }
+  border-color: $primary-700;
+  color: #ffffff;
+  transition: background-color 0.3s, border-color 0.3s;
+  
+  &:hover,
+  &:focus,
+  &:active,
+  &:focus-visible {
+    background-color: $secondary-500;
+    border-color: $secondary-500;
+    color: #ffffff;
+  }
 }
 
-.btn-register {
+// 修正:註冊按鈕樣式
+.btn.btn-register {
+  background-color: transparent;
   border: 1px solid $primary-700;
+  color: $primary-700;
   transition: all 0.3s;
-  &:hover {
-    background-color: $secondary-500 !important;
-    border-color: $secondary-500 !important;
+  
+  &:hover,
+  &:focus,
+  &:active,
+  &:focus-visible {
+    background-color: $secondary-500;
+    border-color: $secondary-500;
     color: #ffffff !important;
   }
 }
@@ -59,19 +79,23 @@
 }
 
 .login-card {
-  width: 1296px;
+  width: 100%;
+  max-width: 1296px; // 改為 max-width
   height: 671px;
   border-radius: 40px;
   gap: 24px;
+  margin: 0 20px; // 添加左右邊距
 }
 
 .login-image {
   width: 636px;
+  flex-shrink: 0; // 防止圖片被壓縮
 }
 
 .login-content {
   width: 636px;
   padding: 0 20px;
+  flex-shrink: 1; // 允許內容區域縮小
 }
 
 .login-title-desktop {
@@ -81,6 +105,7 @@
 
 .login-form {
   width: 416px;
+  max-width: 100%; // 添加最大寬度限制
 }
 
 .form-group {
@@ -89,11 +114,50 @@
 
 .register-footer {
   width: 416px;
-}
-
-.register-footer {
+  max-width: 100%; // 添加最大寬度限制
   height: 72px;
   margin-bottom: 100px;
+}
+
+// 添加:中等螢幕響應式處理 (992px - 1320px)
+@media (max-width: 1320px) {
+  .login-card {
+    margin: 0 12px; // 減少邊距
+  }
+}
+
+// 添加:平板尺寸響應式處理
+@media (max-width: 1199px) {
+  .login-card {
+    max-width: 960px;
+    height: auto;
+    min-height: 600px;
+  }
+
+  .login-image {
+    width: 50%;
+  }
+
+  .login-content {
+    width: 50%;
+    padding: 0 16px;
+  }
+
+  .login-title-desktop {
+    margin: 60px 0 40px;
+    font-size: 28px;
+  }
+
+  .login-form {
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .register-footer {
+    width: 100%;
+    max-width: 380px;
+    margin-bottom: 60px;
+  }
 }
 
 @media (max-width: 991px) {
@@ -106,10 +170,13 @@
     width: 100%;
     max-width: 375px;
     height: auto;
+    min-height: unset;
     flex-direction: column;
     border-radius: 40px 40px 0 0;
     gap: 0;
     border: 1px solid $secondary-500;
+    margin: 0;
+    padding-bottom: 40px;
   }
 
   .login-image {
@@ -138,7 +205,6 @@
     margin-bottom: 16px;
   }
   
-  // 手機版忘記密碼置中
   .forgot-password--mobile {
     width: 100%;
     text-align: center;
@@ -147,6 +213,6 @@
 
   .register-footer {
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 0;
   }
 }

@@ -1,16 +1,16 @@
-import Layout from '@/pages/Layout';
-
+import Layout from '@/pages/Layout/Layout';
 import Home from '../pages/Home';
 import Login from '../pages/Login/Login';
 import Products from '../pages/Products';
 import Product from '../pages/Product';
 import ShoppingCart from '../pages/ShoppingCart/ShoppingCart';
-import Coupon from '../pages/Coupon';
-import OrdersList from '../pages/OrdersList';
 import MemberSignUp from '../pages/MemberSignUp';
-import NotFound from '@/pages/NotFound';
-import SidebarLayout from '@/pages/SidebarLayout';
 
+import SidebarLayout from '@/pages/Layout/SidebarLayout';
+import OrdersList from '../pages/OrdersList';
+import Coupon from '../pages/Coupon';
+
+import NotFound from '@/pages/NotFound';
 
 const routes = [
     {
