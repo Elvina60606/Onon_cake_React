@@ -1,3 +1,5 @@
+import images from '@/assets/images/images.js';
+
 export default function SignUpSuccessModal() {
   return (
     <div
@@ -20,10 +22,10 @@ export default function SignUpSuccessModal() {
             ></button>
           </div>
 
-          <div className="modal-body row align-items-center mb-7">
+          <div className="modal-body row align-items-center justify-content-center mb-7">
             <div className="col-3">
               <img
-                src="/assets/images/canele-2.png "
+                src={images.canele2}
                 alt="canele"
                 className="img-fluid"
               />
