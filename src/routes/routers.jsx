@@ -4,7 +4,7 @@ import Home from '../pages/Home';
 import Login from '../pages/Login/Login';
 import Products from '../pages/Products';
 import Product from '../pages/Product';
-import Carts from '../pages/Carts';
+import ShoppingCart from '../pages/ShoppingCart/ShoppingCart';
 import Coupon from '../pages/Coupon';
 import OrdersList from '../pages/OrdersList';
 import MemberSignUp from '../pages/MemberSignUp';
@@ -32,8 +32,8 @@ const routes = [
                 element: <Product />,
             },
             {
-                path: '/carts',
-                element: <Carts />,
+                path: '/shoppingcart',
+                element: <ShoppingCart />,
             },
             {
                 path: '/coupon',
