@@ -5,11 +5,11 @@ import "./login.scss";
 import images from '@/assets/images/images.js';
 
 function Login() {
-  // 1. 狀態管理：控制密碼顯示/隱藏、圖示顏色
+  // 1. 狀態管理:控制密碼顯示/隱藏、圖示顏色
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [usernameFocus, setUsernameFocus] = useState(false);
   
-  // 2. 引用管理：對應原本的 getElementById
+  // 2. 引用管理:對應原本的 getElementById
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -34,7 +34,6 @@ function Login() {
             alt="店舖情境圖"
             className="d-none d-lg-block w-100 h-100 object-fit-cover"
           />
-          {/* 由於實體檔案不存在，暫時讓手機版也吃同張圖，或是註解掉 img */}
           <img
             src={images.loginHero} 
             alt="店舖情境圖"
@@ -123,9 +122,10 @@ function Login() {
             </Link>
           </form>
 
-          <div className="register-footer d-flex justify-content-center align-items-center bg-white rounded-4 mt-auto">
+          {/* 修正: 只在桌面版使用 mt-auto */}
+          <div className="register-footer d-flex justify-content-center align-items-center bg-white rounded-4 mt-lg-auto">
             <span className="register-text me-3 text-neutral-800">
-              還不是會員嗎？
+              還不是會員嗎?
             </span>
             <Link
               to="#"
