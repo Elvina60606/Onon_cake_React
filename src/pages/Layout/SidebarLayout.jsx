@@ -1,7 +1,22 @@
 import images from '@/assets/images/images.js';
 import { Outlet, Link } from 'react-router-dom';
+import { useRef } from 'react';
+
+import PickUpLaterModal from '@/Component/modal/PickUpLaterModal';
+import LogoutModal from '@/Component/modal/LogoutModal';
 
 const SidebarLayout = () => {
+
+    const myPickUpLaterModal = useRef(null);
+    const myLogoutModal = useRef(null);
+        
+    const openModal =() =>{
+      myPickUpLaterModal.current.show();
+    };
+
+    const openLogoutModal=() =>{
+      myLogoutModal.current.show();
+    }
 
     return (
         <>
@@ -65,56 +80,26 @@ const SidebarLayout = () => {
                             </Link>
                         </li>
                         <li className="mx-6" role="presentation">
-                            <Link to='/'
-                                  className="nav-link w-100 py-2 mb-2 rounded-3 text-start sideBar-hover">
+                            <button onClick={openModal}
+                                    className="nav-link w-100 py-2 mb-2 rounded-3 text-start sideBar-hover">
                                   <span className="fs-6 text-primary-700 ps-6">
                                     <span className="material-symbols-outlined fill align-bottom me-2">takeout_dining</span>
                                       寄甜商品
                                   </span>
-                            </Link>
+                            </button>
                         </li>
                         <li className="mx-6" role="presentation">
-                            <button className="nav-link w-100 py-2 mb-2 rounded-3 text-start sideBar-hover" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#desk-logOut" 
-                                    type="button">
+                            <button className="nav-link w-100 py-2 mb-2 rounded-3 text-start sideBar-hover"
+                                    type="button"
+                                    onClick={openLogoutModal}>
                                     <span className="fs-6 text-primary-700 ps-6">
                                       <span className="material-symbols-outlined align-bottom me-2">logout</span>
                                       登出
                                     </span>
                             </button>
                         </li>
-                      </ul>
-                      
+                      </ul>                     
                     </div>
-              {/*--登出modal--*/}
-                  <div className="modal fade" 
-                      id="desk-logOut" 
-                      data-bs-backdrop="static" 
-                      data-bs-keyboard="false" 
-                      tabIndex="-1" 
-                      aria-labelledby="desk-logOutLabel" 
-                      aria-hidden="true"
-                  >
-                    <div className="modal-dialog">
-                      <div className="modal-content">
-                        <div className="modal-body ms-7 mt-7">
-                          <p className="fs-5">確定要登出嗎？</p>
-                        </div>
-                        <div className="modal-footer border-0">
-                          <a href="member-login.html" 
-                            className="btn btn-confirm btn-primary-300 text-white">
-                              確定登出
-                          </a>
-                          <button type="button" 
-                                  className="btn btn-confirm btn-primary-300 text-white" 
-                                  data-bs-dismiss="modal">
-                                  關閉
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </aside>
 
                 {/*--右側內容--*/}
@@ -123,6 +108,8 @@ const SidebarLayout = () => {
               </div>
             </main>
           </div>
+          <PickUpLaterModal myPickUpLaterModal={myPickUpLaterModal} />
+          <LogoutModal myLogoutModal={myLogoutModal}/>
         </>
     )
 };

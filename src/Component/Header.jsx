@@ -1,8 +1,22 @@
 import images from '@/assets/images/images.js';
+import { Link } from 'react-router';
+import { useRef } from 'react';
 
-import { Outlet, Link } from 'react-router';
+import PickUpLaterModal from './modal/PickUpLaterModal';
+import LogoutModal from './modal/LogoutModal';
 
 function Header() {
+    const myPickUpLaterModal= useRef(null);
+    const myLogoutModal = useRef(null);
+
+    const openModal =() =>{
+        myPickUpLaterModal.current.show();
+    };
+
+    const openLogoutModal=() =>{
+      myLogoutModal.current.show();
+    };
+
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light shadow">
@@ -65,7 +79,11 @@ function Header() {
                             <Link to='/sidebarlayout/coupon' className='py-3 w-100'>優惠券＆點數</Link>
                         </li>
                         <li>
-                            <a href="" className='py-3 w-100'>寄甜商品</a>
+                            <button type='button'
+                                    className='button-reset px-0 py-3 w-100 text-start'
+                                    onClick={openModal}>
+                                    寄甜商品
+                            </button>
                         </li>
                         <div className="bg-primary-500 d-lg-none w-100 my-5" style={{height: "4px"}}></div>
                         <li>
@@ -76,11 +94,12 @@ function Header() {
                         </li>
                         <div className="bg-primary-500 d-lg-none w-100 my-5" style={{height: "4px"}}></div>
                         <li>
-                            <a href="" className='py-3 w-100 d-flex'>
+                            <button className='button-reset px-0 py-3 w-100 text-start d-flex'
+                                    onClick={openLogoutModal}>
                                 <span className="material-symbols-outlined text-primary-300 me-2" 
                                           style={{width: "20px", height: "20px"}}>login</span>
                                 <p>登出</p>    
-                            </a>
+                            </button>
                         </li>
                     </ul>
                     
@@ -160,18 +179,21 @@ function Header() {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to='/' className="dropdown-item px-6 py-2">
+                                        <button type='button'
+                                                className="dropdown-item px-6 py-2"
+                                                onClick={openModal}>
                                             <span className="fs-6 text-primary-700">
                                                 <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">takeout_dining</span>寄甜商品
                                             </span>
-                                        </Link>
+                                        </button>
                                     </li>
                                     <li className='border-top'>
-                                        <Link to='/' className="dropdown-item px-6 py-2">
+                                        <button className="dropdown-item px-6 py-2"
+                                                onClick={openLogoutModal}>
                                             <span className="fs-6 text-primary-700">
                                                 <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">logout</span>登出
                                             </span>
-                                        </Link>
+                                        </button>
                                     </li>           
                                 </ul>
                             </div>
@@ -180,6 +202,8 @@ function Header() {
                 </div>
                 </div>
             </nav>
+            <PickUpLaterModal myPickUpLaterModal={myPickUpLaterModal} />
+            <LogoutModal myLogoutModal={myLogoutModal}/>
         </>
     )
 }

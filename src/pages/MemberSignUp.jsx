@@ -2,10 +2,19 @@ import HeroBanner from "@/Component/signup/HeroBanner";
 import MemberInfoSection from "@/Component/signup/MemberInfoSection";
 import PasswordSection from "@/Component/signup/PasswordSection";
 import TermsSection from "@/Component/signup/TermsSection";
-import SignUpSuccessModal from "@/Component/signup/SignUpSuccessModal";
+import SignUpSuccessModal from "@/Component/modal/SignUpSuccessModal";
+
+import { useRef } from "react";
 
 
 const MemberSignUp =() => {
+
+  const mySignUpModal = useRef(null);
+
+  const openSignUpModal = () => {
+    mySignUpModal.current.show();
+  };
+
   return (
     <>     
       <HeroBanner />
@@ -31,16 +40,16 @@ const MemberSignUp =() => {
             <button
               className="btn btn-primary w-100 py-3"
               type="submit"
-              data-bs-toggle="modal"
-              data-bs-target="#signUpConfirm"
+              onClick={openSignUpModal}
             >
               確認送出
             </button>
           </div>
         </div>
+      </main>
+
         {/* 註冊成功modal */}
-        <SignUpSuccessModal />
-      </main>    
+        <SignUpSuccessModal mySignUpModal={mySignUpModal}/>
     </>
   );
 }

@@ -1,18 +1,25 @@
+import Modal from 'bootstrap/js/dist/modal';
 import images from '@/assets/images/images.js';
+import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router';
+import { handleNavigateLogout } from './utils/handleNavigateLogout';
 
-export default function SignUpSuccessModal() {
+
+export default function SignUpSuccessModal({mySignUpModal}) {
+
+  const signUpModalRef = useRef(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    mySignUpModal.current = new Modal(signUpModalRef.current)
+  },[mySignUpModal])
+
   return (
-    <div
-      className="modal fade"
-      id="signUpConfirm"
-      tabIndex="-1"
-      data-bs-backdrop="static"
-      data-bs-keyboard="false"
-      aria-labelledby="signUpConfirmLabel"
-      aria-hidden="true"
-    >
+    <div className="modal fade"
+         ref={signUpModalRef}
+         tabIndex="-1">
       <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content">
+        <div className="modal-content border border-5 border-primary-300 rounded-5">
           <div className="modal-header border-bottom-0">
             <button
               type="button"
@@ -33,12 +40,10 @@ export default function SignUpSuccessModal() {
             <div className="col-7">
               <h6 className="fs-lg-5 mb-1">恭喜您註冊成功！</h6>
               <p className="fs-7 fs-lg-6 mb-2">首購折扣優惠券已匯入帳戶</p>
-              <a
-                href="/member-login"
-                className="d-block btn btn-confirm btn-primary-300 text-white w-75 mb-2 me-auto pointer"
-              >
+              <button className="d-block btn btn-confirm btn-primary-300 text-white w-75 mb-2 me-auto pointer"
+                      onClick={()=>{handleNavigateLogout( mySignUpModal, navigate )}}>
                 立即登入
-              </a>
+              </button>
             </div>
           </div>
         </div>
