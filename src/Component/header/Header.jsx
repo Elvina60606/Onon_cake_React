@@ -1,22 +1,39 @@
 import images from '@/assets/images/images.js';
-import { Link } from 'react-router';
-import { useRef, useState } from 'react';
+import { Collapse } from 'bootstrap';
+import { Link, useLocation } from 'react-router';
+import { useEffect, useRef } from 'react';
 
-import PickUpLaterModal from './modal/PickUpLaterModal';
-import LogoutModal from './modal/LogoutModal';
+import PickUpLaterModal from '../modal/PickUpLaterModal';
+import LogoutModal from '../modal/LogoutModal';
+import { useAuth } from "../../context/AuthContext";
 
 function Header() {
-    const [ isLogin, setIsLogin ]  = useState(false);
+    {/* modal */}
     const myPickUpLaterModal= useRef(null);
     const myLogoutModal = useRef(null);
-
+    
     const openModal =() =>{
         myPickUpLaterModal.current.show();
     };
-
     const openLogoutModal=() =>{
-      myLogoutModal.current.show();
+        myLogoutModal.current.show();
     };
+    
+    {/* navbar */}
+    const { isLogin, setIsLogin } = useAuth();
+    const mobileNavRef = useRef(null);
+    const location = useLocation();
+
+    // 跳轉頁面時，navbar收合（待補點擊button時收合）
+    useEffect(() => {
+        if (!mobileNavRef.current) return;
+
+        const navBarCollapse = Collapse.getInstance(mobileNavRef.current)
+        || new Collapse (mobileNavRef.current, { toggle : false});
+
+        navBarCollapse.hide();
+    }, [location]);
+
 
     return (
         <>
@@ -44,7 +61,8 @@ function Header() {
                             data-bs-target="#navbarSupportedContent">
                         <span className="material-symbols-outlined">menu</span>
                     </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <div className="collapse navbar-collapse" id="navbarSupportedContent"
+                     ref={mobileNavRef}>
                 {/* mobile */}
                     { isLogin ? (
                         <ul className="navbar-nav ms-auto mb-5 d-lg-none text-primary-800">
@@ -133,6 +151,7 @@ function Header() {
                     )}
                     
                     <div className="empty-section d-lg-none"></div>
+
                 {/* desktop */}
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0 gap-6 align-items-center d-none d-lg-flex">
                         <li className="nav-item">

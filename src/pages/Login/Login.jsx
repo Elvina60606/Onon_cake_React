@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import "./login.scss";
 
 import images from '@/assets/images/images.js';
+import { useAuth } from "../../context/AuthContext";
 
 function Login() {
   // 1. 狀態管理:控制密碼顯示/隱藏、圖示顏色
@@ -16,6 +17,12 @@ function Login() {
   // 密碼切換邏輯 (對應原本的 togglePassword 監聽器)
   const handleTogglePassword = () => {
     setIsPasswordVisible(!isPasswordVisible);
+  };
+
+  const { isLogin, setIsLogin } = useAuth();
+
+  const handleLogin = () => {
+    setIsLogin(true);
   };
 
   return (
@@ -107,12 +114,13 @@ function Login() {
               </Link>
             </div>
 
-            <button
-              type="button"
+            <Link
+              onClick={()=>{handleLogin()}}
+              to='/'
               className="btn btn-login mt-4 w-100 rounded-pill text-white border-0"
             >
               會員登入
-            </button>
+            </Link>
 
             <Link
               to="#"
