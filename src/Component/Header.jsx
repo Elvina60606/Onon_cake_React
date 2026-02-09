@@ -1,11 +1,12 @@
 import images from '@/assets/images/images.js';
 import { Link } from 'react-router';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import PickUpLaterModal from './modal/PickUpLaterModal';
 import LogoutModal from './modal/LogoutModal';
 
 function Header() {
+    const [ isLogin, setIsLogin ]  = useState(false);
     const myPickUpLaterModal= useRef(null);
     const myLogoutModal = useRef(null);
 
@@ -45,63 +46,91 @@ function Header() {
                     </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 {/* mobile */}
-                    <ul className="navbar-nav ms-auto mb-5 d-lg-none text-primary-800">
-                        <form className="position-relative d-lg-none mt-5 w-100">
-                            <span className="material-symbols-outlined position-absolute top-50 translate-middle-y ps-5 text-primary">search</span>
-                            <input className="form-control input-search ps-10" 
-                                    type="search"
-                                    placeholder="輸入關鍵字" />
-                            <button className="btn btn-search btn-primary fw-medium position-absolute top-50 end-0 translate-middle-y me-2">搜尋</button>
-                        </form>
-                        <div className="bg-primary-500 d-lg-none w-100 my-5" style={{height: "4px"}}></div>
-                        <div className='mb-5 d-flex'>
-                            <img src={images.avatar} alt="avatar"
-                                 style={{width:60, height:60}}
-                                 className='border rounded-circle' />
-                            <div className='ms-6'>
-                                <p className='text-primary-300'>會員</p>
-                                <p>Claire158872</p>
+                    { isLogin ? (
+                        <ul className="navbar-nav ms-auto mb-5 d-lg-none text-primary-800">
+                            <form className="position-relative d-lg-none mt-5 w-100">
+                                <span className="material-symbols-outlined position-absolute top-50 translate-middle-y ps-5 text-primary">search</span>
+                                <input className="form-control input-search ps-10" 
+                                        type="search"
+                                        placeholder="輸入關鍵字" />
+                                <button className="btn btn-search btn-primary fw-medium position-absolute top-50 end-0 translate-middle-y me-2">搜尋</button>
+                            </form>
+
+                            <div className="bg-primary-500 d-lg-none w-100 my-5" style={{height: "4px"}}></div>
+                            <div className='mb-5 d-flex'>
+                                <img src={images.avatar} alt="avatar"
+                                    style={{width:60, height:60}}
+                                    className='border rounded-circle' />
+                                <div className='ms-6'>
+                                    <p className='text-primary-300'>會員</p>
+                                    <p>Claire158872</p>
+                                </div>
                             </div>
-                        </div>
-                        <li>
-                            <Link to='/login' className='py-3 w-100'>會員中心</Link>
-                        </li>
-                        <li>
-                            <Link to='/membersignup' className='py-3 w-100'>修改會​員​資料​</Link>
-                        </li>
-                        <li>
-                            <a href="" className='py-3 w-100'>修改密碼</a>
-                        </li>
-                        <li>
-                            <Link to='/sidebarlayout/orders' className='py-3 w-100'>訂單紀錄</Link>
-                        </li>
-                        <li>
-                            <Link to='/sidebarlayout/coupon' className='py-3 w-100'>優惠券＆點數</Link>
-                        </li>
-                        <li>
-                            <button type='button'
-                                    className='button-reset px-0 py-3 w-100 text-start'
-                                    onClick={openModal}>
-                                    寄甜商品
-                            </button>
-                        </li>
-                        <div className="bg-primary-500 d-lg-none w-100 my-5" style={{height: "4px"}}></div>
-                        <li>
-                            <a href="" className='py-3 w-100'>最新消息</a>
-                        </li>
-                        <li>
-                            <Link to='/products' className='py-3 w-100'>商品介紹</Link>
-                        </li>
-                        <div className="bg-primary-500 d-lg-none w-100 my-5" style={{height: "4px"}}></div>
-                        <li>
-                            <button className='button-reset px-0 py-3 w-100 text-start d-flex'
-                                    onClick={openLogoutModal}>
-                                <span className="material-symbols-outlined text-primary-300 me-2" 
-                                          style={{width: "20px", height: "20px"}}>login</span>
-                                <p>登出</p>    
-                            </button>
-                        </li>
-                    </ul>
+                            <li>
+                                <Link to='/login' className='py-3 w-100'>會員中心</Link>
+                            </li>
+                            <li>
+                                <Link to='/membersignup' className='py-3 w-100'>修改會​員​資料​</Link>
+                            </li>
+                            <li>
+                                <a href="" className='py-3 w-100'>修改密碼</a>
+                            </li>
+                            <li>
+                                <Link to='/sidebarlayout/orders' className='py-3 w-100'>訂單紀錄</Link>
+                            </li>
+                            <li>
+                                <Link to='/sidebarlayout/coupon' className='py-3 w-100'>優惠券＆點數</Link>
+                            </li>
+                            <li>
+                                <button type='button'
+                                        className='button-reset px-0 py-3 w-100 text-start'
+                                        onClick={openModal}>
+                                        寄甜商品
+                                </button>
+                            </li>
+                            <div className="bg-primary-500 d-lg-none w-100 my-5" style={{height: "4px"}}></div>
+                            <li>
+                                <Link to='/' className='py-3 w-100'>最新消息</Link>
+                            </li>
+                            <li>
+                                <Link to='/products' className='py-3 w-100'>商品介紹</Link>
+                            </li>
+                            <div className="bg-primary-500 d-lg-none w-100 my-5" style={{height: "4px"}}></div>
+                            <li>
+                                <button className='button-reset px-0 py-3 w-100 text-start d-flex'
+                                        onClick={openLogoutModal}>
+                                    <span className="material-symbols-outlined text-primary-300 me-2" 
+                                            style={{width: "20px", height: "20px"}}>login</span>
+                                    <p>登出</p>    
+                                </button>
+                            </li>
+                        </ul>
+                    ) : (
+                        <ul className="navbar-nav ms-auto mb-5 d-lg-none text-primary-800">
+                            <form className="position-relative d-lg-none my-5 w-100">
+                                <span className="material-symbols-outlined position-absolute top-50 translate-middle-y ps-5 text-primary">search</span>
+                                <input className="form-control input-search ps-10" 
+                                        type="search"
+                                        placeholder="輸入關鍵字" />
+                                <button className="btn btn-search btn-primary fw-medium position-absolute top-50 end-0 translate-middle-y me-2">搜尋</button>
+                            </form>
+                            <li>
+                                <Link to='/' className='py-3 w-100'>最新消息</Link>
+                            </li>
+                            <li>
+                                <Link to='/products' className='py-3 w-100'>商品介紹</Link>
+                            </li>
+                            <div className="bg-primary-500 d-lg-none w-100 my-5" style={{height: "4px"}}></div>
+                            <li>
+                                <Link to='login'
+                                      className='button-reset px-0 py-3 w-100 text-start d-flex'>
+                                    <span className="material-symbols-outlined text-primary-300 me-2" 
+                                            style={{width: "20px", height: "20px"}}>login</span>
+                                    <p>登入/註冊</p>    
+                                </Link>
+                            </li>
+                        </ul>
+                    )}
                     
                     <div className="empty-section d-lg-none"></div>
                 {/* desktop */}
@@ -136,66 +165,73 @@ function Header() {
                         </li>
                         <li className="nav-item">
                             <div className="dropdown-center">
-                                <img src={images.avatar}  alt='avatar'
-                                     style={{width:40, height:40}}
-                                     className="dropdown-toggle border rounded-circle"
-                                     data-bs-toggle="dropdown" 
-                                     aria-expanded="false" />
-                                <ul className="dropdown-menu dropdown-menu-end"
-                                    style={{width:250}}>
-                                    <li>
-                                        <Link to='/login' className="dropdown-item px-6 py-2">
-                                            <span className="fs-6 text-primary-700">
-                                                <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">person</span>會員中心
-                                            </span>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to='/membersignup' className="dropdown-item px-6 py-2">
-                                            <span className="fs-6 text-primary-700">
-                                                <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">edit</span>修改會​員​資料
-                                            </span>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to='/' className="dropdown-item px-6 py-2">
-                                            <span className="fs-6 text-primary-700">
-                                                <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">lock</span>修改密碼
-                                            </span>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to='/sidebarlayout/orders' className="dropdown-item px-6 py-2">
-                                            <span className="fs-6 text-primary-700">
-                                                <span className="material-symbols-outlined align-bottom me-2 text-primary-300">credit_card</span>訂單紀錄
-                                            </span>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to='/sidebarlayout/coupon' className="dropdown-item px-6 py-2">
-                                            <span className="fs-6 text-primary-700">
-                                                <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">local_activity</span>優惠券＆點數
-                                            </span>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <button type='button'
-                                                className="dropdown-item px-6 py-2"
-                                                onClick={openModal}>
-                                            <span className="fs-6 text-primary-700">
-                                                <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">takeout_dining</span>寄甜商品
-                                            </span>
-                                        </button>
-                                    </li>
-                                    <li className='border-top'>
-                                        <button className="dropdown-item px-6 py-2"
-                                                onClick={openLogoutModal}>
-                                            <span className="fs-6 text-primary-700">
-                                                <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">logout</span>登出
-                                            </span>
-                                        </button>
-                                    </li>           
-                                </ul>
+                                { isLogin ? (<>
+                                    <img src={images.avatar}  alt='avatar'
+                                        style={{width:40, height:40}}
+                                        className="dropdown-toggle border rounded-circle"
+                                        data-bs-toggle="dropdown" 
+                                        aria-expanded="false" />
+                                    <ul className="dropdown-menu dropdown-menu-end"
+                                        style={{width:250}}>
+                                        <li>
+                                            <Link to='/login' className="dropdown-item px-6 py-2">
+                                                <span className="fs-6 text-primary-700">
+                                                    <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">person</span>會員中心
+                                                </span>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to='/membersignup' className="dropdown-item px-6 py-2">
+                                                <span className="fs-6 text-primary-700">
+                                                    <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">edit</span>修改會​員​資料
+                                                </span>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to='/' className="dropdown-item px-6 py-2">
+                                                <span className="fs-6 text-primary-700">
+                                                    <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">lock</span>修改密碼
+                                                </span>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to='/sidebarlayout/orders' className="dropdown-item px-6 py-2">
+                                                <span className="fs-6 text-primary-700">
+                                                    <span className="material-symbols-outlined align-bottom me-2 text-primary-300">credit_card</span>訂單紀錄
+                                                </span>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link to='/sidebarlayout/coupon' className="dropdown-item px-6 py-2">
+                                                <span className="fs-6 text-primary-700">
+                                                    <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">local_activity</span>優惠券＆點數
+                                                </span>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <button type='button'
+                                                    className="dropdown-item px-6 py-2"
+                                                    onClick={openModal}>
+                                                <span className="fs-6 text-primary-700">
+                                                    <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">takeout_dining</span>寄甜商品
+                                                </span>
+                                            </button>
+                                        </li>
+                                        <li className='border-top'>
+                                            <button className="dropdown-item px-6 py-2"
+                                                    onClick={openLogoutModal}>
+                                                <span className="fs-6 text-primary-700">
+                                                    <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">logout</span>登出
+                                                </span>
+                                            </button>
+                                        </li>           
+                                    </ul>
+                                </>
+                                ) : (
+                                    <Link to='login'
+                                          className="btn btn-primary">註冊/登入
+                                    </Link>
+                                ) }
                             </div>
                         </li>
                     </ul> 
