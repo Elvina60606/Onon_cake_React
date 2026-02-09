@@ -55,12 +55,12 @@ const routes = [
                     },
                 ]
             },
-            {
-                path: '*',
-                element: <NotFound />,
-            },
         ]
-    }    
+    },
+    {
+        path: '*',
+        element: <NotFound />,
+    },    
 ]
 
 export default routes;
