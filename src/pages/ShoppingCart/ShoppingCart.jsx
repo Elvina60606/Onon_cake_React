@@ -1,74 +1,31 @@
-import images from "@/assets/images/images.js";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import images from "@/assets/images/images.js"; 
 import "./ShoppingCart.scss";
 
+// --- API 設定 ---
+const BASE_URL = "https://vue3-course-api.hexschool.io/v2";
+const API_PATH = "ononcakeapi";
+
 const ShoppingCart = () => {
-  // --- 基礎 UI 狀態 ---
+  // --- 1. 狀態管理 ---
+  const [cartList, setCartList] = useState([]);
+  const [subTotal, setSubTotal] = useState(0);
+  const [finalTotal, setFinalTotal] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [selectedInvoiceType, setSelectedInvoiceType] = useState("personalInvoice");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [districts, setDistricts] = useState([]);
 
-  // --- 購物車商品狀態 ---
-  const [cartList, setCartList] = useState([
-    { id: "product1", title: "超濃厚巴斯克", price: 590, qty: 1, img: images.originalBasque },
-    { id: "product2", title: "經典可麗露禮盒 (6入/盒)", price: 420, qty: 2, img: images.productCanele6 },
-  ]);
-
-  // --- 優惠折扣狀態 ---
   const [tempPoints, setTempPoints] = useState("");
   const [tempPromo, setTempPromo] = useState("");
-  const [tempCoupon, setTempCoupon] = useState(""); 
-
-  const [appliedPoints, setAppliedPoints] = useState(0);
-  const [appliedPromo, setAppliedPromo] = useState(0);
-  const [activeCouponType, setActiveCouponType] = useState(""); 
+  const [tempCoupon, setTempCoupon] = useState("");
 
   const shippingFee = 60;
 
-  // --- 核心計算邏輯 (連動更新) ---
-  const subTotal = cartList.reduce((acc, item) => acc + item.price * item.qty, 0);
-
-  // 動態計算優惠券金額
-  let couponDiscount = 0;
-  if (activeCouponType === "percent_0.88") {
-    couponDiscount = Math.floor(subTotal * 0.12); 
-  } else if (activeCouponType) {
-    couponDiscount = Number(activeCouponType); 
-  }
-
-  // 總金額：小計 + 運費 - 各項折扣
-  const finalTotal = Math.max(0, subTotal + shippingFee - appliedPoints - appliedPromo - couponDiscount);
-
-  // --- 處理函式 ---
-  const handleQuantityChange = (productId, action) => {
-    setCartList((prev) =>
-      prev.map((item) => {
-        if (item.id === productId) {
-          const newQty = action === "increase" ? item.qty + 1 : item.qty - 1;
-          return { ...item, qty: Math.max(1, newQty) };
-        }
-        return item;
-      })
-    );
-  };
-
-  const deleteCartItem = (productId) => {
-    if (window.confirm("確定要將此商品從購物車移除嗎？")) {
-      setCartList((prev) => prev.filter((item) => item.id !== productId));
-    }
-  };
-
-  const handleApplyCoupon = () => {
-    setActiveCouponType(tempCoupon);
-  };
-
-  const handleClearCoupon = () => {
-    setTempCoupon("");
-    setActiveCouponType("");
-  };
-
-  // 縣市資料 (略)
+  // --- 2. 縣市資料 ---
   const cityData = {
     基隆市: ["仁愛區", "信義區", "中正區", "中山區", "安樂區", "暖暖區", "七堵區"],
     臺北市: ["中正區", "大同區", "中山區", "松山區", "大安區", "萬華區", "信義區", "士林區", "北投區", "內湖區", "南港區", "文山區"],
@@ -88,7 +45,111 @@ const ShoppingCart = () => {
     屏東縣: ["屏東市", "潮州鎮", "東港鎮", "恆春鎮", "萬丹鄉", "長治鄉", "麟洛鄉", "九如鄉", "里港鄉", "鹽埔鄉", "高樹鄉", "萬巒鄉", "內埔鄉", "竹田鄉", "新埤鄉", "枋寮鄉", "新園鄉", "崁頂鄉", "林邊鄉", "南州鄉", "佳冬鄉", "琉球鄉", "車城鄉", "滿州鄉", "枋山鄉", "三地門鄉", "霧臺鄉", "瑪家鄉", "泰武鄉", "來義鄉", "春日鄉", "獅子鄉", "牡丹鄉"],
     宜蘭縣: ["宜蘭市", "羅東鎮", "蘇澳鎮", "頭城鎮", "礁溪鄉", "壯圍鄉", "員山鄉", "冬山鄉", "五結鄉", "三星鄉", "大同鄉", "南澳鄉"],
     花蓮縣: ["花蓮市", "鳳林鎮", "玉里鎮", "新城鄉", "吉安鄉", "壽豐鄉", "光復鄉", "豐濱鄉", "瑞穗鄉", "萬榮鄉", "秀林鄉", "卓溪鄉", "富里鄉"],
-    臺東縣: ["臺東市", "成功鎮", "關山鎮", "卑南鄉", "大武鄉", "太麻里鄉", "東河鄉", "長濱鄉", "鹿野鄉", "池上鄉", "綠島鄉", "蘭嶼鄉", "延平鄉", "海端鄉", "達仁鄉", "金峰鄉"],
+    臺東縣: ["臺東市", "成功鎮", "關山鎮", "卑名鄉", "大武鄉", "太麻里鄉", "東河鄉", "長濱鄉", "鹿野鄉", "池上鄉", "綠島鄉", "蘭嶼鄉", "延平鄉", "海端鄉", "達仁鄉", "金峰鄉"],
+  };
+
+  // --- 3. API 核心函式 (含監控 log) ---
+
+  const getCart = async () => {
+    setIsLoading(true);
+    console.log("--- [Debug] 開始讀取購物車資料 ---");
+    try {
+      const res = await axios.get(`${BASE_URL}/api/${API_PATH}/cart`);
+      console.log("--- [Debug] API 回傳結果：", res.data);
+
+      if (res.data.success) {
+        setCartList(res.data.data.carts);
+        setSubTotal(res.data.data.total);
+        setFinalTotal(res.data.data.final_total);
+        
+        if (res.data.data.carts.length === 0) {
+          console.warn("--- [Debug] 提示：購物車陣列目前是空的 (carts: []) ---");
+        }
+      }
+    } catch (error) {
+      console.error("--- [Debug] API 連線失敗！ ---");
+      console.error("錯誤狀態碼：", error.response?.status);
+      console.error("錯誤訊息：", error.response?.data?.message || error.message);
+    } finally {
+      setIsLoading(false);
+      console.log("--- [Debug] 讀取程序結束 ---");
+    }
+  };
+
+  useEffect(() => {
+    getCart();
+  }, []);
+
+  const handleQuantityChange = async (cartId, productId, currentQty, action) => {
+    const newQty = action === "increase" ? currentQty + 1 : currentQty - 1;
+    if (newQty < 1) return;
+    setIsLoading(true);
+    try {
+      await axios.put(`${BASE_URL}/api/${API_PATH}/cart/${cartId}`, {
+        data: { product_id: productId, qty: newQty },
+      });
+      getCart();
+    } catch (error) {
+      alert("更新數量失敗");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const deleteCartItem = async (cartId) => {
+    if (window.confirm("確定要移除此商品嗎？")) {
+      setIsLoading(true);
+      try {
+        await axios.delete(`${BASE_URL}/api/${API_PATH}/cart/${cartId}`);
+        getCart();
+      } catch (error) {
+        alert("刪除失敗");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  const handleApplyCoupon = async (code) => {
+    const couponCode = code || tempCoupon;
+    if (!couponCode) return;
+    setIsLoading(true);
+    try {
+      await axios.post(`${BASE_URL}/api/${API_PATH}/coupon`, { data: { code: couponCode } });
+      alert("優惠券套用成功");
+      getCart();
+    } catch (error) {
+      alert("無效的優惠券碼");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleCheckout = async (e) => {
+    e.preventDefault();
+    if (cartList.length === 0) return alert("購物車目前是空的");
+    const form = e.target;
+    const orderData = {
+      data: {
+        user: {
+          name: form.name.value,
+          email: "test@gmail.com", 
+          tel: form.tel.value,
+          address: `${selectedCity}${selectedDistrict}${form.address.value}`,
+        },
+        message: form.message.value,
+      },
+    };
+    setIsLoading(true);
+    try {
+      const res = await axios.post(`${BASE_URL}/api/${API_PATH}/order`, orderData);
+      alert(`訂單送出成功！編號：${res.data.orderId}`);
+      getCart();
+    } catch (error) {
+      alert("送出失敗，請檢查輸入內容");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleCityChange = (e) => {
@@ -105,7 +166,7 @@ const ShoppingCart = () => {
           <div className="container">
             <h2 className="fs-3 fs-md-2 text-black pt-8 pt-md-12 mb-6 mb-md-8">購物車商品清單</h2>
 
-            {/* 商品清單區 (略) */}
+            {/* 商品清單表格 */}
             <div>
               <div className="row">
                 <ul className="list-unstyled fs-md-7 fs-lg-6 px-7 mb-4 d-none d-md-flex" style={{ color: "#6f6f6f" }}>
@@ -118,80 +179,74 @@ const ShoppingCart = () => {
               </div>
 
               <ul className="list-group">
-                {cartList.map((item) => (
-                  <li className="list-group-item rounded-4 px-7 py-4 mb-4" key={item.id}>
-                    <div className="row align-items-center g-4">
-                      <div className="col-12 col-md-7 d-flex align-items-center">
-                        <img src={item.img} className="rounded me-4" style={{ width: "80px", height: "80px", objectFit: "cover" }} alt={item.title} />
-                        <div>
-                          <h5 className="fs-6 fs-md-5">{item.title}</h5>
-                          <p className="fs-6 fw-bold mt-2 d-md-none">NT$ {item.price}</p>
+                {cartList.length > 0 ? (
+                  cartList.map((item) => (
+                    <li className="list-group-item rounded-4 px-7 py-4 mb-4" key={item.id}>
+                      <div className="row align-items-center g-4">
+                        <div className="col-12 col-md-7 d-flex align-items-center">
+                          <img src={item.product.imageUrl} className="rounded me-4" style={{ width: "80px", height: "80px", objectFit: "cover" }} alt={item.product.title} />
+                          <div>
+                            <h5 className="fs-6 fs-md-5">{item.product.title}</h5>
+                            <p className="fs-6 fw-bold mt-2 d-md-none">NT$ {item.product.price}</p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="col-md-1 d-none d-md-block">
-                        <p className="fs-6 fw-bold text-center">NT$ {item.price}</p>
-                      </div>
-                      <div className="col-12 col-md-4">
-                        <div className="row align-items-center">
-                          <div className="col-5 col-md-6 d-flex justify-content-md-center">
-                            <div className="input-group input-group-sm border rounded-2 bg-white" style={{ width: "130px" }}>
-                              <button className="btn btn-decrease" type="button" onClick={() => handleQuantityChange(item.id, "decrease")}><i className="bi bi-dash-lg"></i></button>
-                              <input type="number" className="form-control fs-6 fw-bold text-center border-0 quantity-input" value={item.qty} readOnly />
-                              <button className="btn btn-increase" type="button" onClick={() => handleQuantityChange(item.id, "increase")}><i className="bi bi-plus-lg"></i></button>
+                        <div className="col-md-1 d-none d-md-block text-center fw-bold">NT$ {item.product.price}</div>
+                        <div className="col-12 col-md-4">
+                          <div className="row align-items-center">
+                            <div className="col-5 col-md-6 d-flex justify-content-md-center">
+                              <div className="input-group input-group-sm border rounded-2 bg-white" style={{ width: "130px" }}>
+                                <button type="button" className="btn btn-decrease" onClick={() => handleQuantityChange(item.id, item.product_id, item.qty, "decrease")}><i className="bi bi-dash-lg"></i></button>
+                                <input type="number" className="form-control text-center border-0" value={item.qty} readOnly />
+                                <button type="button" className="btn btn-increase" onClick={() => handleQuantityChange(item.id, item.product_id, item.qty, "increase")}><i className="bi bi-plus-lg"></i></button>
+                              </div>
+                            </div>
+                            <div className="col-5 col-md-3 text-center">
+                              <p className="fs-5 fw-bold text-secondary-500 mb-0">NT$ {item.total}</p>
+                            </div>
+                            <div className="col-2 col-md-3 text-center">
+                              <button type="button" className="btn btn-trash" onClick={() => deleteCartItem(item.id)}><i className="bi bi-trash3-fill"></i></button>
                             </div>
                           </div>
-                          <div className="col-5 col-md-3">
-                            <p className="fs-5 fw-bold text-secondary-500 text-center">NT$ {item.price * item.qty}</p>
-                          </div>
-                          <div className="col-2 col-md-3 text-center">
-                            <button className="btn btn-trash" onClick={() => deleteCartItem(item.id)}><i className="bi bi-trash3-fill"></i></button>
-                          </div>
                         </div>
                       </div>
-                    </div>
-                  </li>
-                ))}
+                    </li>
+                  ))
+                ) : (
+                  <li className="list-group-item text-center py-10 rounded-4">目前購物車是空的，去逛逛商品吧！</li>
+                )}
               </ul>
             </div>
 
-            {/* 優惠區塊 (略) */}
+            {/* 優惠區塊 */}
             <div className="row g-3">
               <div className="col-12 col-md-4 mt-4">
-                <div className="p-5 p-md-6 border rounded-4" style={{ backgroundColor: "#ffffff" }}>
+                <div className="p-5 p-md-6 border rounded-4 bg-white">
                   <label className="form-label d-block mb-1">可用點數：500點</label>
                   <div className="row g-2">
                     <div className="col-12 col-md pe-3 mb-4 mb-md-0">
                       <input type="number" className="form-control coupons" placeholder="請輸入紅利點數" value={tempPoints} onChange={(e) => setTempPoints(e.target.value)} />
                     </div>
-                    <div className="col-6 col-md-auto">
-                      <button className="btn use-btn w-100" type="button" onClick={() => setAppliedPoints(Number(tempPoints) || 0)}>使用</button>
-                    </div>
-                    <div className="col-6 col-md-auto">
-                      <button className="btn btn-primary w-100" type="button" onClick={() => { setTempPoints(""); setAppliedPoints(0); }}>清除</button>
-                    </div>
+                    <div className="col-6 col-md-auto"><button className="btn use-btn w-100" type="button">使用</button></div>
+                    <div className="col-6 col-md-auto"><button className="btn btn-primary w-100" type="button" onClick={() => setTempPoints("")}>清除</button></div>
                   </div>
                 </div>
               </div>
 
               <div className="col-12 col-md-4 mt-4">
-                <div className="p-5 p-md-6 border rounded-4" style={{ backgroundColor: "#ffffff" }}>
+                <div className="p-5 p-md-6 border rounded-4 bg-white">
                   <label className="form-label d-block mb-1">優惠碼</label>
                   <div className="row g-2">
                     <div className="col-12 col-md pe-3 mb-4 mb-md-0">
                       <input type="text" className="form-control coupons" placeholder="請輸入優惠碼" value={tempPromo} onChange={(e) => setTempPromo(e.target.value)} />
                     </div>
-                    <div className="col-6 col-md-auto">
-                      <button className="btn use-btn w-100" type="button" onClick={() => setAppliedPromo(tempPromo === "GEMINI" ? 100 : 0)}>使用</button>
-                    </div>
-                    <div className="col-6 col-md-auto">
-                      <button className="btn btn-primary w-100" type="button" onClick={() => { setTempPromo(""); setAppliedPromo(0); }}>清除</button>
-                    </div>
+                    <div className="col-6 col-md-auto"><button className="btn use-btn w-100" type="button" onClick={() => handleApplyCoupon(tempPromo)}>使用</button></div>
+                    <div className="col-6 col-md-auto"><button className="btn btn-primary w-100" type="button" onClick={() => setTempPromo("")}>清除</button></div>
                   </div>
                 </div>
               </div>
 
               <div className="col-12 col-md-4 mt-4">
-                <div className="p-5 p-md-6 border rounded-4" style={{ backgroundColor: "#ffffff" }}>
+                <div className="p-5 p-md-6 border rounded-4 bg-white">
                   <label className="form-label d-block mb-1">優惠券</label>
                   <div className="row g-2">
                     <div className="col-12 col-md pe-3 mb-4 mb-md-0">
@@ -201,57 +256,33 @@ const ShoppingCart = () => {
                         <option value="percent_0.88">不限金額即享88折</option>
                       </select>
                     </div>
-                    <div className="col-6 col-md-auto">
-                      <button className="btn use-btn w-100" type="button" onClick={handleApplyCoupon}>使用</button>
-                    </div>
-                    <div className="col-6 col-md-auto">
-                      <button className="btn btn-primary w-100" type="button" onClick={handleClearCoupon}>清除</button>
-                    </div>
+                    <div className="col-6 col-md-auto"><button className="btn use-btn w-100" type="button" onClick={() => handleApplyCoupon()}>使用</button></div>
+                    <div className="col-6 col-md-auto"><button className="btn btn-primary w-100" type="button" onClick={() => setTempCoupon("")}>清除</button></div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* 金額計算區 - 已更新顏色為 text-secondary */}
+            {/* 金額計算 */}
             <div className="row mt-4 pb-8 pb-md-12">
               <div className="col-12">
-                <div className="p-5 p-md-6 border rounded-4" style={{ backgroundColor: "#ffffff" }}>
-                  <div className="d-flex justify-content-between pb-2 fs-7 fs-md-6">
-                    <span>小計</span>
-                    <span>$ {subTotal.toLocaleString()}</span>
-                  </div>
-                  <div className="d-flex justify-content-between pb-2 fs-7 fs-md-6">
-                    <span>運費</span>
-                    <span>$ {shippingFee}</span>
-                  </div>
-                  <div className="d-flex justify-content-between pb-2 fs-7 fs-md-6 text-secondary">
-                    <span>點數</span>
-                    <span>- $ {appliedPoints.toLocaleString()}</span>
-                  </div>
-                  <div className="d-flex justify-content-between pb-2 fs-7 fs-md-6 text-secondary">
-                    <span>優惠碼</span>
-                    <span>- $ {appliedPromo.toLocaleString()}</span>
-                  </div>
-                  <div className="d-flex justify-content-between fs-7 fs-md-6 text-secondary">
-                    <span>優惠券</span>
-                    <span>- $ {couponDiscount.toLocaleString()}</span>
-                  </div>
+                <div className="p-5 p-md-6 border rounded-4 bg-white">
+                  <div className="d-flex justify-content-between pb-2 fs-7 fs-md-6"><span>小計</span><span>$ {subTotal.toLocaleString()}</span></div>
+                  <div className="d-flex justify-content-between pb-2 fs-7 fs-md-6"><span>運費</span><span>$ {shippingFee}</span></div>
+                  <div className="d-flex justify-content-between pb-2 fs-7 fs-md-6 text-secondary"><span>折扣金額</span><span>- $ {(subTotal - finalTotal).toLocaleString()}</span></div>
                   <hr className="my-2" />
-                  <div className="d-flex justify-content-between">
-                    <span className="h5" style={{ fontWeight: 500 }}>總金額</span>
-                    <span className="text-secondary h4">NT$ {finalTotal.toLocaleString()}</span>
-                  </div>
+                  <div className="d-flex justify-content-between"><span className="h5 fw-normal">總金額</span><span className="text-secondary h4">NT$ {(finalTotal + shippingFee).toLocaleString()}</span></div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 填寫資訊 (略) */}
+        {/* 訂購表單 */}
         <section className="container">
-          <div className="shipping-info">
+          <form className="shipping-info" onSubmit={handleCheckout}>
             <h2 className="mt-lg-12 mb-lg-8 mt-8 mb-6">填寫資訊</h2>
-            <form className="cart-border p-6 mb-6">
+            <div className="cart-border p-6 mb-6">
               <div className="form-check mb-4">
                 <input className="form-check-input" type="checkbox" id="sameAsMember" />
                 <label className="form-check-label" htmlFor="sameAsMember">同會員資料</label>
@@ -259,114 +290,99 @@ const ShoppingCart = () => {
               <div className="gap-2 mb-4 d-md-flex">
                 <div style={{ flex: 1 }} className="mb-4 mb-md-0">
                   <label className="form-label">收件人姓名 <span className="text-danger">*</span></label>
-                  <input type="text" className="form-control" placeholder="請填寫姓名" style={{ height: "40px" }} />
+                  <input name="name" type="text" className="form-control" placeholder="請填寫姓名" required />
                 </div>
                 <div style={{ flex: 1 }}>
                   <label className="form-label">聯絡電話 <span className="text-danger">*</span></label>
-                  <input type="text" className="form-control" placeholder="請填寫聯絡電話" style={{ height: "40px" }} />
+                  <input name="tel" type="text" className="form-control" placeholder="請填寫聯絡電話" required />
                 </div>
               </div>
               <div className="mb-4">
                 <label className="form-label">收件地址 <span className="text-danger">*</span></label>
                 <div className="d-flex flex-wrap gap-2 mb-4 flex-md-nowrap">
+                  <div className="address-col-200 mb-4 mb-md-0"><input type="text" className="form-control" placeholder="郵遞區號" /></div>
                   <div className="address-col-200 mb-4 mb-md-0">
-                    <input type="text" className="form-control" placeholder="郵遞區號" style={{ height: "40px" }} />
-                  </div>
-                  <div className="address-col-200 mb-4 mb-md-0">
-                    <select className="form-select" style={{ height: "40px" }} value={selectedCity} onChange={handleCityChange}>
+                    <select className="form-select" value={selectedCity} onChange={handleCityChange} required>
                       <option value="" disabled>縣市</option>
-                      {Object.keys(cityData).map((c) => (<option key={c} value={c}>{c}</option>))}
+                      {Object.keys(cityData).map(c => <option key={c} value={c}>{c}</option>)}
                     </select>
                   </div>
                   <div className="address-col-200 mb-4 mb-md-0">
-                    <select className="form-select" style={{ height: "40px" }} value={selectedDistrict} onChange={(e) => setSelectedDistrict(e.target.value)} disabled={!selectedCity}>
+                    <select className="form-select" value={selectedDistrict} onChange={(e) => setSelectedDistrict(e.target.value)} disabled={!selectedCity} required>
                       <option value="" disabled>鄉鎮市區</option>
-                      {districts.map((d) => (<option key={d} value={d}>{d}</option>))}
+                      {districts.map(d => <option key={d} value={d}>{d}</option>)}
                     </select>
                   </div>
-                  <div className="address-col-624 flex-grow-1">
-                    <input type="text" className="form-control" placeholder="請輸入地址" style={{ height: "40px" }} />
-                  </div>
+                  <div className="address-col-624 flex-grow-1"><input name="address" type="text" className="form-control" placeholder="請輸入地址" required /></div>
                 </div>
               </div>
-              <div>
-                <label className="form-label">備註</label>
-                <textarea className="form-control" placeholder="請填寫備註" style={{ height: "160px" }}></textarea>
-              </div>
-            </form>
-          </div>
-        </section>
+              <div><label className="form-label">備註</label><textarea name="message" className="form-control" placeholder="請填寫備註" style={{ height: "160px" }}></textarea></div>
+            </div>
 
-        {/* 付款與發票 (略) */}
-        <section className="container">
-          <div className="row g-6">
-            <div className="col-md-6">
-              <div className="cart-border p-6 h-100">
-                <h5 className="text-neutral-800 mb-4">付款方式</h5>
-                {["線上刷卡", "LINE PAY", "APPLE PAY", "ATM轉帳"].map((m, i) => (
-                  <div className="form-check py-2 ps-7" key={m}>
-                    <input className="form-check-input" type="radio" name="pay" id={`c${i}`} defaultChecked={i === 0} />
-                    <label className="form-check-label" htmlFor={`c${i}`}>{m}</label>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="cart-border p-6 h-100">
-                <h5 className="text-neutral-800 mb-4">發票開立</h5>
-                <div className="mb-4">
-                  <select className="form-select" value={selectedInvoiceType} onChange={(e) => setSelectedInvoiceType(e.target.value)}>
-                    <option value="personalInvoice">個人發票</option>
-                    <option value="companyInvoice">公司發票</option>
-                  </select>
+            {/* 付款與發票 */}
+            <div className="row g-6">
+              <div className="col-md-6">
+                <div className="cart-border p-6 h-100">
+                  <h5 className="text-neutral-800 mb-4">付款方式</h5>
+                  {["線上刷卡", "LINE PAY", "APPLE PAY", "ATM轉帳"].map((m, i) => (
+                    <div className="form-check py-2 ps-7" key={m}>
+                      <input className="form-check-input" type="radio" name="pay" id={`pay${i}`} defaultChecked={i === 0} />
+                      <label className="form-check-label" htmlFor={`pay${i}`}>{m}</label>
+                    </div>
+                  ))}
                 </div>
-                {selectedInvoiceType === "personalInvoice" ? (
-                  <div className="invoice-block">
-                    <div className="form-check py-2 ps-7">
-                      <input className="form-check-input" type="radio" name="inv" id="r1" defaultChecked />
-                      <label className="form-check-label" htmlFor="r1">會員載具</label>
-                    </div>
-                    <div id="invoiceCollapseGroup">
-                      <div className="d-flex flex-column flex-md-row align-items-md-center">
-                        <div className="form-check py-2 ps-7 me-8">
-                          <input className="form-check-input" type="radio" name="inv" id="r2" data-bs-toggle="collapse" data-bs-target="#mb1" />
-                          <label className="form-check-label" htmlFor="r2">手機條碼</label>
+              </div>
+              <div className="col-md-6">
+                <div className="cart-border p-6 h-100">
+                  <h5 className="text-neutral-800 mb-4">發票開立</h5>
+                  <div className="mb-4">
+                    <select className="form-select" value={selectedInvoiceType} onChange={(e) => setSelectedInvoiceType(e.target.value)}>
+                      <option value="personalInvoice">個人發票</option>
+                      <option value="companyInvoice">公司發票</option>
+                    </select>
+                  </div>
+                  {selectedInvoiceType === "personalInvoice" ? (
+                    <div className="invoice-block">
+                      <div className="form-check py-2 ps-7">
+                        <input className="form-check-input" type="radio" name="inv" id="inv1" defaultChecked />
+                        <label className="form-check-label" htmlFor="inv1">會員載具</label>
+                      </div>
+                      <div id="invoiceGroup">
+                        <div className="d-flex flex-column flex-md-row align-items-md-center">
+                          <div className="form-check py-2 ps-7 me-8">
+                            <input className="form-check-input" type="radio" name="inv" id="inv2" data-bs-toggle="collapse" data-bs-target="#phoneCol" />
+                            <label className="form-check-label" htmlFor="inv2">手機條碼</label>
+                          </div>
+                          <div className="collapse flex-grow-1" id="phoneCol" data-bs-parent="#invoiceGroup">
+                            <input className="form-control" type="text" placeholder="請填寫手機條碼" />
+                          </div>
                         </div>
-                        <div className="collapse flex-grow-1" id="mb1" data-bs-parent="#invoiceCollapseGroup">
-                          <input className="form-control" type="text" placeholder="請填寫手機條碼" style={{ height: "40px" }} />
+                        <div className="d-flex flex-column flex-md-row align-items-md-center">
+                          <div className="form-check py-2 ps-7 me-8">
+                            <input className="form-check-input" type="radio" name="inv" id="inv3" data-bs-toggle="collapse" data-bs-target="#personCol" />
+                            <label className="form-check-label" htmlFor="inv3">自然人憑證</label>
+                          </div>
+                          <div className="collapse flex-grow-1" id="personCol" data-bs-parent="#invoiceGroup">
+                            <input className="form-control" type="text" placeholder="請填寫自然人憑證" />
+                          </div>
                         </div>
                       </div>
-                      <div className="d-flex flex-column flex-md-row align-items-md-center">
-                        <div className="form-check py-2 ps-7 me-8">
-                          <input className="form-check-input" type="radio" name="inv" id="r3" data-bs-toggle="collapse" data-bs-target="#mb2" />
-                          <label className="form-check-label" htmlFor="r3">自然人憑證</label>
-                        </div>
-                        <div className="collapse flex-grow-1" id="mb2" data-bs-parent="#invoiceCollapseGroup">
-                          <input className="form-control" type="text" placeholder="請填寫自然人憑證" style={{ height: "40px" }} />
-                        </div>
-                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <div className="invoice-block">
-                    <div className="mb-4">
-                      <label className="form-label">公司抬頭 *</label>
-                      <input type="text" className="form-control" placeholder="請填寫公司抬頭" />
+                  ) : (
+                    <div className="invoice-block">
+                      <div className="mb-4"><label className="form-label">公司抬頭 *</label><input type="text" className="form-control" placeholder="請填寫公司抬頭" /></div>
+                      <div className="mb-4"><label className="form-label">統一編號 *</label><input type="text" className="form-control" placeholder="請填寫統一編號" /></div>
                     </div>
-                    <div className="mb-4">
-                      <label className="form-label">統一編號 *</label>
-                      <input type="text" className="form-control" placeholder="請填寫統一編號" />
-                    </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-          <div className="row justify-content-center">
-            <button className="btn btn-primary w-50 mt-8 mb-12">
-              <p className="m-0">確認訂購</p>
-            </button>
-          </div>
+            <div className="row justify-content-center">
+              <button type="submit" className="btn btn-primary w-50 mt-8 mb-12" disabled={isLoading}>
+                {isLoading ? "處理中..." : "確認訂購"}
+              </button>
+            </div>
+          </form>
         </section>
       </div>
     </div>
