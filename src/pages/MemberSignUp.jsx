@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import HeroBanner from "@/Component/signup/HeroBanner";
 import MemberInfoSection from "@/Component/signup/MemberInfoSection";
 import PasswordSection from "@/Component/signup/PasswordSection";
@@ -6,8 +8,30 @@ import SignUpSuccessModal from "@/Component/modal/SignUpSuccessModal";
 
 import { useRef } from "react";
 
+const MemberSignUp = () => {
+  const [formData, setFormData] = useState({
+    memberName: "",
+    gender: "",
+    birthday: "",
+    phone: "",
+    email: "",
+    postCode: "",
+    city: "",
+    district: "",
+    address: "",
 
-const MemberSignUp =() => {
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const mySignUpModal = useRef(null);
 
@@ -16,7 +40,7 @@ const MemberSignUp =() => {
   };
 
   return (
-    <>     
+    <>
       <HeroBanner />
 
       <main className="bg-secondary-50">
@@ -24,13 +48,19 @@ const MemberSignUp =() => {
           <div className="row g-6">
             <div className="col-12 col-lg-6">
               {/* 會員資料 */}
-              <MemberInfoSection />
+              <MemberInfoSection
+                formData={formData}
+                handleChange={handleChange}
+              />
             </div>
 
             <div className="col-12 col-lg-6">
               <div className="d-flex flex-column gap-6">
                 {/* 設定密碼 & 會員須知 */}
-                <PasswordSection />
+                <PasswordSection
+                  formData={formData}
+                  handleChange={handleChange}
+                />
                 <TermsSection />
               </div>
             </div>
@@ -48,10 +78,10 @@ const MemberSignUp =() => {
         </div>
       </main>
 
-        {/* 註冊成功modal */}
-        <SignUpSuccessModal mySignUpModal={mySignUpModal}/>
+      {/* 註冊成功modal */}
+      <SignUpSuccessModal mySignUpModal={mySignUpModal} />
     </>
   );
-}
+};
 
 export default MemberSignUp;
