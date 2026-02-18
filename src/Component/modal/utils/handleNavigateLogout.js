@@ -1,9 +1,9 @@
+import { logout } from "@/slices/loginSlice";
 
 
-export const handleNavigateLogout =( myModal, navigate) => {
+export const handleNavigateLogout =(dispatch, myModal, navigate) => {
+        dispatch(logout());
         myModal.current.hide();
-
-        setTimeout(() => {
-            navigate('/login');
-        }, 500)
+        navigate('/login');
+        console.log('logout success')
     };

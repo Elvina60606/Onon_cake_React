@@ -2,11 +2,13 @@ import Modal from 'bootstrap/js/dist/modal';
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import { handleNavigateLogout } from './utils/handleNavigateLogout';
+import { useDispatch } from 'react-redux';
 
 
 const LogoutModal =({myLogoutModal}) =>{
 
     const logoutModalRef = useRef(null);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,7 +27,7 @@ const LogoutModal =({myLogoutModal}) =>{
                           <p className="fs-5">確定要登出嗎？</p>
                         </div>
                         <div className="modal-footer border-0">
-                          <button onClick={()=>{handleNavigateLogout( myLogoutModal, navigate)}}
+                          <button onClick={()=>{handleNavigateLogout(dispatch, myLogoutModal, navigate)}}
                                   className="btn btn-confirm btn-primary-300 text-white">
                                     確定登出
                           </button>

@@ -1,11 +1,11 @@
 import images from '@/assets/images/images.js';
-import { Collapse } from 'bootstrap';
 import { Link, useLocation } from 'react-router';
 import { useEffect, useState, useRef } from 'react';
 
 import PickUpLaterModal from '../modal/PickUpLaterModal';
 import LogoutModal from '../modal/LogoutModal';
-import { useAuth } from "../../context/AuthContext";
+//import { useAuth } from "../../context/AuthContext";
+import { useDispatch, useSelector } from 'react-redux';
 
 function Header() {
     {/* modal */}
@@ -19,29 +19,27 @@ function Header() {
         myLogoutModal.current.show();
     };
     
-    {/* navbar */}
-    const { isLogin, setIsLogin } = useAuth();
-    const mobileNavRef = useRef(null);
+     {/* Navbar展開＆收合 */}
+    const [ mobileOpen, setMobileOpen ] = useState(false);
+    const [ desktopOpen, setDesktopOpen ] = useState(false);
     const location = useLocation();
 
-    //跳轉頁面時，navbar收合（仍待修改）
-    useEffect(() => {
-        if (!mobileNavRef.current) return;
-
-        const navBarCollapse = Collapse.getInstance(mobileNavRef.current)
-        || new Collapse (mobileNavRef.current, { toggle : false});
-
-        navBarCollapse.hide();
-    }, [location]);
-
-    const [mobileOpen, setMobileOpen] = useState(false);
+    useEffect(()=>{
+        setMobileOpen(false)
+        setDesktopOpen(false)
+    },[location]);
+     
+    // 登入登出
+    const dispatch = useDispatch();
+    const navigate = useDispatch();
+    const isLogin = useSelector(state => state.login.isLogin);
 
 
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light shadow">
                 <div className="container">
-               {/* navbar logo */}
+               {/* Logo */}
                     <Link  to='/'
                            className="navbar-brand me-auto py-0">
                         <img src={images.ononLogoSm} 
@@ -62,8 +60,7 @@ function Header() {
                             onClick={() => setMobileOpen(prev => !prev)}>
                         <span className="material-symbols-outlined">menu</span>
                     </button>
-                    <div className={`collapse navbar-collapse mobile-menu ${mobileOpen ? 'show' : ''}`}
-                        ref={mobileNavRef}>
+                    <div className={`collapse navbar-collapse mobile-menu ${mobileOpen && 'show'}`}>
                     {/* mobile */}
                         { isLogin ? (
                             <ul className="navbar-nav ms-auto mb-5 d-lg-none text-primary-800">
@@ -188,63 +185,62 @@ function Header() {
                                     { isLogin ? (<>
                                         <img src={images.avatar}  alt='avatar'
                                             style={{width:40, height:40}}
-                                            className="dropdown-toggle border rounded-circle"
-                                            data-bs-toggle="dropdown" 
-                                            aria-expanded="false" />
-                                        <ul className="dropdown-menu dropdown-menu-end"
-                                            style={{width:250}}>
-                                            <li>
-                                                <Link to='/login' className="dropdown-item px-6 py-2">
-                                                    <span className="fs-6 text-primary-700">
-                                                        <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">person</span>會員中心
-                                                    </span>
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link to='/membersignup' className="dropdown-item px-6 py-2">
-                                                    <span className="fs-6 text-primary-700">
-                                                        <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">edit</span>修改會​員​資料
-                                                    </span>
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link to='/' className="dropdown-item px-6 py-2">
-                                                    <span className="fs-6 text-primary-700">
-                                                        <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">lock</span>修改密碼
-                                                    </span>
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link to='/sidebarlayout/orders' className="dropdown-item px-6 py-2">
-                                                    <span className="fs-6 text-primary-700">
-                                                        <span className="material-symbols-outlined align-bottom me-2 text-primary-300">credit_card</span>訂單紀錄
-                                                    </span>
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link to='/sidebarlayout/coupon' className="dropdown-item px-6 py-2">
-                                                    <span className="fs-6 text-primary-700">
-                                                        <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">local_activity</span>優惠券＆點數
-                                                    </span>
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <button type='button'
-                                                        className="dropdown-item px-6 py-2"
-                                                        onClick={openModal}>
-                                                    <span className="fs-6 text-primary-700">
-                                                        <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">takeout_dining</span>寄甜商品
-                                                    </span>
-                                                </button>
-                                            </li>
-                                            <li className='border-top'>
-                                                <button className="dropdown-item px-6 py-2"
-                                                        onClick={openLogoutModal}>
-                                                    <span className="fs-6 text-primary-700">
-                                                        <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">logout</span>登出
-                                                    </span>
-                                                </button>
-                                            </li>           
+                                            className="border rounded-circle"
+                                            onClick={()=>setDesktopOpen( prev => !prev )}/>
+                                        <ul className={`dropdown-menu ${ desktopOpen && 'show dropdown-menu-end'}`}
+                                                style={{width:250, position: "absolute", top: "120%", right: -4,}}>
+                                                <li>
+                                                    <Link to='/login' className="dropdown-item px-6 py-2">
+                                                        <span className="fs-6 text-primary-700">
+                                                            <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">person</span>會員中心
+                                                        </span>
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link to='/membersignup' className="dropdown-item px-6 py-2">
+                                                        <span className="fs-6 text-primary-700">
+                                                            <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">edit</span>修改會​員​資料
+                                                        </span>
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link to='/' className="dropdown-item px-6 py-2">
+                                                        <span className="fs-6 text-primary-700">
+                                                            <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">lock</span>修改密碼
+                                                        </span>
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link to='/sidebarlayout/orders' className="dropdown-item px-6 py-2">
+                                                        <span className="fs-6 text-primary-700">
+                                                            <span className="material-symbols-outlined align-bottom me-2 text-primary-300">credit_card</span>訂單紀錄
+                                                        </span>
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link to='/sidebarlayout/coupon' className="dropdown-item px-6 py-2">
+                                                        <span className="fs-6 text-primary-700">
+                                                            <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">local_activity</span>優惠券＆點數
+                                                        </span>
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <button type='button'
+                                                            className="dropdown-item px-6 py-2"
+                                                            onClick={openModal}>
+                                                        <span className="fs-6 text-primary-700">
+                                                            <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">takeout_dining</span>寄甜商品
+                                                        </span>
+                                                    </button>
+                                                </li>
+                                                <li className='border-top'>
+                                                    <button className="dropdown-item px-6 py-2"
+                                                            onClick={openLogoutModal}>
+                                                        <span className="fs-6 text-primary-700">
+                                                            <span className="material-symbols-outlined fill align-bottom me-2 text-primary-300">logout</span>登出
+                                                        </span>
+                                                    </button>
+                                                </li>           
                                         </ul>
                                     </>
                                     ) : (

@@ -4,13 +4,17 @@ import { AuthProvider } from './context/AuthContext';
 import './assets/scss/all.scss';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-
 import routes from './routes/routers.jsx';
 import { createHashRouter, RouterProvider } from 'react-router';
 const router = createHashRouter(routes)
 
+import { store } from './store';
+import { Provider } from 'react-redux';
+
 createRoot(document.getElementById('root')).render(
-  <AuthProvider>
-      <RouterProvider router={router}/>
-  </AuthProvider>
+  <Provider store={store}>
+    <AuthProvider>
+        <RouterProvider router={router}/>
+    </AuthProvider>
+  </Provider>
 )
