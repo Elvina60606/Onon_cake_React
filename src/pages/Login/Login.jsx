@@ -1,8 +1,13 @@
 import { useState, useRef } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import "./login.scss";
 
 import images from '@/assets/images/images.js';
+//import { useAuth } from "../../context/AuthContext";
+
+import { useDispatch } from "react-redux";
+import { loginSuccess, loginFailed } from "@/slices/loginSlice";
+
 
 function Login() {
   // 1. 狀態管理:控制密碼顯示/隱藏、圖示顏色
@@ -17,6 +22,41 @@ function Login() {
   const handleTogglePassword = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
+
+  // 會員登入資料
+  const [formData, setFormData] = useState({
+    username: 'cat250070@livemail.tw',
+    password: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+
+    setFormData(prev => ({
+      ...prev,
+    [name]: value
+    }));
+  };
+
+
+  //const { isLogin, setIsLogin } = useAuth();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    //setIsLogin(true);
+    e.preventDefault();
+    if (formData.username && formData.password){
+      dispatch(loginSuccess())
+      navigate('/')
+      console.log('login success')
+    } else {
+      dispatch(loginFailed())
+      console.log('login failed')
+    }
+  };
+
+
 
   return (
     <main
@@ -62,6 +102,8 @@ function Login() {
                   placeholder="請輸入帳號"
                   onFocus={() => setUsernameFocus(true)}
                   onBlur={() => setUsernameFocus(false)}
+                  value={formData.username}
+                  onChange={handleChange}
                 />
                 <span
                   className={`material-symbols-outlined cursor-pointer icon-hover-secondary ${
@@ -88,6 +130,8 @@ function Login() {
                   name="password"
                   className="login-input flex-grow-1 border-0 bg-transparent py-2"
                   placeholder="請輸入密碼"
+                  value={formData.password}
+                  onChange={handleChange}
                 />
                 <span
                   className={`material-symbols-outlined cursor-pointer icon-hover-secondary ${
@@ -107,12 +151,12 @@ function Login() {
               </Link>
             </div>
 
-            <button
-              type="button"
+            <Link
+              onClick={(e)=>{handleSubmit(e)}}
               className="btn btn-login mt-4 w-100 rounded-pill text-white border-0"
             >
               會員登入
-            </button>
+            </Link>
 
             <Link
               to="#"

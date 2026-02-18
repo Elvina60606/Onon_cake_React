@@ -1,5 +1,3 @@
-import images from '@/assets/images/images.js';
-import Footer from '@/Component/Footer';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
@@ -13,7 +11,6 @@ const Products = () => {
         (async() => {
             try {
                 const response = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/products/all`)
-                console.log(response.data.products)
                 setProducts(response.data.products)
             } catch (error) {
                 console.log("setProducts:",error.message)

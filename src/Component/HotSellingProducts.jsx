@@ -1,4 +1,7 @@
 import images from '@/assets/images/images.js';
+import { Link } from 'react-router';
+
+//串商品API?
 
 const HotSellingProducts =() => {
 
@@ -87,7 +90,7 @@ const HotSellingProducts =() => {
                         </div>
                     </div>
                     <div className="d-flex justify-content-center align-items-center pb-8">
-                        <a href="product.html" className="btn btn-light fs-6">更多商品</a>
+                        <Link to='products' className="btn btn-light fs-6">更多商品</Link>
                     </div>
                 </div>
             </section>
