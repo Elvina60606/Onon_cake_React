@@ -172,7 +172,7 @@ function Login() {
               還不是會員嗎?
             </span>
             <Link
-              to="#"
+              to="/membersignup"
               className="btn btn-register text-primary-700 fw-bold rounded-pill"
             >
               手刀加入

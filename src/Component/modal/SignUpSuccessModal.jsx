@@ -2,12 +2,14 @@ import Modal from 'bootstrap/js/dist/modal';
 import images from '@/assets/images/images.js';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import { handleNavigateLogout } from './utils/handleNavigateLogout';
 
 
 export default function SignUpSuccessModal({mySignUpModal}) {
 
   const signUpModalRef = useRef(null);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,7 +43,7 @@ export default function SignUpSuccessModal({mySignUpModal}) {
               <h6 className="fs-lg-5 mb-1">恭喜您註冊成功！</h6>
               <p className="fs-7 fs-lg-6 mb-2">首購折扣優惠券已匯入帳戶</p>
               <button className="d-block btn btn-confirm btn-primary-300 text-white w-75 mb-2 me-auto pointer"
-                      onClick={()=>{handleNavigateLogout( mySignUpModal, navigate )}}>
+                      onClick={()=>{handleNavigateLogout( dispatch, mySignUpModal, navigate )}}>
                 立即登入
               </button>
             </div>

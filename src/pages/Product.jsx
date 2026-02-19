@@ -1,23 +1,23 @@
 import images from '@/assets/images/images.js';
-import Footer from '@/Component/Footer';
 import HotSellingProducts from '@/Component/HotSellingProducts';
 import ImagesChange from '@/Component/product/ImagesChange';
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+//import { incrementCount, decrementCount  } from '@/slices/counterSlice';
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
-
 
 
 const Product =() => {
     const paramas = useParams();
     const { id } = paramas;
 
+    // product
     const [ product, setProduct ] = useState({});
     const [ showImages, setShowImages ] = useState([]);
-
     useEffect(() => {
         (async() => {
             try {
@@ -38,6 +38,37 @@ const Product =() => {
         })();
     },[id]);
 
+    // qty & cart
+    // const count = useSelector(state => state.counter.count)
+    // const dispatch = useDispatch();
+
+    const [ qty, setQty ] = useState(1);
+
+    const decrementCount =() => {
+        if( qty <= 1 ) return;
+        setQty( prev => prev-1 )
+    }
+
+    const incrementCount =() => {
+        if( qty >= 10 ) return;
+        setQty( prev => prev+1 )
+    }
+
+    const addCarts = async() => {
+        const data ={
+            "product_id": id,
+            "qty": qty
+        };
+
+        try {
+            const res = await axios.post(`${VITE_API_BASE}api/${VITE_API_PATH}/cart`, {data})
+            const result = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/cart`)
+            console.log(result.data.data.carts)
+        } catch (error) {
+            console.log('未加入購物車',error)
+        }
+    }
+
     return(
         <>
           {/* 商品區塊 */}
@@ -56,58 +87,57 @@ const Product =() => {
                         <div className="row">
                             <ImagesChange setShowImages={setShowImages}
                                           showImages={showImages}/>
-
                         { /* 商品資訊 */}
                             <div className="col-12 col-lg-7 order-3 ps-lg-8">
-
-                            { /* 標題 + 愛心 */}
                                 <div className="d-flex align-items-center justify-content-between mb-4">
                                     <h3 className="fw-bold mb-0 text-primary-800 fs-lg-2">{product.title}</h3>
                                     <button id="heartBtn" className="btn p-0 border-0 bg-transparent">
                                         <i id="heartIcon" className="bi bi-heart fs-4"></i>
                                     </button>
                                 </div>
-
-                            { /* 商品描述 */ }
                                 <p className="text-primary-700 mb-4 mb-lg-6">{product.description}</p>
-
                             { /* 價格 */ }
                                 <div className="d-flex align-items-baseline">
                                     <span className="fs-3 text-secondary-500 fw-bold me-6 mb-4 mb-lg-6">NT$ {product.price}</span>
                                     <span className="text-decoration-line-through text-gray-700 fs-7">原價 NT$ {product.origin_price}</span>
                                 </div>
-
-                            { /* 提示標籤 */}
                                 <div className="mb-5 mb-lg-0">
                                     <span className="badge text-bg-secondary-50 text-secondary-500 p-2 fs-6 rounded-1 fw-500 border border-1 border-secondary-500">此商品為冷凍寄出</span>
                                 </div>
                                 <hr className="d-none d-lg-block my-lg-6" />
 
-                            { /* 桌機版 (一直顯示) */}
+                            { /* desktop addcarts */}
                                 <div className="cart-actions d-none d-lg-flex align-items-center w-100">
                                 {/* 數量選擇器 */}
                                     <div className="quantity-control d-flex align-items-center w-50">
-                                        <button className="qty-btn btn btn-outline-secondary">-</button>
-                                            <input type="text"
-                                                    className="form-control text-center mx-2"
-                                                    value="1"
-                                                    readOnly
-                                                    style={{width: 60}}/>
-                                        <button className="qty-btn btn btn-outline-secondary">+</button>
+                                        <button className="qty-btn btn btn-outline-secondary"
+                                                type='button'
+                                                onClick={()=> decrementCount()}>-
+                                        </button>
+                                        <input  type="text"
+                                                className="form-control text-center mx-2"
+                                                value={qty}
+                                                readOnly
+                                                style={{width: 60}}/>
+                                        <button className="qty-btn btn btn-outline-secondary"
+                                                type='button'
+                                                onClick={()=> incrementCount()}>+
+                                        </button>
                                     </div>
-
-                                { /* 加入購物車 */}
-                                    <button className="btn btn-primary w-50">加入購物車</button>
+                                    <button className="btn btn-primary w-50"
+                                            type='button'
+                                            onClick={()=> addCarts(id)}>
+                                            加入購物車
+                                    </button>
                                 </div>
 
-                            { /* (底部固定) */}
+                            { /* mobile addcarts */}
                                 <div className="cart-actions-mobile d-lg-none fixed-bottom px-3 py-4 bg-white shadow">
-                                { /* 初始狀態：只有加入購物車 */ }
                                     <button id="mobileAddCart" 
                                             className="btn btn-primary w-100">加入購物車
                                     </button>
 
-                                { /* 點擊後：顯示數量 + 確認購物車 (預設隱藏) */}
+                                { /* 點擊後顯示數量（待修改） */}
                                     <div id="mobileCartControls"
                                         className="d-none bg-white py-1 px-2 rounded">
                                         <div className="d-flex align-items-center justify-content-between mb-4">
