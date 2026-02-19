@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from 'react';
 
 import PickUpLaterModal from '../modal/PickUpLaterModal';
 import LogoutModal from '../modal/LogoutModal';
-//import { useAuth } from "../../context/AuthContext";
 import { useDispatch, useSelector } from 'react-redux';
 
 function Header({mobileOpen, setMobileOpen}) {
