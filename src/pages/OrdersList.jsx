@@ -1,16 +1,30 @@
 import images from '@/assets/images/images.js';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
+const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
 function OrdersList() {
+    const [ orders, setOrders ] = useState([]);
+
+    useEffect(()=>{
+      (async()=>{
+        try {
+          const res = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/cart`)
+          console.log(res.data.carts)
+          setOrders(res.data.carts)
+        } catch (error) {
+          console.log('orders:', error)  
+        }
+      })()
+    },[])
+
     return (
     <>
         <div className="col-md-9">
             <div className="tab-content">
         {/*--訂單紀錄內容--*/}
               <div className="tab-pane active" 
-                   id="ordersList" 
-                   role="tabpanel" 
-                   aria-labelledby="ordersList-tab"
                    tabIndex="0">
                     <h3 className="mb-6">訂單紀錄</h3>
         {/*--手機版--*/}

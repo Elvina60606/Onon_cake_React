@@ -7,7 +7,7 @@ import LogoutModal from '../modal/LogoutModal';
 //import { useAuth } from "../../context/AuthContext";
 import { useDispatch, useSelector } from 'react-redux';
 
-function Header() {
+function Header({mobileOpen, setMobileOpen}) {
     {/* modal */}
     const myPickUpLaterModal= useRef(null);
     const myLogoutModal = useRef(null);
@@ -20,7 +20,6 @@ function Header() {
     };
     
      {/* Navbar展開＆收合 */}
-    const [ mobileOpen, setMobileOpen ] = useState(false);
     const [ desktopOpen, setDesktopOpen ] = useState(false);
     const location = useLocation();
 
@@ -37,7 +36,7 @@ function Header() {
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light shadow">
+            <nav className={`navbar navbar-expand-lg navbar-light bg-light mb-auto ${ !mobileOpen && 'shadow'}`}>
                 <div className="container">
                {/* Logo */}
                     <Link  to='/'
@@ -147,8 +146,6 @@ function Header() {
                                 </li>
                             </ul>
                         )}
-                        
-                        <div className="empty-section d-lg-none"></div>
 
                     {/* desktop */}
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0 gap-6 align-items-center d-none d-lg-flex">
