@@ -5,5 +5,4 @@ export const handleNavigateLogout =(dispatch, myModal, navigate) => {
         dispatch(logout());
         myModal.current.hide();
         navigate('/login');
-        console.log('logout success')
     };
