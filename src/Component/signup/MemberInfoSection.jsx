@@ -1,6 +1,11 @@
+import taiwanDistricts from "@/data/taiwanDistricts.json";
 import { useState } from "react";
 
-export default function MemberInfoSection({ formData, handleChange }) {
+export default function MemberInfoSection({
+  formData,
+  handleChange,
+  setFormData,
+}) {
   // null: 未輸入, true: 格式正確, false: 格式錯誤
   const [isPhoneValid, setIsPhoneValid] = useState(null);
 
@@ -25,6 +30,35 @@ export default function MemberInfoSection({ formData, handleChange }) {
     } else {
       setIsEmailValid(emailRegex.test(formData.email));
     }
+  };
+
+  // 處理縣市切換
+  const handleCityChange = (e) => {
+    const selectedCity = e.target.value;
+
+    // 更新父層 state
+    setFormData((prev) => ({
+      ...prev,
+      city: selectedCity,
+      district: "", // 重置行政區
+      postCode: "", // 重置郵遞區號
+    }));
+  };
+
+  // 處理行政區切換
+  const handleDistrictChange = (e) => {
+    const selectedDist = e.target.value;
+
+    // 找出目前縣市的資料物件
+    const cityObj = taiwanDistricts.find((item) => item.city === formData.city);
+    // 從該縣市中找出對應行政區的郵遞區號
+    const distObj = cityObj?.districts.find((d) => d.name === selectedDist);
+
+    setFormData((prev) => ({
+      ...prev,
+      district: selectedDist,
+      postCode: distObj ? distObj.zip : "", // 自動填入郵遞區號
+    }));
   };
 
   return (
@@ -174,39 +208,56 @@ export default function MemberInfoSection({ formData, handleChange }) {
             <label htmlFor="postCode" className="form-label">
               聯絡地址
             </label>
-
             <div className="row g-2">
+              {/* 郵遞區號 */}
               <div className="col-12 col-md-4">
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control bg-light"
                   id="postCode"
                   name="postCode"
                   placeholder="郵遞區號"
                   value={formData.postCode}
                   onChange={handleChange}
+                  readOnly // 唯讀
                 />
               </div>
+              {/* 縣市選單 */}
               <div className="col-6 col-md-4">
                 <select
                   className="form-select"
                   name="city"
                   id="city"
                   value={formData.city}
-                  onChange={handleChange}
+                  onChange={handleCityChange}
                 >
                   <option value="">縣市</option>
+                  {taiwanDistricts.map((item) => (
+                    <option key={item.city} value={item.city}>
+                      {item.city}
+                    </option>
+                  ))}
                 </select>
               </div>
+              {/* 行政區選單 */}
               <div className="col-6 col-md-4">
                 <select
                   className="form-select"
                   name="district"
                   id="district"
                   value={formData.district}
-                  onChange={handleChange}
+                  onChange={handleDistrictChange}
+                  disabled={!formData.city} // 沒選縣市前禁用
                 >
                   <option value="">鄉鎮市區</option>
+                  {/* 根據已選縣市，動態渲染行政區 */}
+                  {taiwanDistricts
+                    .find((item) => item.city === formData.city)
+                    ?.districts.map((d) => (
+                      <option key={d.name} value={d.name}>
+                        {d.name}
+                      </option>
+                    ))}
                 </select>
               </div>
               <div className="col-12">
