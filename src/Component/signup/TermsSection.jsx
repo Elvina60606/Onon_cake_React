@@ -1,11 +1,24 @@
-export default function TermsSection() {
+export default function TermsSection({ formData, setFormData }) {
   return (
     <div className="card">
       <div className="mx-md-11 my-md-8 m-4">
         <h5 className="mb-4">加入會員須知</h5>
 
         <div className="form-check">
-          <input className="form-check-input" type="checkbox" id="terms" />
+          <input
+            className="form-check-input"
+            type="checkbox"
+            id="terms"
+            name="isAgreed"
+            checked={formData.isAgreed}
+            onChange={(e) => {
+              // 把 checked 的狀態傳回
+              setFormData((prev) => ({
+                ...prev,
+                isAgreed: e.target.checked,
+              }));
+            }}
+          />
           <label className="form-check-label" htmlFor="terms">
             您已詳閱我們的
             <a
