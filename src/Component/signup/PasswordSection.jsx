@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function PasswordSection({ formData, handleChange }) {
   // 建立兩個狀態，分別控制「密碼」與「確認密碼」的顯示
@@ -9,7 +9,7 @@ export default function PasswordSection({ formData, handleChange }) {
   const [isPwdValid, setIsPwdValid] = useState(null);
   const [isConfirmValid, setIsConfirmValid] = useState(null);
 
-  // 驗證 1：密碼格式 (8-16碼英數)
+  // 驗證：密碼格式 (8-16碼英數)
   const handleValidation = () => {
     const pwdRegex = /^[a-zA-Z0-9]{8,16}$/;
     if (formData.password === "") {
@@ -19,23 +19,22 @@ export default function PasswordSection({ formData, handleChange }) {
     }
   };
 
-  // 驗證 2：兩次輸入是否一致
-  const handleConfirmValidation = () => {
-    if (formData.confirmPassword === "") {
-      setIsConfirmValid(null);
+  // 監控：只要密碼或確認密碼任一項變動，且確認密碼不是空的，就重新比對
+  useEffect(() => {
+    if (formData.confirmPassword !== "") {
+      setIsConfirmValid(formData.password === formData.confirmPassword);
     } else {
-      // 比對兩個欄位的值
-      setIsConfirmValid(formData.confirmPassword === formData.password);
+      setIsConfirmValid(null);
     }
-  };
+  }, [formData.password, formData.confirmPassword]);
 
-// 取得顏色類別
+  // 取得顏色類別
   const getValidationClass = (isValid) => {
     if (isValid === null) return "text-neutral-400";
     return isValid ? "text-success" : "text-danger";
   };
 
-// 取得圖示類別
+  // 取得圖示類別
   const getIconClass = () => {
     if (isPwdValid === null) return "bi-square-fill"; // 初始：空方框
     return isPwdValid ? "bi-check-square-fill" : "bi-x-square-fill"; // 正確：勾勾，錯誤：叉叉
@@ -68,7 +67,9 @@ export default function PasswordSection({ formData, handleChange }) {
               {showPwd ? "visibility" : "visibility_off"}
             </span>
           </div>
-          <small className={`${getValidationClass(isPwdValid)} d-block mt-1 transition-all`}>
+          <small
+            className={`${getValidationClass(isPwdValid)} d-block mt-1 transition-all`}
+          >
             <i className={`bi ${getIconClass(isPwdValid)} me-1`}></i>
             8–16 碼英文字母或數字
           </small>
@@ -87,7 +88,6 @@ export default function PasswordSection({ formData, handleChange }) {
               placeholder="請再次填寫密碼"
               value={formData.confirmPassword}
               onChange={handleChange}
-              onBlur={handleConfirmValidation}
             />
             <span
               className=" material-symbols-outlined fill cursor-pointer input-group-text bg-white"
@@ -101,9 +101,9 @@ export default function PasswordSection({ formData, handleChange }) {
             className={`${getValidationClass(isConfirmValid)} d-block mt-2 transition-all`}
           >
             <i className={`bi ${getIconClass(isConfirmValid)} me-1`}></i>
-            {isConfirmValid === false
-              ? "密碼輸入不一致"
-              : "請再次輸入相同的密碼"}
+            {isConfirmValid === null && "請再次輸入相同的密碼"}
+            {isConfirmValid === false && "密碼輸入不一致"}
+            {isConfirmValid === true && "密碼一致"}
           </small>
         </div>
       </div>
