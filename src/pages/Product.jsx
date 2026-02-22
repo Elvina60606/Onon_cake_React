@@ -6,7 +6,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-//import { incrementCount, decrementCount  } from '@/slices/counterSlice';
+import { getAsyncMessage } from '@/slices/messageSlice';
+import MessageToast from '@/Component/MessageToast';
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
@@ -39,8 +40,7 @@ const Product =() => {
     },[id]);
 
     // qty & cart
-    // const count = useSelector(state => state.counter.count)
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const [ qty, setQty ] = useState(1);
 
@@ -62,15 +62,17 @@ const Product =() => {
 
         try {
             const res = await axios.post(`${VITE_API_BASE}api/${VITE_API_PATH}/cart`, {data})
-            const result = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/cart`)
-            console.log(result.data.data.carts)
+            console.log(res.data)
+            dispatch(getAsyncMessage(res.data))
         } catch (error) {
-            console.log('未加入購物車',error)
+            console.log('未加入購物車')
+            dispatch(getAsyncMessage(error.response?.data))
         }
     }
 
     return(
         <>
+        <MessageToast />
           {/* 商品區塊 */}
              <section className="container pt-8 pb-5">
               {/* 麵包屑 */}
@@ -168,7 +170,6 @@ const Product =() => {
                                 </div>
                             </div>
                         </div>
-
              </section>
 
           { /* 商品規格區 */}

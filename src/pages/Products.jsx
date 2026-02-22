@@ -1,12 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
+
+import MessageToast from '@/Component/MessageToast';
+import { getAsyncMessage } from "@/slices/messageSlice";
+
+import Pagination from "@/Component/Pagination";
+import { setTotalItems, setLoading, setError } from '../slices/paginationSlice';
 
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
 const Products = () => {
-
     const [ products, setProducts ] = useState([]);
     useEffect(() => {
         (async() => {
@@ -19,8 +25,47 @@ const Products = () => {
         })()
     },[]);
 
+    // addOneToCart
+    const dispatch = useDispatch();
+    const addOneToCart = async(id) => {
+        const data ={
+            "product_id": id,
+            "qty": 1
+        };
+
+        try {
+            const res = await axios.post(`${VITE_API_BASE}api/${VITE_API_PATH}/cart`, {data})
+            console.log(res.data)
+            dispatch(getAsyncMessage(res.data))
+        } catch (error) {
+            console.log('未加入購物車')
+            dispatch(getAsyncMessage(error.response?.data))
+        }
+    }
+
+    // pagination
+    const { currentPage, pageSize, loading } = useSelector( state => state.pagination );
+    const fetchProducts = async() => {
+      try {
+        const res = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/products?page=${currentPage}&size=${pageSize}`)
+        dispatch(setLoading(true))
+        setProducts(res.data.products)
+        dispatch(setTotalItems(res.data.products.length))
+        dispatch(setLoading(false))
+      } catch (error) {
+        dispatch(setError(error.message));
+        dispatch(setLoading(false))
+      }
+    }
+
+    useEffect(()=>{
+      fetchProducts()
+    },[currentPage])
+
   return (
     <>
+      { loading && '載入中......'}
+      <MessageToast />
       <main className="container py-8 py-md-12">
         <div className="row">
           {/* 商品總覽sidebar */}
@@ -143,7 +188,8 @@ const Products = () => {
                           <h4 className="text-primary-700">
                             NT$ {product.price}
                           </h4>
-                          <button className="btn btn-card-cart px-6">
+                          <button className="btn btn-card-cart px-6"
+                                  onClick={()=>addOneToCart(product.id)}>
                             <span className="material-symbols-outlined fill align-bottom">
                               shopping_cart
                             </span>
@@ -155,148 +201,9 @@ const Products = () => {
                 );
               })}
             </div>
-            {/* desktop-pagination */}
-            <div className="py-4 d-none d-md-block">
-              <nav aria-label="Page navigation example">
-                <ul className="pagination justify-content-center align-items-center gap-2">
-                  <li className="page-item disabled">
-                    <a
-                      className="page-link pagination-icon"
-                      href="#"
-                      aria-label="Previous"
-                    >
-                      <span className="material-symbols-outlined align-top fill fs-5">
-                        skip_previous
-                      </span>
-                    </a>
-                  </li>
-                  <li className="page-item disabled">
-                    <a
-                      className="page-link pagination-icon"
-                      href="#"
-                      aria-label="Previous"
-                    >
-                      <span className="material-symbols-outlined align-top fs-5">
-                        chevron_left
-                      </span>
-                    </a>
-                  </li>
-                  <li className="page-item active">
-                    <a className="page-link align-middle" href="#">
-                      1
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      2
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      3
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      4
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      5
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a
-                      className="page-link pagination-icon"
-                      href="#"
-                      aria-label="Next"
-                    >
-                      <span className="material-symbols-outlined align-top fs-5">
-                        chevron_right
-                      </span>
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a
-                      className="page-link pagination-icon"
-                      href="#"
-                      aria-label="Next"
-                    >
-                      <span className="material-symbols-outlined align-top fill fs-5">
-                        skip_next
-                      </span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-            {/* mobile-pagination */}
-            <div className="py-4 d-md-none">
-              <nav aria-label="Page navigation example">
-                <ul className="pagination justify-content-center align-items-center gap-2">
-                  <li className="page-item disabled">
-                    <a
-                      className="page-link pagination-icon"
-                      href="#"
-                      aria-label="Previous"
-                    >
-                      <span className="material-symbols-outlined align-top fill fs-5">
-                        skip_previous
-                      </span>
-                    </a>
-                  </li>
-                  <li className="page-item disabled">
-                    <a
-                      className="page-link pagination-icon"
-                      href="#"
-                      aria-label="Previous"
-                    >
-                      <span className="material-symbols-outlined align-top fs-5">
-                        chevron_left
-                      </span>
-                    </a>
-                  </li>
-                  <li className="page-item active">
-                    <a className="page-link align-middle" href="#">
-                      1
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      2
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">
-                      3
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a
-                      className="page-link pagination-icon"
-                      href="#"
-                      aria-label="Next"
-                    >
-                      <span className="material-symbols-outlined align-top fs-5">
-                        chevron_right
-                      </span>
-                    </a>
-                  </li>
-                  <li className="page-item">
-                    <a
-                      className="page-link pagination-icon"
-                      href="#"
-                      aria-label="Next"
-                    >
-                      <span className="material-symbols-outlined align-top fill fs-5">
-                        skip_next
-                      </span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
+
+              <Pagination />
+
           </section>
         </div>
       </main>
