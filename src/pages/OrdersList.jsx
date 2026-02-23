@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Pagination from "@/Component/Pagination";
+import Pagination from '@/Component/pagination/Pagination';
 import { setTotalItems, setLoading, setError } from '../slices/paginationSlice';
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
@@ -13,7 +13,6 @@ function OrdersList() {
       (async()=>{
         try {
           const res = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/orders`)
-          console.log(res.data.orders)
           setOrders(res.data.orders)
         } catch (error) {
           console.log('orders:', error)  
@@ -88,11 +87,13 @@ function OrdersList() {
                         </div>
                         <div>
                           <span className="text-neutral-500">品項</span>
+                          <div className='d-flex flex-column'>
                             {Object.values(order.products || {}).map(product => (
-                              <span key={product.id}>
+                              <p key={product.id}>
                                 {product.product.title}({product.product.content}) x {product.qty}
-                              </span>
+                              </p>
                             ))}
+                          </div>
                         </div>
                         <div>
                           <span className="text-neutral-500">總金額</span>
@@ -128,11 +129,14 @@ function OrdersList() {
                                  <span className="border border-0 rounded-pill bg-success-50 text-success-700 px-3 py-2">已完成</span>
                                : <span className="border border-0 rounded-pill bg-alert-50 text-alert-700 px-3 py-2">已成立</span>}                              
                             </td>
-                            {Object.values(order.products || {}).map(product => (
-                              <td key={product.id}>
-                                {product.product.title}({product.product.content}) x {product.qty}
-                              </td>
-                            ))}
+                            <td>
+                              {Object.values(order.products || {}).map(product => (
+                                <div key={product.id} >
+                                  {product.product.title}({product.product.content}) x {product.qty}
+                                </div>
+
+                              ))}
+                            </td>
                             <td className="text-end">NT$ {order.total}</td>
                           </tr>
                         )

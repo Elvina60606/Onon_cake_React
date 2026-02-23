@@ -20,7 +20,6 @@ const INITIAL_TEMPLATE_DATA = {
   imagesUrl: [],
 };
 
-
 const ProductManagement =() => {
 
     // 產品資料
