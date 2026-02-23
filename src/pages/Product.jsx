@@ -223,7 +223,7 @@ const Product =() => {
                                             商品規格
                                         </h4>
                                         <div className="fs-lg-6 lh-24 text-neutral-800">
-                                            <p>【規格】6入/盒</p>
+                                            <p>【規格】{product.content}</p>
                                             <p className="mb-4">【保存方式與最佳賞味期限】冷凍21天</p>
                                             <p>因台灣氣候悶熱，收貨後請一樣冷凍保存，以維持商品品質。</p>
                                             <p>本產品堅持不添加防腐劑，開封後請儘速食用完畢。</p>
