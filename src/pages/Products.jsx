@@ -6,7 +6,7 @@ import { Link } from "react-router";
 import MessageToast from '@/Component/MessageToast';
 import { getAsyncMessage } from "@/slices/messageSlice";
 
-import Pagination from "@/Component/Pagination";
+import Pagination from "@/Component/pagination/Pagination";
 import { setTotalItems, setLoading, setError } from '../slices/paginationSlice';
 
 import { getAsyncCart } from '@/slices/cartSlice';

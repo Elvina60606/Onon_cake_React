@@ -4,6 +4,9 @@ import loginReducer from './slices/loginSlice';
 import messageReducer from './slices/messageSlice';
 import paginationReducer from './slices/paginationSlice';
 import cartReducer from './slices/cartSlice';
+import adminAuthReducer from './slices/adminAuthSlice';
+import adminProductsReducer from './slices/adminProductsSlice';
+import adminOrdersReducer from './slices/adminOrdersSlice';
 
 export const store = configureStore({
     reducer: {
@@ -11,5 +14,8 @@ export const store = configureStore({
         message: messageReducer,
         pagination: paginationReducer,
         cart: cartReducer,
+        adminauth: adminAuthReducer, 
+        adminproduct: adminProductsReducer,
+        adminorder: adminOrdersReducer,
     }
 });

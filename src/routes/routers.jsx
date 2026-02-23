@@ -1,14 +1,19 @@
-import Layout from '@/pages/Layout/Layout';
+import Layout from '@/Layout/MainLayout';
 import Home from '../pages/Home';
 import Login from '../pages/Login/Login';
 import Products from '../pages/Products';
 import Product from '../pages/Product';
 import ShoppingCart from '../pages/ShoppingCart/ShoppingCart';
 import MemberSignUp from '../pages/MemberSignUp';
-
-import SidebarLayout from '@/pages/Layout/SidebarLayout';
+import SidebarLayout from '@/Layout/SidebarLayout';
 import OrdersList from '../pages/OrdersList';
 import Coupon from '../pages/Coupon';
+
+import AdminLayout from '@/Layout/AdminLayout';
+import Dashboard from '@/admin/Dashboard';
+import ProtectedRoute from './ProtectedRoute';
+import ProductManagement from '@/admin/ProductManagement';
+import OrderManagement from '@/admin/OrderManagement';
 
 import NotFound from '@/pages/NotFound';
 
@@ -55,6 +60,30 @@ const routes = [
                     },
                 ]
             },
+        ]
+    },
+    {
+        path: 'admin',
+        element:
+                <AdminLayout />,
+        children: [
+            {
+                path: 'dashboard',
+                element: <Dashboard />
+            },
+            {
+                element: <ProtectedRoute />,
+                children: [
+                    {
+                        path: 'product',
+                        element: <ProductManagement />
+                    },
+                    {
+                        path: 'order',
+                        element: <OrderManagement />
+                    },
+                ]
+            }
         ]
     },
     {

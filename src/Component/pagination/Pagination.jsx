@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentPage } from '../slices/paginationSlice'
+import { setCurrentPage } from "@/slices/paginationSlice";
 
 
 const Pagination =() =>{
     const dispatch = useDispatch();
-
     const { currentPage, pageSize, totalItems } = useSelector(state => state.pagination);
     const totalPages = Math.ceil(totalItems / pageSize);
+    
     const handleClick = (page) => {
         dispatch(setCurrentPage(page));
         };
@@ -17,7 +17,7 @@ const Pagination =() =>{
                 <ul className="pagination justify-content-center align-items-center gap-2">
                   <li className={`page-item ${currentPage === 1 ? 'disabled': ''}`}>
                     <button className="page-link pagination-icon" type="button"
-                            onClick={()=>setCurrentPage(1)}>
+                            onClick={()=>dispatch(setCurrentPage(1))}>
                       <span className="material-symbols-outlined align-bottom fill fs-5">
                         skip_previous
                       </span>
