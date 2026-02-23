@@ -33,7 +33,7 @@ const Pagination =() =>{
                   </li>
                   {Array.from({length: totalPages}, (_, i) =>(
                     <li className={`page-item ${currentPage === i+1 ? 'active' : ''}`} 
-                        key={i +1 }>
+                        key={ i +1 }>
                         <button className="page-link" type="button"
                                 onClick={()=> handleClick( i +1 )}>
                             <span className="align-text-bottom">{ i +1 }</span>

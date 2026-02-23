@@ -52,31 +52,19 @@ const ShoppingCart = () => {
     臺東縣: ["臺東市", "成功鎮", "關山鎮", "卑名鄉", "大武鄉", "太麻里鄉", "東河鄉", "長濱鄉", "鹿野鄉", "池上鄉", "綠島鄉", "蘭嶼鄉", "延平鄉", "海端鄉", "達仁鄉", "金峰鄉"],
   };
 
-  // --- 3. API 核心函式 (含監控 log) ---
-
   const getCart = async () => {
     setIsLoading(true);
-    console.log("--- [Debug] 開始讀取購物車資料 ---");
     try {
       const res = await axios.get(`${BASE_URL}/api/${API_PATH}/cart`);
-      console.log("--- [Debug] API 回傳結果：", res.data);
-
       if (res.data.success) {
         setCartList(res.data.data.carts);
         setSubTotal(res.data.data.total);
         setFinalTotal(res.data.data.final_total);
-        
-        if (res.data.data.carts.length === 0) {
-          console.warn("--- [Debug] 提示：購物車陣列目前是空的 (carts: []) ---");
-        }
       }
     } catch (error) {
-      console.error("--- [Debug] API 連線失敗！ ---");
-      console.error("錯誤狀態碼：", error.response?.status);
-      console.error("錯誤訊息：", error.response?.data?.message || error.message);
+      console.error("API 連線失敗");
     } finally {
       setIsLoading(false);
-      console.log("--- [Debug] 讀取程序結束 ---");
     }
   };
 
@@ -168,7 +156,8 @@ const ShoppingCart = () => {
   return (
     <div className="shopping-cart-page">
       <div className="shopping-cart">
-        <section className="bg-neutral-50">
+        {/* --- 上半部：灰色背景區塊 --- */}
+        <section className="bg-neutral-50 pb-8 pb-md-12">
           <div className="container">
             <h2 className="fs-3 fs-md-2 text-black pt-8 pt-md-12 mb-6 mb-md-8">購物車商品清單</h2>
 
@@ -237,7 +226,6 @@ const ShoppingCart = () => {
                   </div>
                 </div>
               </div>
-
               <div className="col-12 col-md-4 mt-4">
                 <div className="p-5 p-md-6 border rounded-4 bg-white">
                   <label className="form-label d-block mb-1">優惠碼</label>
@@ -250,7 +238,6 @@ const ShoppingCart = () => {
                   </div>
                 </div>
               </div>
-
               <div className="col-12 col-md-4 mt-4">
                 <div className="p-5 p-md-6 border rounded-4 bg-white">
                   <label className="form-label d-block mb-1">優惠券</label>
@@ -270,7 +257,7 @@ const ShoppingCart = () => {
             </div>
 
             {/* 金額計算 */}
-            <div className="row mt-4 pb-8 pb-md-12">
+            <div className="row mt-4">
               <div className="col-12">
                 <div className="p-5 p-md-6 border rounded-4 bg-white">
                   <div className="d-flex justify-content-between pb-2 fs-7 fs-md-6"><span>小計</span><span>$ {subTotal.toLocaleString()}</span></div>
@@ -284,111 +271,113 @@ const ShoppingCart = () => {
           </div>
         </section>
 
-        {/* 訂購表單 */}
-        <section className="container">
-          <form className="shipping-info" onSubmit={handleCheckout}>
-            <h2 className="mt-lg-12 mb-lg-8 mt-8 mb-6">填寫資訊</h2>
-            <div className="cart-border p-6 mb-6">
-              <div className="form-check mb-4">
-                <input className="form-check-input" type="checkbox" id="sameAsMember" />
-                <label className="form-check-label" htmlFor="sameAsMember">同會員資料</label>
-              </div>
-              <div className="gap-2 mb-4 d-md-flex">
-                <div style={{ flex: 1 }} className="mb-4 mb-md-0">
-                  <label className="form-label">收件人姓名 <span className="text-danger">*</span></label>
-                  <input name="name" type="text" className="form-control" placeholder="請填寫姓名" required />
+        {/* --- 下半部：純白色背景區塊 (修正紅框問題) --- */}
+        <section style={{ backgroundColor: "#FFFFFF" }}>
+          <div className="container py-8 py-md-12">
+            <form className="shipping-info" onSubmit={handleCheckout}>
+              <h2 className="mb-lg-8 mb-6">填寫資訊</h2>
+              <div className="cart-border p-6 mb-6">
+                <div className="form-check mb-4">
+                  <input className="form-check-input" type="checkbox" id="sameAsMember" />
+                  <label className="form-check-label" htmlFor="sameAsMember">同會員資料</label>
                 </div>
-                <div style={{ flex: 1 }}>
-                  <label className="form-label">聯絡電話 <span className="text-danger">*</span></label>
-                  <input name="tel" type="text" className="form-control" placeholder="請填寫聯絡電話" required />
-                </div>
-              </div>
-              <div className="mb-4">
-                <label className="form-label">收件地址 <span className="text-danger">*</span></label>
-                <div className="d-flex flex-wrap gap-2 mb-4 flex-md-nowrap">
-                  <div className="address-col-200 mb-4 mb-md-0"><input type="text" className="form-control" placeholder="郵遞區號" /></div>
-                  <div className="address-col-200 mb-4 mb-md-0">
-                    <select className="form-select" value={selectedCity} onChange={handleCityChange} required>
-                      <option value="" disabled>縣市</option>
-                      {Object.keys(cityData).map(c => <option key={c} value={c}>{c}</option>)}
-                    </select>
+                <div className="gap-2 mb-4 d-md-flex">
+                  <div style={{ flex: 1 }} className="mb-4 mb-md-0">
+                    <label className="form-label">收件人姓名 <span className="text-danger">*</span></label>
+                    <input name="name" type="text" className="form-control" placeholder="請填寫姓名" required />
                   </div>
-                  <div className="address-col-200 mb-4 mb-md-0">
-                    <select className="form-select" value={selectedDistrict} onChange={(e) => setSelectedDistrict(e.target.value)} disabled={!selectedCity} required>
-                      <option value="" disabled>鄉鎮市區</option>
-                      {districts.map(d => <option key={d} value={d}>{d}</option>)}
-                    </select>
+                  <div style={{ flex: 1 }}>
+                    <label className="form-label">聯絡電話 <span className="text-danger">*</span></label>
+                    <input name="tel" type="text" className="form-control" placeholder="請填寫聯絡電話" required />
                   </div>
-                  <div className="address-col-624 flex-grow-1"><input name="address" type="text" className="form-control" placeholder="請輸入地址" required /></div>
                 </div>
+                <div className="mb-4">
+                  <label className="form-label">收件地址 <span className="text-danger">*</span></label>
+                  <div className="d-flex flex-wrap gap-2 mb-4 flex-md-nowrap">
+                    <div className="address-col-200 mb-4 mb-md-0"><input type="text" className="form-control" placeholder="郵遞區號" /></div>
+                    <div className="address-col-200 mb-4 mb-md-0">
+                      <select className="form-select" value={selectedCity} onChange={handleCityChange} required>
+                        <option value="" disabled>縣市</option>
+                        {Object.keys(cityData).map(c => <option key={c} value={c}>{c}</option>)}
+                      </select>
+                    </div>
+                    <div className="address-col-200 mb-4 mb-md-0">
+                      <select className="form-select" value={selectedDistrict} onChange={(e) => setSelectedDistrict(e.target.value)} disabled={!selectedCity} required>
+                        <option value="" disabled>鄉鎮市區</option>
+                        {districts.map(d => <option key={d} value={d}>{d}</option>)}
+                      </select>
+                    </div>
+                    <div className="address-col-624 flex-grow-1"><input name="address" type="text" className="form-control" placeholder="請輸入地址" required /></div>
+                  </div>
+                </div>
+                <div><label className="form-label">備註</label><textarea name="message" className="form-control" placeholder="請填寫備註" style={{ height: "160px" }}></textarea></div>
               </div>
-              <div><label className="form-label">備註</label><textarea name="message" className="form-control" placeholder="請填寫備註" style={{ height: "160px" }}></textarea></div>
-            </div>
 
-            {/* 付款與發票 */}
-            <div className="row g-6">
-              <div className="col-md-6">
-                <div className="cart-border p-6 h-100">
-                  <h5 className="text-neutral-800 mb-4">付款方式</h5>
-                  {["線上刷卡", "LINE PAY", "APPLE PAY", "ATM轉帳"].map((m, i) => (
-                    <div className="form-check py-2 ps-7" key={m}>
-                      <input className="form-check-input" type="radio" name="pay" id={`pay${i}`} defaultChecked={i === 0} />
-                      <label className="form-check-label" htmlFor={`pay${i}`}>{m}</label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="cart-border p-6 h-100">
-                  <h5 className="text-neutral-800 mb-4">發票開立</h5>
-                  <div className="mb-4">
-                    <select className="form-select" value={selectedInvoiceType} onChange={(e) => setSelectedInvoiceType(e.target.value)}>
-                      <option value="personalInvoice">個人發票</option>
-                      <option value="companyInvoice">公司發票</option>
-                    </select>
+              {/* 付款與發票 */}
+              <div className="row g-6">
+                <div className="col-md-6">
+                  <div className="cart-border p-6 h-100">
+                    <h5 className="text-neutral-800 mb-4">付款方式</h5>
+                    {["線上刷卡", "LINE PAY", "APPLE PAY", "ATM轉帳"].map((m, i) => (
+                      <div className="form-check py-2 ps-7" key={m}>
+                        <input className="form-check-input" type="radio" name="pay" id={`pay${i}`} defaultChecked={i === 0} />
+                        <label className="form-check-label" htmlFor={`pay${i}`}>{m}</label>
+                      </div>
+                    ))}
                   </div>
-                  {selectedInvoiceType === "personalInvoice" ? (
-                    <div className="invoice-block">
-                      <div className="form-check py-2 ps-7">
-                        <input className="form-check-input" type="radio" name="inv" id="inv1" defaultChecked />
-                        <label className="form-check-label" htmlFor="inv1">會員載具</label>
-                      </div>
-                      <div id="invoiceGroup">
-                        <div className="d-flex flex-column flex-md-row align-items-md-center">
-                          <div className="form-check py-2 ps-7 me-8">
-                            <input className="form-check-input" type="radio" name="inv" id="inv2" data-bs-toggle="collapse" data-bs-target="#phoneCol" />
-                            <label className="form-check-label" htmlFor="inv2">手機條碼</label>
+                </div>
+                <div className="col-md-6">
+                  <div className="cart-border p-6 h-100">
+                    <h5 className="text-neutral-800 mb-4">發票開立</h5>
+                    <div className="mb-4">
+                      <select className="form-select" value={selectedInvoiceType} onChange={(e) => setSelectedInvoiceType(e.target.value)}>
+                        <option value="personalInvoice">個人發票</option>
+                        <option value="companyInvoice">公司發票</option>
+                      </select>
+                    </div>
+                    {selectedInvoiceType === "personalInvoice" ? (
+                      <div className="invoice-block">
+                        <div className="form-check py-2 ps-7">
+                          <input className="form-check-input" type="radio" name="inv" id="inv1" defaultChecked />
+                          <label className="form-check-label" htmlFor="inv1">會員載具</label>
+                        </div>
+                        <div id="invoiceGroup">
+                          <div className="d-flex flex-column flex-md-row align-items-md-center">
+                            <div className="form-check py-2 ps-7 me-8">
+                              <input className="form-check-input" type="radio" name="inv" id="inv2" data-bs-toggle="collapse" data-bs-target="#phoneCol" />
+                              <label className="form-check-label" htmlFor="inv2">手機條碼</label>
+                            </div>
+                            <div className="collapse flex-grow-1" id="phoneCol" data-bs-parent="#invoiceGroup">
+                              <input className="form-control" type="text" placeholder="請填寫手機條碼" />
+                            </div>
                           </div>
-                          <div className="collapse flex-grow-1" id="phoneCol" data-bs-parent="#invoiceGroup">
-                            <input className="form-control" type="text" placeholder="請填寫手機條碼" />
+                          <div className="d-flex flex-column flex-md-row align-items-md-center">
+                            <div className="form-check py-2 ps-7 me-8">
+                              <input className="form-check-input" type="radio" name="inv" id="inv3" data-bs-toggle="collapse" data-bs-target="#personCol" />
+                              <label className="form-check-label" htmlFor="inv3">自然人憑證</label>
+                            </div>
+                            <div className="collapse flex-grow-1" id="personCol" data-bs-parent="#invoiceGroup">
+                              <input className="form-control" type="text" placeholder="請填寫自然人憑證" />
+                            </div>
                           </div>
                         </div>
-                        <div className="d-flex flex-column flex-md-row align-items-md-center">
-                          <div className="form-check py-2 ps-7 me-8">
-                            <input className="form-check-input" type="radio" name="inv" id="inv3" data-bs-toggle="collapse" data-bs-target="#personCol" />
-                            <label className="form-check-label" htmlFor="inv3">自然人憑證</label>
-                          </div>
-                          <div className="collapse flex-grow-1" id="personCol" data-bs-parent="#invoiceGroup">
-                            <input className="form-control" type="text" placeholder="請填寫自然人憑證" />
-                          </div>
-                        </div>
                       </div>
-                    </div>
-                  ) : (
-                    <div className="invoice-block">
-                      <div className="mb-4"><label className="form-label">公司抬頭 *</label><input type="text" className="form-control" placeholder="請填寫公司抬頭" /></div>
-                      <div className="mb-4"><label className="form-label">統一編號 *</label><input type="text" className="form-control" placeholder="請填寫統一編號" /></div>
-                    </div>
-                  )}
+                    ) : (
+                      <div className="invoice-block">
+                        <div className="mb-4"><label className="form-label">公司抬頭 *</label><input type="text" className="form-control" placeholder="請填寫公司抬頭" /></div>
+                        <div className="mb-4"><label className="form-label">統一編號 *</label><input type="text" className="form-control" placeholder="請填寫統一編號" /></div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="row justify-content-center">
-              <button type="submit" className="btn btn-primary w-50 mt-8 mb-12" disabled={isLoading}>
-                    {isLoading ? "處理中..." : "確認訂購"}
-              </button>
-            </div>
-          </form>
+              <div className="row justify-content-center">
+                <button type="submit" className="btn btn-primary w-50 mt-8 mb-12" disabled={isLoading}>
+                  {isLoading ? "處理中..." : "確認訂購"}
+                </button>
+              </div>
+            </form>
+          </div>
         </section>
       </div>
     </div>
