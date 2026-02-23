@@ -3,13 +3,16 @@ import { Link, useLocation } from 'react-router';
 import { useEffect, useState, useRef } from 'react';
 
 import PickUpLaterModal from '../modal/PickUpLaterModal';
+import LoginModal from '../modal/LoginModal';
 import LogoutModal from '../modal/LogoutModal';
 import { useDispatch, useSelector } from 'react-redux';
+import { getAsyncCart } from '@/slices/cartSlice';
 
 function Header({mobileOpen, setMobileOpen}) {
-    {/* modal */}
+    // modal //
     const myPickUpLaterModal= useRef(null);
     const myLogoutModal = useRef(null);
+    const myLoginModal = useRef(null);
     
     const openModal =() =>{
         myPickUpLaterModal.current.show();
@@ -17,20 +20,32 @@ function Header({mobileOpen, setMobileOpen}) {
     const openLogoutModal=() =>{
         myLogoutModal.current.show();
     };
+    const openLoginModal=() =>{
+        myLoginModal.current.show();
+    };
     
-     {/* Navbar展開＆收合 */}
+     // Navbar展開＆收合 
     const [ desktopOpen, setDesktopOpen ] = useState(false);
     const location = useLocation();
-
     useEffect(()=>{
         setMobileOpen(false)
         setDesktopOpen(false)
+        myLoginModal.current.hide()
     },[location]);
      
     // 登入登出
     const dispatch = useDispatch();
-    const navigate = useDispatch();
     const isLogin = useSelector(state => state.login.isLogin);
+
+    // 購物車badge
+    const carts = useSelector(state => state.cart.carts);
+    const totalQty = carts?.reduce((sum, item) => {
+        return sum + item.qty;
+    }, 0);
+
+    useEffect(()=> {
+        dispatch(getAsyncCart());
+    },[])
 
 
     return (
@@ -47,12 +62,24 @@ function Header({mobileOpen, setMobileOpen}) {
                             alt="onon_logo"
                             className="d-none d-lg-block" />
                     </Link>
-                    <Link to='/shoppingcart' className="nav-link d-lg-none">
-                    <div className="position-relative">
-                        <span className="material-symbols-outlined fill align-bottom text-primary"> shopping_cart</span>
-                        <span className="position-absolute top-0 start-100 translate-middle badge border border-white bg-secondary-500">0</span>
-                    </div>
-                    </Link>
+                    {isLogin ? (
+                        <Link to='shoppingcart' className="nav-link d-lg-none">
+                            <div className="position-relative">
+                                <span className="material-symbols-outlined fill align-bottom text-primary"> shopping_cart</span>
+                                <span className="position-absolute top-0 start-100 translate-middle badge border border-white bg-secondary-500">{totalQty}</span>
+                            </div>
+                        </Link> 
+                    ) : 
+                    (
+                        <button className="nav-link d-lg-none" type='button'
+                                onClick={openLoginModal}>
+                            <div className="position-relative">
+                                <span className="material-symbols-outlined fill align-bottom text-primary"> shopping_cart</span>
+                                <span className="position-absolute top-0 start-100 translate-middle badge border border-white bg-secondary-500">{totalQty}</span>
+                            </div>
+                        </button> 
+                    )}
+                    
                 {/* 漢堡按鈕 */}
                     <button className="navbar-toggler border-0" type="button"   
                             onClick={() => setMobileOpen(prev => !prev)}>
@@ -169,12 +196,22 @@ function Header({mobileOpen, setMobileOpen}) {
                                 </button>
                             </li>
                             <li className="nav-item">
-                                <Link to='/shoppingcart' className="nav-link">
-                                    <div className="position-relative">
-                                        <span className="material-symbols-outlined fill align-bottom"> shopping_cart</span>
-                                        <span className="position-absolute top-0 start-100 translate-middle badge border border-white bg-secondary-500">0</span>
-                                    </div>
-                                </Link>
+                                {isLogin ? (
+                                    <Link to='shoppingcart' className="nav-link">
+                                        <div className="position-relative">
+                                            <span className="material-symbols-outlined fill align-bottom"> shopping_cart</span>
+                                            <span className="position-absolute top-0 start-100 translate-middle badge border border-white bg-secondary-500">{totalQty}</span>
+                                        </div>
+                                    </Link>
+                                ) : (
+                                    <button type='button' className="nav-link"
+                                            onClick={openLoginModal}>
+                                        <div className="position-relative">
+                                            <span className="material-symbols-outlined fill align-bottom"> shopping_cart</span>
+                                            <span className="position-absolute top-0 start-100 translate-middle badge border border-white bg-secondary-500">{totalQty}</span>
+                                        </div>
+                                    </button>
+                                )}
                             </li>
                             <li className="nav-item">
                                 <div className="dropdown-center">
@@ -252,6 +289,7 @@ function Header({mobileOpen, setMobileOpen}) {
             </nav>
             <PickUpLaterModal myPickUpLaterModal={myPickUpLaterModal} />
             <LogoutModal myLogoutModal={myLogoutModal}/>
+            <LoginModal myLoginModal={myLoginModal} />
         </>
     )
 }

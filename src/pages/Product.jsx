@@ -1,13 +1,14 @@
 import images from '@/assets/images/images.js';
 import HotSellingProducts from '@/Component/HotSellingProducts';
 import ImagesChange from '@/Component/product/ImagesChange';
-
 import axios from 'axios';
+
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getAsyncMessage } from '@/slices/messageSlice';
 import MessageToast from '@/Component/MessageToast';
+import { getAsyncCart } from '@/slices/cartSlice';
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
@@ -64,6 +65,7 @@ const Product =() => {
             const res = await axios.post(`${VITE_API_BASE}api/${VITE_API_PATH}/cart`, {data})
             console.log(res.data)
             dispatch(getAsyncMessage(res.data))
+            dispatch(getAsyncCart());
         } catch (error) {
             console.log('未加入購物車')
             dispatch(getAsyncMessage(error.response?.data))

@@ -9,6 +9,7 @@ import { getAsyncMessage } from "@/slices/messageSlice";
 import Pagination from "@/Component/Pagination";
 import { setTotalItems, setLoading, setError } from '../slices/paginationSlice';
 
+import { getAsyncCart } from '@/slices/cartSlice';
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
@@ -37,6 +38,7 @@ const Products = () => {
             const res = await axios.post(`${VITE_API_BASE}api/${VITE_API_PATH}/cart`, {data})
             console.log(res.data)
             dispatch(getAsyncMessage(res.data))
+            dispatch(getAsyncCart())
         } catch (error) {
             console.log('未加入購物車')
             dispatch(getAsyncMessage(error.response?.data))
