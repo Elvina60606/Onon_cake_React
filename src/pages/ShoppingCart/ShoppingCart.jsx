@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import images from "@/assets/images/images.js"; 
 import "./ShoppingCart.scss";
+
+import { useDispatch } from "react-redux";
+import { getAsyncCart } from "@/slices/cartSlice";
 
 // --- API 設定 ---
 const BASE_URL = "https://vue3-course-api.hexschool.io/v2";
 const API_PATH = "ononcakeapi";
 
 const ShoppingCart = () => {
+  const dispatch = useDispatch();
+  
   // --- 1. 狀態管理 ---
   const [cartList, setCartList] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
@@ -102,6 +106,7 @@ const ShoppingCart = () => {
       try {
         await axios.delete(`${BASE_URL}/api/${API_PATH}/cart/${cartId}`);
         getCart();
+        dispatch(getAsyncCart());
       } catch (error) {
         alert("刪除失敗");
       } finally {
@@ -145,6 +150,7 @@ const ShoppingCart = () => {
       const res = await axios.post(`${BASE_URL}/api/${API_PATH}/order`, orderData);
       alert(`訂單送出成功！編號：${res.data.orderId}`);
       getCart();
+      dispatch(getAsyncCart());
     } catch (error) {
       alert("送出失敗，請檢查輸入內容");
     } finally {
@@ -379,7 +385,7 @@ const ShoppingCart = () => {
             </div>
             <div className="row justify-content-center">
               <button type="submit" className="btn btn-primary w-50 mt-8 mb-12" disabled={isLoading}>
-                {isLoading ? "處理中..." : "確認訂購"}
+                    {isLoading ? "處理中..." : "確認訂購"}
               </button>
             </div>
           </form>
