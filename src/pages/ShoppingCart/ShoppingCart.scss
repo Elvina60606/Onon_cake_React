@@ -1,4 +1,5 @@
-@import "@/assets/scss/all.scss";
+@import "../../assets/scss/all.scss";
+
 
 // 確保所有樣式都包裹在 .shopping-cart-page 內，避免污染全域樣式
 .shopping-cart-page {
@@ -109,3 +110,4 @@
     }
   }
 }
+
