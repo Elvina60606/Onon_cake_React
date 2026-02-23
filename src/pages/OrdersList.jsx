@@ -112,7 +112,7 @@ function OrdersList() {
                         <th scope="col" style={{width: '15%' }}>訂單編號</th>
                         <th scope="col" style={{width: '15%' }} className="text-center">訂單成立時間</th>
                         <th scope="col" style={{width: '15%' }} className="text-center">預計出貨日期</th>
-                        <th scope="col" style={{width: '13%' }} className="text-center">狀態</th>
+                        <th scope="col" style={{width: '15%' }} className="text-center">狀態</th>
                         <th scope="col" style={{width: '25%' }}>品項</th>
                         <th scope="col" style={{width: '12%' }} className="text-end">總金額</th>
                       </tr>

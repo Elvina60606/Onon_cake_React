@@ -8,7 +8,6 @@ export const getAsyncCart = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/cart`);
-      console.log('carts api response:',res.data)
       return res.data.data;
     } catch (error) {
       return rejectWithValue(error.response?.data);
