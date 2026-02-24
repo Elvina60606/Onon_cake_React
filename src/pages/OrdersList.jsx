@@ -1,24 +1,24 @@
-import axios from 'axios';
+
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Pagination from '@/Component/pagination/Pagination';
-import { setTotalItems, setLoading, setError } from '../slices/paginationSlice';
+import { getAsyncOrders, setCurrentPage } from '@/slices/ordersSlice';
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
 function OrdersList() {
-    const [ orders, setOrders ] = useState([]);
+  const dispatch = useDispatch();
+  const{ orders, currentPage, pagination } = useSelector( state => state.order)
+
     useEffect(()=>{
-      (async()=>{
-        try {
-          const res = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/orders`)
-          setOrders(res.data.orders)
-        } catch (error) {
-          console.log('orders:', error)  
-        }
-      })()
-    },[])
+        dispatch(getAsyncOrders(currentPage))
+    },[dispatch, currentPage]);
+
+    //pagination
+    const handlePageChange = (page) => {
+      dispatch(setCurrentPage(page));
+      };
 
     // orders date
     const normalizeTimestamp = (timeStamp) =>
@@ -32,27 +32,6 @@ function OrdersList() {
         timeZone: 'Asia/Taipei',
       });
     };
-
-    // pagination
-    const dispatch = useDispatch();
-    const { currentPage } = useSelector( state => state.pagination );
-    const fetchOrders = async() => {
-      try {
-        const res = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/orders?page=${currentPage}`)
-        dispatch(setLoading(true))
-        setOrders(res.data.orders)
-        dispatch(setTotalItems(res.data.orders.length))
-        dispatch(setLoading(false))
-      } catch (error) {
-        dispatch(setError(error.message));
-        dispatch(setLoading(false))
-      }
-    }
-
-    useEffect(()=>{
-      fetchOrders()
-    },[currentPage])
-
 
     return (
     <>
@@ -87,7 +66,7 @@ function OrdersList() {
                         </div>
                         <div>
                           <span className="text-neutral-500">品項</span>
-                          <div className='d-flex flex-column'>
+                          <div className='d-flex flex-column align-items-end'>
                             {Object.values(order.products || {}).map(product => (
                               <p key={product.id}>
                                 {product.product.title}({product.product.content}) x {product.qty}
@@ -102,7 +81,9 @@ function OrdersList() {
                       </div>
                     )
                   })}
-                    <Pagination />
+                    <Pagination currentPage={currentPage}
+                        onPageChange={handlePageChange}
+                        totalPages={pagination?.total_pages || 1}/>
 
                 </div>
         {/* desktop table */}
@@ -143,8 +124,9 @@ function OrdersList() {
                       })}
                     </tbody>
                   </table>
-              {/* desktop pagination */}
-                  <Pagination />
+             <Pagination currentPage={currentPage}
+                        onPageChange={handlePageChange}
+                        totalPages={pagination?.total_pages || 1}/>
                 </div>
               </div>
             </div>

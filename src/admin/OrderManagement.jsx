@@ -29,6 +29,7 @@ const OrderManagement =() => {
       dispatch(getAdminAsyncOrders(currentPage))
     }, [dispatch, currentPage]);
 
+    //change order status
     const handleClickChange= async(orderId, currentStatus) => {
         try {
             const res = await axios.put(`${VITE_API_BASE}api/${VITE_API_PATH}/admin/order/${orderId}`,{ data:{is_paid: !currentStatus}});
@@ -43,6 +44,7 @@ const OrderManagement =() => {
         } 
     };
 
+    // delete order
     const handleRemove = async(orderId) => {
       try {
           const res = await axios.delete(`${VITE_API_BASE}api/${VITE_API_PATH}/admin/order/${orderId}`)
