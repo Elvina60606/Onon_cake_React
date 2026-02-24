@@ -5,13 +5,14 @@ import Products from '../pages/Products';
 import Product from '../pages/Product';
 import ShoppingCart from '../pages/ShoppingCart/ShoppingCart';
 import MemberSignUp from '../pages/MemberSignUp';
+import ProtectedRoute from './ProtectedRoute';
 import SidebarLayout from '@/Layout/SidebarLayout';
 import OrdersList from '../pages/OrdersList';
 import Coupon from '../pages/Coupon';
 
 import AdminLayout from '@/Layout/AdminLayout';
 import Dashboard from '@/admin/Dashboard';
-import ProtectedRoute from './ProtectedRoute';
+import AdminProtectedRoute from './AdminProtectedRoute';
 import ProductManagement from '@/admin/ProductManagement';
 import OrderManagement from '@/admin/OrderManagement';
 
@@ -47,16 +48,21 @@ const routes = [
                 element: <MemberSignUp />,
             },
             {
-                path: '/sidebarlayout',
-                element: <SidebarLayout />,
+                element: <ProtectedRoute />,
                 children: [
                     {
-                        path: 'orders',
-                        element: <OrdersList />,
-                    },
-                    {
-                        path: 'coupon',
-                        element: <Coupon />,
+                        path: '/sidebarlayout',
+                        element: <SidebarLayout />,
+                        children: [
+                            {
+                                path: 'orders',
+                                element: <OrdersList />,
+                            },
+                            {
+                                path: 'coupon',
+                                element: <Coupon />,
+                            },
+                        ]
                     },
                 ]
             },
@@ -72,7 +78,7 @@ const routes = [
                 element: <Dashboard />
             },
             {
-                element: <ProtectedRoute />,
+                element: <AdminProtectedRoute />,
                 children: [
                     {
                         path: 'product',

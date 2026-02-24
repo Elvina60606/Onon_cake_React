@@ -33,7 +33,6 @@ const Products = () => {
             "product_id": id,
             "qty": 1
         };
-
         try {
             const res = await axios.post(`${VITE_API_BASE}api/${VITE_API_PATH}/cart`, {data})
             console.log(res.data)
@@ -66,7 +65,6 @@ const Products = () => {
 
   return (
     <>
-      { loading && '載入中......'}
       <MessageToast />
       <main className="container py-8 py-md-12">
         <div className="row">
@@ -204,7 +202,7 @@ const Products = () => {
               })}
             </div>
 
-              <Pagination />
+            <Pagination />
 
           </section>
         </div>

@@ -1,5 +1,4 @@
 import { createRoot } from 'react-dom/client'
-import { AuthProvider } from './context/AuthContext';
 
 import './assets/scss/all.scss';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -13,8 +12,6 @@ import { Provider } from 'react-redux';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <AuthProvider>
-        <RouterProvider router={router}/>
-    </AuthProvider>
+    <RouterProvider router={router}/>
   </Provider>
 )

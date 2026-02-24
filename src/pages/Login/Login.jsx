@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router";
 import "./login.scss";
 
 import images from '@/assets/images/images.js';
-//import { useAuth } from "../../context/AuthContext";
 
 import { useDispatch } from "react-redux";
 import { loginSuccess, loginFailed } from "@/slices/loginSlice";
@@ -39,24 +38,19 @@ function Login() {
   };
 
 
-  //const { isLogin, setIsLogin } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    //setIsLogin(true);
     e.preventDefault();
     if (formData.username && formData.password){
       dispatch(loginSuccess())
       navigate('/')
-      console.log('login success')
     } else {
       dispatch(loginFailed())
-      console.log('login failed')
+      console.log('login failed:',error)
     }
   };
-
-
 
   return (
     <main
