@@ -6,7 +6,6 @@ export const paginationSlice = createSlice({
         currentPage: 1,
         pageSize: 9,
         totalItems: 0,
-        loading: false,
         error: null,
     },
     reducers: {
@@ -19,9 +18,6 @@ export const paginationSlice = createSlice({
         setTotalItems( state, action ){
             state.totalItems = action.payload
         },
-        setLoading( state, action ){
-            state.loading = action.payload
-        },
         setError( state, action ){
             state.error = action.payload
         },
@@ -29,5 +25,5 @@ export const paginationSlice = createSlice({
 })
 
 
-export const { setCurrentPage, setPageSize, setTotalItems, setLoading, setError } = paginationSlice.actions;
+export const { setCurrentPage, setPageSize, setTotalItems, setError } = paginationSlice.actions;
 export default paginationSlice.reducer;

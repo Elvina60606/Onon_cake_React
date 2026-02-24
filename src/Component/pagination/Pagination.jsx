@@ -1,15 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setCurrentPage } from "@/slices/paginationSlice";
+import { useDispatch } from "react-redux";
+import { setCurrentPage } from "@/slices/productsSlice";
 
-
-const Pagination =() =>{
+const Pagination =({ currentPage, totalPages, onPageChange }) =>{
     const dispatch = useDispatch();
-    const { currentPage, pageSize, totalItems } = useSelector(state => state.pagination);
-    const totalPages = Math.ceil(totalItems / pageSize);
+    // const { currentPage, pagination } = useSelector(state => state.product);
+    // const totalPages = pagination?.total_pages || 1;
     
-    const handleClick = (page) => {
-        dispatch(setCurrentPage(page));
-        };
+    // const handleClick = (page) => {
+    //     dispatch(setCurrentPage(page));
+    //     };
+
+      const handleClick = (page) => onPageChange(page);
 
     return(<>
         <div className="py-4">

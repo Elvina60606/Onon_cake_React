@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
 
@@ -7,27 +7,23 @@ import MessageToast from '@/Component/MessageToast';
 import { getAsyncMessage } from "@/slices/messageSlice";
 
 import Pagination from "@/Component/pagination/Pagination";
-import { setTotalItems, setLoading, setError } from '../slices/paginationSlice';
+import { getAsyncProducts, setCurrentPage } from '@/slices/productsSlice';
 
 import { getAsyncCart } from '@/slices/cartSlice';
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
+
 const Products = () => {
-    const [ products, setProducts ] = useState([]);
+    const dispatch = useDispatch();
+    const { products, currentPage, pagination } = useSelector(state => state.product);
+
     useEffect(() => {
-        (async() => {
-            try {
-                const response = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/products/all`)
-                setProducts(response.data.products)
-            } catch (error) {
-                console.log("setProducts:",error.message)
-            }
-        })()
-    },[]);
+        dispatch(getAsyncProducts(currentPage))
+    },[dispatch, currentPage]);
+
 
     // addOneToCart
-    const dispatch = useDispatch();
     const addOneToCart = async(id) => {
         const data ={
             "product_id": id,
@@ -42,26 +38,12 @@ const Products = () => {
             console.log('未加入購物車')
             dispatch(getAsyncMessage(error.response?.data))
         }
-    }
+    };
 
-    // pagination
-    const { currentPage, pageSize, loading } = useSelector( state => state.pagination );
-    const fetchProducts = async() => {
-      try {
-        const res = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/products?page=${currentPage}&size=${pageSize}`)
-        dispatch(setLoading(true))
-        setProducts(res.data.products)
-        dispatch(setTotalItems(res.data.products.length))
-        dispatch(setLoading(false))
-      } catch (error) {
-        dispatch(setError(error.message));
-        dispatch(setLoading(false))
-      }
-    }
-
-    useEffect(()=>{
-      fetchProducts()
-    },[currentPage])
+    //pagination
+    const handlePageChange = (page) => {
+      dispatch(setCurrentPage(page));
+    };
 
   return (
     <>
@@ -202,7 +184,9 @@ const Products = () => {
               })}
             </div>
 
-            <Pagination />
+            <Pagination currentPage={currentPage}
+                        onPageChange={handlePageChange}
+                        totalPages={pagination?.total_pages || 1}/>
 
           </section>
         </div>
