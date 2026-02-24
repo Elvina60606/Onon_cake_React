@@ -1,9 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
-import { getAdminAsyncOrders } from "@/slices/adminOrdersSlice";
-import { useEffect } from "react";
-import AdminPagination from "@/Component/pagination/AdminPagination";
-import { setAdminOrders } from "@/slices/adminOrdersSlice";
 import axios from "axios";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAdminAsyncOrders, setAdminOrders, removeAdminOrder } from "@/slices/adminOrdersSlice";
+import AdminPagination from "@/Component/pagination/AdminPagination";
+
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
@@ -41,6 +41,16 @@ const OrderManagement =() => {
         } catch (error) {
             console.log(error)
         } 
+    };
+
+    const handleRemove = async(orderId) => {
+      try {
+          const res = await axios.delete(`${VITE_API_BASE}api/${VITE_API_PATH}/admin/order/${orderId}`)
+          console.log(res.data.message)
+          dispatch(removeAdminOrder(orderId))
+      } catch (error) {
+        console.log('刪除訂單失敗：',error)
+      }
     }
 
 
@@ -52,12 +62,14 @@ const OrderManagement =() => {
                   <table className="table">
                     <thead>
                       <tr className="order-thead align-middle">
-                        <th scope="col" style={{width: '15%' }}>訂單編號</th>
-                        <th scope="col" style={{width: '15%' }} className="text-center">訂單成立時間</th>
-                        <th scope="col" style={{width: '15%' }} className="text-center">預計出貨日期</th>
-                        <th scope="col" style={{width: '15%' }} className="text-center">狀態</th>
+                        <th scope="col" style={{width: '13%' }}>訂單編號</th>
+                        <th scope="col" style={{width: '13%' }} className="text-center">訂單成立時間</th>
+                        <th scope="col" style={{width: '13%' }} className="text-center">預計出貨日期</th>
+                        <th scope="col" style={{width: '12%' }} className="text-center">狀態</th>
                         <th scope="col" style={{width: '25%' }}>品項</th>
-                        <th scope="col" style={{width: '12%' }} className="text-end">總金額</th>
+                        <th scope="col" style={{width: '10%' }} className="text-end">總金額</th>
+                        <th scope="col" style={{width: '10%' }} className="text-center">刪除</th>
+                        
                       </tr>
                     </thead>
                     <tbody>
@@ -81,6 +93,12 @@ const OrderManagement =() => {
                               ))}
                             </td>
                             <td className="text-end">NT$ {order.total}</td>
+                            <td className="text-center">
+                              <button className="btn" type="button"
+                                      onClick={()=>handleRemove(order.id)}>
+                                <i className="bi bi-trash text-danger"></i>
+                              </button>
+                            </td>
                           </tr>
                         )
                       })}

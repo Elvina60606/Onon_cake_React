@@ -1,10 +1,14 @@
 import images from '@/assets/images/images.js';
-import { Link } from 'react-router';
+import { Link, useNavigate, } from 'react-router';
 
 import HotSellingProducts from '@/Component/HotSellingProducts';
 import PickUpLater from '@/Component/home/PickUpLater';
 
 const Home = () => {
+    const navigate = useNavigate();
+    const handleNavigateProducts =() => {
+        navigate('/products');
+    };
 
     return (
         <>
@@ -33,7 +37,9 @@ const Home = () => {
                                                     <h2 className="fs-lg-8 fs-3 text-neutral-0 fw-black lh-768 nowrap">用甜點找回你的心跳
                                                     </h2>
                                                 </div>
-                                                <button className="hero-button">點我訂購</button>
+                                                <button className="hero-button" type='button'
+                                                        onClick={()=>handleNavigateProducts()}>點我訂購
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -59,7 +65,9 @@ const Home = () => {
                                                     中秋禮盒．限量發售
                                                     </p>
                                                 </div>
-                                                <button className="hero-button">點我訂購</button>
+                                                <button className="hero-button" type='button'
+                                                        onClick={()=>handleNavigateProducts()}>點我訂購
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -90,7 +98,9 @@ const Home = () => {
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <button className="hero-button">點我訂購</button>
+                                                <button className="hero-button" type='button'
+                                                        onClick={()=>handleNavigateProducts()}>點我訂購
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

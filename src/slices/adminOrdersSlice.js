@@ -27,12 +27,15 @@ export const adminOrdersSlice = createSlice({
         error: null,
     },
     reducers: {
-        setAdminOrders( state, actions ){
-            state.adminOrders = actions.payload
+        setAdminOrders( state, action ){
+            state.adminOrders = action.payload
         },
         setCurrentPage(state, action) {
             state.currentPage = action.payload
-  }
+        },
+        removeAdminOrder( state, action ){
+            state.adminOrders = state.adminOrders.filter( adminOrder => adminOrder.id !== action.payload)
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(getAdminAsyncOrders.fulfilled, (state, action) => {
@@ -42,6 +45,6 @@ export const adminOrdersSlice = createSlice({
 }
 });
 
-export const { setAdminOrders, setCurrentPage } = adminOrdersSlice.actions;
+export const { setAdminOrders, setCurrentPage, removeAdminOrder } = adminOrdersSlice.actions;
 
 export default adminOrdersSlice.reducer;

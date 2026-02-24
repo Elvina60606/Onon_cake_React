@@ -35,7 +35,7 @@ function OrdersList() {
 
     // pagination
     const dispatch = useDispatch();
-    const { currentPage, loading } = useSelector( state => state.pagination );
+    const { currentPage } = useSelector( state => state.pagination );
     const fetchOrders = async() => {
       try {
         const res = await axios.get(`${VITE_API_BASE}api/${VITE_API_PATH}/orders?page=${currentPage}`)
