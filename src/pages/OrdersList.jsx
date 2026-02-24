@@ -66,7 +66,7 @@ function OrdersList() {
                         </div>
                         <div>
                           <span className="text-neutral-500">品項</span>
-                          <div className='d-flex flex-column'>
+                          <div className='d-flex flex-column align-items-end'>
                             {Object.values(order.products || {}).map(product => (
                               <p key={product.id}>
                                 {product.product.title}({product.product.content}) x {product.qty}
