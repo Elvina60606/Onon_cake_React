@@ -18,12 +18,6 @@ const HotProductsContainer =() =>{
         hotProductsId?.includes(product.id)
     );
 
-    console.log('products:', products);
-    console.log('products ids:', products.map(p => p.id));
-
-    if (!products.length) return <div>Loading hot products...</div>;
-    if (!hotProducts.length) return <div>No hot products yet</div>;
-
     return <HotSellingProducts products={hotProducts} />;
 };
 

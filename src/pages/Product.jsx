@@ -121,7 +121,8 @@ const Product =() => {
                                                 onClick={()=> decrementCount()}>-
                                         </button>
                                         <input  type="text"
-                                                className="form-control text-center mx-2"
+                                                id='productQty'
+                                                className="form-control text-center"
                                                 value={qty}
                                                 readOnly
                                                 style={{width: 60}}/>
