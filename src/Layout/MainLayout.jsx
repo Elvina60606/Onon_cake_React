@@ -1,5 +1,6 @@
 import Footer from "@/Component/Footer"
 import Header from "@/Component/header/Header"
+import ScrollToTop from "@/Component/scrollToTop/ScrollToTop";
 import { useState } from "react";
 import { Outlet } from "react-router-dom"
 
@@ -12,6 +13,7 @@ const Layout =() => {
             <div className='d-flex flex-column bg-light' style={{minHeight: '100vh'}}>
                 <Header mobileOpen={mobileOpen} setMobileOpen={setMobileOpen}/>
                     <main style={{ display: mobileOpen ? 'none' : 'block'}}>
+                        <ScrollToTop />
                         <Outlet/>
                     </main>
                 <Footer />

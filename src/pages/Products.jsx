@@ -154,7 +154,7 @@ const Products = () => {
                           src={product.imageUrl}
                           className="card-img-top object-fit-cover"
                           alt="canele"
-                          style={{ height: 150 }}
+                          style={{ height: 200 }}
                         />
                       </Link>
                       <div className="card-body d-flex flex-column">

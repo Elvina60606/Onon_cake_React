@@ -1,7 +1,6 @@
-import images from '@/assets/images/images.js';
-import HotSellingProducts from '@/Component/HotSellingProducts';
-import ImagesChange from '@/Component/product/ImagesChange';
 import axios from 'axios';
+import images from '@/assets/images/images.js';
+import ImagesChange from '@/Component/product/ImagesChange';
 
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
@@ -9,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { getAsyncMessage } from '@/slices/messageSlice';
 import MessageToast from '@/Component/MessageToast';
 import { getAsyncCart } from '@/slices/cartSlice';
+import HotProductsContainer from '../Component/hotProducts/HotProductsContainer';
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
@@ -16,10 +16,12 @@ const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 const Product =() => {
     const paramas = useParams();
     const { id } = paramas;
+    const [ showMobileControl, setShowMobileControl ] = useState(false);
 
     // product
     const [ product, setProduct ] = useState({});
     const [ showImages, setShowImages ] = useState([]);
+
     useEffect(() => {
         (async() => {
             try {
@@ -42,18 +44,17 @@ const Product =() => {
 
     // qty & cart
     const dispatch = useDispatch();
-
     const [ qty, setQty ] = useState(1);
 
     const decrementCount =() => {
         if( qty <= 1 ) return;
         setQty( prev => prev-1 )
-    }
+    };
 
     const incrementCount =() => {
         if( qty >= 10 ) return;
         setQty( prev => prev+1 )
-    }
+    };
 
     const addCarts = async() => {
         const data ={
@@ -63,14 +64,15 @@ const Product =() => {
 
         try {
             const res = await axios.post(`${VITE_API_BASE}api/${VITE_API_PATH}/cart`, {data})
-            console.log(res.data)
             dispatch(getAsyncMessage(res.data))
-            dispatch(getAsyncCart());
+            dispatch(getAsyncCart())
+            setQty(1)
         } catch (error) {
             console.log('未加入購物車')
             dispatch(getAsyncMessage(error.response?.data))
         }
-    }
+    };
+
 
     return(
         <>
@@ -119,7 +121,8 @@ const Product =() => {
                                                 onClick={()=> decrementCount()}>-
                                         </button>
                                         <input  type="text"
-                                                className="form-control text-center mx-2"
+                                                id='productQty'
+                                                className="form-control text-center"
                                                 value={qty}
                                                 readOnly
                                                 style={{width: 60}}/>
@@ -137,37 +140,44 @@ const Product =() => {
 
                             { /* mobile addcarts */}
                                 <div className="cart-actions-mobile d-lg-none fixed-bottom px-3 py-4 bg-white shadow">
-                                    <button id="mobileAddCart" 
-                                            className="btn btn-primary w-100">加入購物車
+                                    <button type='button'
+                                            className={`btn btn-primary w-100 ${showMobileControl && 'd-none'}`}
+                                            onClick={()=> setShowMobileControl(true)}>加入購物車
                                     </button>
-
-                                { /* 點擊後顯示數量（待修改） */}
-                                    <div id="mobileCartControls"
-                                        className="d-none bg-white py-1 px-2 rounded">
+                                    <div className={`bg-white py-1 px-2 rounded ${showMobileControl? '' : 'd-none'}`}>
                                         <div className="d-flex align-items-center justify-content-between mb-4">
                                         { /* 左邊：數量文字 */ }
                                             <span className="me-6">數量：</span>
 
                                         { /* 中間：數量控制框 */ }
                                             <div className="quantity-control d-flex align-items-center">
-                                                <button className="qty-btn btn btn-outline-secondary">-</button>
+                                                <button className="qty-btn btn btn-outline-secondary"
+                                                        type='button'
+                                                        onClick={()=> decrementCount()}>-</button>
                                                 <input type="text"
                                                     className="form-control text-center mx-2"
-                                                    defaultValue="1"
+                                                    value={qty}
+                                                    readOnly
                                                     style={{width: 60}}/>
-                                                <button className="qty-btn btn btn-outline-secondary">+</button>
+                                                <button className="qty-btn btn btn-outline-secondary"
+                                                        type='button'
+                                                        onClick={()=> incrementCount()}>+</button>
                                             </div>
 
                                         { /* 右邊：關閉按鈕 */ }
-                                            <button id="closeCartControls"
-                                                    type="button"
+                                            <button type="button"
                                                     className="btn-close ms-8"
-                                                    aria-label="Close">
+                                                    onClick={()=>setShowMobileControl(false)}>
                                             </button>
                                         </div>
 
                                         { /* 確認按鈕 */}
-                                        <button className="btn btn-primary w-100">確認</button>
+                                        <button className="btn btn-primary w-100"
+                                                type='button'
+                                                onClick={()=> {
+                                                    addCarts(id, qty);
+                                                    setShowMobileControl(false)
+                                                }}>確認</button>
                                     </div>
                                 </div>
                             </div>
@@ -274,7 +284,7 @@ const Product =() => {
               </section>
 
           { /* 熱銷排行 */}
-              <HotSellingProducts />
+              <HotProductsContainer />
         </>
     )
 }

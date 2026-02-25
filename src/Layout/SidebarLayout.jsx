@@ -4,6 +4,7 @@ import { useRef } from 'react';
 
 import PickUpLaterModal from '@/Component/modal/PickUpLaterModal';
 import LogoutModal from '@/Component/modal/LogoutModal';
+import ScrollToTop from '@/Component/scrollToTop/ScrollToTop';
 
 const SidebarLayout = () => {
 
@@ -103,6 +104,7 @@ const SidebarLayout = () => {
                 </aside>
 
                 {/*--右側內容--*/}
+                <ScrollToTop />
                 <Outlet />
 
               </div>
