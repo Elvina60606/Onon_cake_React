@@ -1,7 +1,7 @@
 import images from '@/assets/images/images.js';
 import { Link, useNavigate, } from 'react-router';
 
-import HotSellingProducts from '@/Component/HotSellingProducts';
+import HotProductsContainer from '../Component/hotProducts/HotProductsContainer';
 import PickUpLater from '@/Component/home/PickUpLater';
 
 const Home = () => {
@@ -165,7 +165,7 @@ const Home = () => {
             </section>
 
         {/* 熱銷排行 */}
-            <HotSellingProducts />
+            <HotProductsContainer />
 
         {/* 可麗露寄甜計畫 */}
             <PickUpLater /> 

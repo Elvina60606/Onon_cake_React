@@ -1,7 +1,6 @@
-import images from '@/assets/images/images.js';
-import HotSellingProducts from '@/Component/HotSellingProducts';
-import ImagesChange from '@/Component/product/ImagesChange';
 import axios from 'axios';
+import images from '@/assets/images/images.js';
+import ImagesChange from '@/Component/product/ImagesChange';
 
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
@@ -9,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { getAsyncMessage } from '@/slices/messageSlice';
 import MessageToast from '@/Component/MessageToast';
 import { getAsyncCart } from '@/slices/cartSlice';
+import HotProductsContainer from '../Component/hotProducts/HotProductsContainer';
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
@@ -274,7 +274,7 @@ const Product =() => {
               </section>
 
           { /* 熱銷排行 */}
-              <HotSellingProducts />
+              <HotProductsContainer />
         </>
     )
 }
