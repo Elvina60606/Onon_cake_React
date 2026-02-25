@@ -28,7 +28,7 @@ export const ordersSlice = createSlice({
     },
     reducers:{
         setOrders( state, action ){
-            state.order = action.payload
+            state.orders = action.payload
         },
         setCurrentPage( state, action ){
             state.currentPage = action.payload

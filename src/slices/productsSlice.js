@@ -38,6 +38,7 @@ export const productsSlice = createSlice({
             builder.addCase(getAsyncProducts.fulfilled, (state, action) => {
             state.products = action.payload.products
             state.pagination = action.payload.pagination
+            state.currentPage = action.meta.arg  
       })
     }
 })

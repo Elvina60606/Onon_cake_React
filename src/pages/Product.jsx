@@ -17,11 +17,11 @@ const Product =() => {
     const paramas = useParams();
     const { id } = paramas;
     const [ showMobileControl, setShowMobileControl ] = useState(false);
-
+    
     // product
     const [ product, setProduct ] = useState({});
     const [ showImages, setShowImages ] = useState([]);
-
+    
     useEffect(() => {
         (async() => {
             try {
@@ -41,6 +41,12 @@ const Product =() => {
             }
         })();
     },[id]);
+
+    // collect
+    const [ collect, setCollect ] = useState(false);
+    const handleCollectChange =() =>{
+        setCollect( prev => !prev)
+    }
 
     // qty & cart
     const dispatch = useDispatch();
@@ -97,8 +103,9 @@ const Product =() => {
                             <div className="col-12 col-lg-7 order-3 ps-lg-8">
                                 <div className="d-flex align-items-center justify-content-between mb-4">
                                     <h3 className="fw-bold mb-0 text-primary-800 fs-lg-2">{product.title}</h3>
-                                    <button id="heartBtn" className="btn p-0 border-0 bg-transparent">
-                                        <i id="heartIcon" className="bi bi-heart fs-4"></i>
+                                    <button type='button' className="btn p-0 border-0 bg-transparent"
+                                            onClick={()=>handleCollectChange()}>
+                                        <i className={`bi fs-4 ${collect ? 'bi-heart-fill text-danger' : 'bi-heart' }`}></i>
                                     </button>
                                 </div>
                                 <p className="text-primary-700 mb-4 mb-lg-6">{product.description}</p>
