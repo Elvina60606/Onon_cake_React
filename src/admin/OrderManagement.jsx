@@ -29,7 +29,7 @@ const OrderManagement =() => {
       dispatch(getAdminAsyncOrders(currentPage))
     }, [dispatch, currentPage]);
 
-    //change order status
+    // change order
     const handleClickChange= async(orderId, currentStatus) => {
         try {
             const res = await axios.put(`${VITE_API_BASE}api/${VITE_API_PATH}/admin/order/${orderId}`,{ data:{is_paid: !currentStatus}});

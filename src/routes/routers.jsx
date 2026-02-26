@@ -15,6 +15,7 @@ import Dashboard from '@/admin/Dashboard';
 import AdminProtectedRoute from './AdminProtectedRoute';
 import ProductManagement from '@/admin/ProductManagement';
 import OrderManagement from '@/admin/OrderManagement';
+import CouponManagement from '@/admin/CouponManagement';
 
 import NotFound from '@/pages/NotFound';
 
@@ -87,6 +88,10 @@ const routes = [
                     {
                         path: 'order',
                         element: <OrderManagement />
+                    },
+                    {
+                        path: 'coupon',
+                        element: <CouponManagement />
                     },
                 ]
             }
