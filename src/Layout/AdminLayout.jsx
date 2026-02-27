@@ -17,6 +17,9 @@ const AdminLayout =() => {
                             <li className="nav-item">
                                 <Link to='/admin/order' className="nav-link" > 後台訂單管理 </Link>
                             </li>
+                            <li className="nav-item">
+                                <Link to='/admin/coupon' className="nav-link" > 後台優惠卷管理 </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
