@@ -1,22 +1,60 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getAsyncAdminCoupons } from "@/slices/adminCouponSlice";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAsyncAdminCoupons, createAsyncCoupon, deleteAsyncCoupon } from "@/slices/adminCouponSlice";
+import AdminCouponModal from "@/Component/modal/AdminCouponModal";
 
 const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 
 const CouponManagement=() => {
     const dispatch = useDispatch()
+    const { adminCoupons } = useSelector(state => state.admincoupon)
     
     useEffect(()=>{
         dispatch(getAsyncAdminCoupons())
-    },[])
+    },[dispatch])
+
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    // const handleCreateCoupon = async() => {
+    //   const newCoupon = {
+    //     title: "超級特惠價格",
+    //     is_enabled: 1,
+    //     percent: 80,
+    //     due_date: Math.floor(Date.now() / 1000),
+    //     code: "testCode"
+    //   };
+
+    //   await dispatch(createAsyncCoupon(newCoupon));
+    //         dispatch(getAsyncAdminCoupons());
+    // };
+
+    const handleRemoveCoupon = async(id) => {
+      await dispatch(deleteAsyncCoupon(id));
+      dispatch(getAsyncAdminCoupons());
+    }
+
+    // coupon date
+    const normalizeTimestamp = (timeStamp) =>
+      timeStamp < 1e12 ? timeStamp * 1000 : timeStamp;
+
+    const formatTime = (timeStamp, addDays = 0) => {
+      const date = new Date(normalizeTimestamp(timeStamp));
+      date.setDate(date.getDate() + addDays);
+
+      return date.toLocaleDateString('sv-SE', {
+        timeZone: 'Asia/Taipei',
+      });
+    };
 
     return (<>
     <div>
         <div className="container my-5 d-flex justify-content-between">
             <h3>優惠卷後台</h3>
-            <button type="button" className="btn btn-success">新增優惠卷</button>
+            <button type="button" className="btn btn-primary"
+                    onClick={()=>setIsModalOpen(prev => !prev)}>
+                    新增優惠卷
+            </button>
         </div>
+        <AdminCouponModal isModalOpen={isModalOpen} />
         <div className="border border-1 rounded-16 px-6 py-3 fs-6 d-none d-lg-block bg-white">
             <table className="table">
                     <thead>
@@ -27,41 +65,29 @@ const CouponManagement=() => {
                         <th scope="col" style={{width: '13%' }} >優惠卷到期日期</th>
                         <th scope="col" style={{width: '25%' }} >折價％數</th>
                         <th scope="col" style={{width: '10%' }} >是否啟用</th>
-                        <th scope="col" style={{width: '10%' }} >刪除</th>
-                        
+                        <th scope="col" style={{width: '10%' }} >刪除</th>  
                       </tr>
                     </thead>
-                    {/* <tbody>
-                      {adminOrders.map((order) => {
+                    <tbody>
+                      {adminCoupons.map((coupon) => {
                         return (
-                          <tr className="order-body" key={order.id}>
-                            <th scope="row" className="py-6">{order.create_at}</th>
-                            <td className="text-center">{formatTime(order.create_at)}</td>
-                            <td className="text-center">{formatTime(order.create_at, 3)}</td>
-                            <td className="text-center">{order.is_paid ? 
-                                 <button className="border border-0 rounded-pill bg-success-50 text-success-700 px-3 py-2"
-                                         onClick={()=>handleClickChange(order.id, order.is_paid)}>已完成</button>
-                               : <button className="border border-0 rounded-pill bg-alert-50 text-alert-700 px-3 py-2"
-                                         onClick={()=>handleClickChange(order.id, order.is_paid)}>已成立</button>}                              
-                            </td>
+                          <tr className="order-body align-middle text-center" key={coupon.id}>
+                            <th scope="row" className="py-6">{coupon.due_date}</th>
+                            <td>{coupon.title}</td>
+                            <td>{formatTime(coupon.due_date)}</td>
+                            <td>{formatTime(coupon.due_date, 30)}</td>
+                            <td>{coupon.percent}</td>
+                            <td>{coupon.is_enabled ? '啟用' : '未啟用'}</td>
                             <td>
-                              {Object.values(order.products || {}).map(product => (
-                                <div key={product.id} >
-                                  {product.product.title}({product.product.content}) x {product.qty}
-                                </div>
-                              ))}
-                            </td>
-                            <td className="text-end">NT$ {order.total}</td>
-                            <td className="text-center">
-                              <button className="btn" type="button"
-                                      onClick={()=>handleRemove(order.id)}>
-                                <i className="bi bi-trash text-danger"></i>
+                              <button className="btn btn-danger" type="button"
+                                      onClick={() => handleRemoveCoupon(coupon.id)}>
+                                <i className="bi bi-trash text-white"></i>
                               </button>
                             </td>
                           </tr>
                         )
                       })}
-                    </tbody> */}
+                    </tbody>
             </table>
         </div>
     </div>
