@@ -61,6 +61,32 @@ export default function MemberInfoSection({
     }));
   };
 
+  // Demo按鈕
+  const handleAutoFill = () => {
+  const city = "臺北市";
+  const district = "中正區";
+
+  const cityObj = taiwanDistricts.find((item) => item.city === city);
+  const distObj = cityObj?.districts.find((d) => d.name === district);
+
+  setFormData((prev) => ({
+    ...prev,
+    memberName: "野原廣志",
+    gender: "male",
+    birthday: "1985-03-11",
+    phone: "0912345678",
+    email: "hiroshi@test.com",
+    city: city,
+    district: district,
+    postCode: distObj ? distObj.zip : "",
+    address: "忠孝東路兩百八十段800號",
+  }));
+
+  // 讓驗證也變成綠色
+  setIsPhoneValid(true);
+  setIsEmailValid(true);
+};
+
   return (
     <div className="card h-100">
       <div className="mx-md-11 my-md-8 m-4">
@@ -274,6 +300,12 @@ export default function MemberInfoSection({
             </div>
           </div>
         </form>
+        <div className="d-flex justify-content-end">
+          <button type="button"
+                  className="btn btn-sm btn-warning mt-4"
+                  onClick={()=>handleAutoFill()}>Demo
+          </button>
+        </div>
       </div>
     </div>
   );

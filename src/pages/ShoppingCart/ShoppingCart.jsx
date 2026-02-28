@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./ShoppingCart.scss";
 
@@ -132,6 +132,12 @@ const ShoppingCart = () => {
       alert(`訂單送出成功！編號：${res.data.orderId}`);
       getCart();
       dispatch(getAsyncCart());
+      form.reset();  
+      setSelectedCity("");           
+      setSelectedDistrict("");       
+      setDistricts([]);              
+      setZipCode("");                
+      document.getElementById("sameAsMember").checked = false; 
     } catch (error) {
       alert("送出失敗，請檢查輸入內容");
     } finally {
@@ -156,6 +162,51 @@ const ShoppingCart = () => {
       setZipCode(targetDist.zip);
     }
   };
+
+  // Demo效果
+  const formRef = useRef();
+
+  const handleSameAsMember = (e) => {
+  const form = formRef.current;
+  if (!form) return;
+
+  const isChecked = e.target.checked;
+
+  const nameInput = form.querySelector('input[name="name"]');
+  const telInput = form.querySelector('input[name="tel"]');
+  const addressInput = form.querySelector('input[name="address"]');
+  const messageInput = form.querySelector('textarea[name="message"]');
+
+  if (isChecked) {
+    // 帶入會員資料
+    nameInput.value = "野原廣志";
+    telInput.value = "0912345678";
+    addressInput.value = "忠孝東路兩百八十段800號";
+    messageInput.value = "請幫忙下午配送，謝謝！";
+
+    // 同步縣市 & 區域
+    const cityName = "臺北市";
+    setSelectedCity(cityName);
+
+    const targetCity = taiwanDistricts.find((item) => item.city === cityName);
+    if (targetCity && targetCity.districts.length > 0) {
+      setDistricts(targetCity.districts);
+      setSelectedDistrict(targetCity.districts[0].name); // 預設選第一個
+      setZipCode(targetCity.districts[0].zip);
+    }
+  } else {
+    // 清空
+    nameInput.value = "";
+    telInput.value = "";
+    addressInput.value = "";
+    messageInput.value = "";
+    setSelectedCity("");
+    setSelectedDistrict("");
+    setDistricts([]);
+    setZipCode("");
+  }
+};
+
 
   return (
     <div className="shopping-cart-page">
@@ -428,7 +479,9 @@ const ShoppingCart = () => {
         {/* --- 下半部：填寫資訊 (維持不變) --- */}
         <section style={{ backgroundColor: "#FFFFFF" }}>
           <div className="container pt-8 pt-md-12">
-            <form className="shipping-info" onSubmit={handleCheckout}>
+            <form className="shipping-info" 
+                  onSubmit={handleCheckout}
+                  ref={formRef}>
               <h2 className="mb-lg-8 mb-6">填寫資訊</h2>
               <div className="cart-border p-6 mb-6">
                 <div className="form-check mb-4">
@@ -436,6 +489,7 @@ const ShoppingCart = () => {
                     className="form-check-input"
                     type="checkbox"
                     id="sameAsMember"
+                    onChange={handleSameAsMember}
                   />
                   <label className="form-check-label" htmlFor="sameAsMember">
                     同會員資料
