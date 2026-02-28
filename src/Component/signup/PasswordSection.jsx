@@ -40,6 +40,25 @@ export default function PasswordSection({ formData, handleChange }) {
     return isPwdValid ? "bi-check-square-fill" : "bi-x-square-fill"; // 正確：勾勾，錯誤：叉叉
   };
 
+  // Demo按鈕
+  const handleDemoFill = () => {
+  const demoPwd = "Hiroshi123"; // 8-16英數
+
+  // 模擬輸入 password
+  handleChange({
+    target: { name: "password", value: demoPwd }
+  });
+
+  // 模擬輸入 confirmPassword
+  handleChange({
+    target: { name: "confirmPassword", value: demoPwd }
+  });
+
+  // 直接設定驗證狀態
+  setIsPwdValid(true);
+  setIsConfirmValid(true);
+};
+
   return (
     <div className="card">
       <div className="mx-md-11 my-md-8 mt-lg-8 mb-lg-13 m-4">
@@ -105,6 +124,12 @@ export default function PasswordSection({ formData, handleChange }) {
             {isConfirmValid === false && "密碼輸入不一致"}
             {isConfirmValid === true && "密碼一致"}
           </small>
+        </div>
+        <div className="d-flex justify-content-end">
+          <button type="button"
+                  className="btn btn-sm btn-warning mt-4"
+                  onClick={()=>handleDemoFill()}>Demo
+          </button>
         </div>
       </div>
     </div>
