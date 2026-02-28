@@ -14,18 +14,6 @@ const CouponManagement=() => {
     },[dispatch])
 
     const [ isModalOpen, setIsModalOpen ] = useState(false);
-    // const handleCreateCoupon = async() => {
-    //   const newCoupon = {
-    //     title: "超級特惠價格",
-    //     is_enabled: 1,
-    //     percent: 80,
-    //     due_date: Math.floor(Date.now() / 1000),
-    //     code: "testCode"
-    //   };
-
-    //   await dispatch(createAsyncCoupon(newCoupon));
-    //         dispatch(getAsyncAdminCoupons());
-    // };
 
     const handleRemoveCoupon = async(id) => {
       await dispatch(deleteAsyncCoupon(id));
@@ -54,7 +42,7 @@ const CouponManagement=() => {
                     新增優惠卷
             </button>
         </div>
-        <AdminCouponModal isModalOpen={isModalOpen} />
+        <AdminCouponModal isModalOpen={isModalOpen} onClose={()=>setIsModalOpen(false)}/>
         <div className="border border-1 rounded-16 px-6 py-3 fs-6 d-none d-lg-block bg-white">
             <table className="table">
                     <thead>

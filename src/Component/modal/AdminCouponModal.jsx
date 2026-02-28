@@ -13,23 +13,72 @@ const AdminCouponModal =({isModalOpen, onClose}) => {
         code: "",
     });
 
-    //接著從新增input串接開始
+    const handleCreateCoupon =async() => {
+        await dispatch(createAsyncCoupon(formData));
+        dispatch(getAsyncAdminCoupons());
+        onClose();
+    }
+
     return (<>
         { isModalOpen && (
             <div className="container px-13 pt-5 pb-5 my-5 border rounded-4">
                 <div className="modal-dialog">
                     <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title">新增優惠卷</h5>
-                        </div>
                         <div className="modal-body">
                             <div className="mb-3">
-                                <label for="exampleFormControlInput1" className="form-label">Email address</label>
-                                <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
+                                <label htmlFor="coupon_title" 
+                                       className="form-label">優惠卷名稱
+                                </label>
+                                <input type="text" className="form-control" 
+                                       id="coupon_title" 
+                                       placeholder="Coupon Title"
+                                       value={formData.title}
+                                       onChange={(e)=>setFormData({...formData, title: e.target.value})}/>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="discount_percent" 
+                                       className="form-label">折扣 % 數
+                                </label>
+                                <input type="number" className="form-control" 
+                                       id="discount_percent" 
+                                       placeholder="Discount Percent"
+                                       value={formData.percent}
+                                       onChange={(e)=>setFormData({...formData, percent: Number(e.target.value)})}/>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="discount_code" 
+                                       className="form-label">折扣碼
+                                </label>
+                                <input type="text" className="form-control" 
+                                       id="discount_code" 
+                                       placeholder="Discount Code"
+                                       value={formData.code}
+                                       onChange={(e)=>setFormData({...formData, code: e.target.value})}/>
+                            </div>
+                            <div className="mb-3">
+                                <input type="checkbox" className="form-check-input" 
+                                       id="is_enable" 
+                                       checked={formData.is_enabled === 1}
+                                       onChange={(e)=>setFormData({...formData, is_enabled: e.target.checked ? 1 : 0})}/>
+                                <label htmlFor="is_enable" 
+                                       className="form-label mx-3">是否啟用
+                                </label>
+                            </div>
+                            <div className="mb-3"> {/* 日期型別錯誤 */}
+                                <label htmlFor="due_date" className="form-label">到期日</label>
+                                <input
+                                    type="date"
+                                    className="form-control"
+                                    id="due_date"
+                                    value={formData.due_date}
+                                    onChange={(e) => setFormData({...formData, due_date: e.target.value})}
+                                />
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-primary">Save changes</button>
+                            <button type="button" className="btn btn-lg btn-info"
+                                    onClick={handleCreateCoupon}>新增
+                            </button>
                         </div>
                     </div>
                 </div>
