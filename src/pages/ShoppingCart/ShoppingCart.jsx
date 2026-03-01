@@ -11,6 +11,7 @@ import taiwanDistricts from "@/data/taiwanDistricts.json";
 // --- 連結至 Products 頁面---
 import { Link } from "react-router";
 
+const { VITE_API_BASE, VITE_API_PATH } = import.meta.env;
 const BASE_URL = "https://vue3-course-api.hexschool.io/v2";
 const API_PATH = "ononcakeapi";
 
@@ -96,9 +97,7 @@ const ShoppingCart = () => {
     if (!couponCode) return;
     setIsLoading(true);
     try {
-      await axios.post(`${BASE_URL}/api/${API_PATH}/coupon`, {
-        data: { code: couponCode },
-      });
+      await axios.post(`${BASE_URL}/api/${API_PATH}/coupon`, { data: couponCode });
       alert("優惠券套用成功");
       getCart();
     } catch (error) {
@@ -165,7 +164,6 @@ const ShoppingCart = () => {
 
   // Demo效果
   const formRef = useRef();
-
   const handleSameAsMember = (e) => {
   const form = formRef.current;
   if (!form) return;
@@ -191,7 +189,7 @@ const ShoppingCart = () => {
     const targetCity = taiwanDistricts.find((item) => item.city === cityName);
     if (targetCity && targetCity.districts.length > 0) {
       setDistricts(targetCity.districts);
-      setSelectedDistrict(targetCity.districts[0].name); // 預設選第一個
+      setSelectedDistrict(targetCity.districts[0].name); 
       setZipCode(targetCity.districts[0].zip);
     }
   } else {
@@ -206,7 +204,6 @@ const ShoppingCart = () => {
     setZipCode("");
   }
 };
-
 
   return (
     <div className="shopping-cart-page">
@@ -370,6 +367,7 @@ const ShoppingCart = () => {
                   </div>
                 </div>
               </div>
+
               <div className="col-12 col-md-4">
                 <div className="p-5 p-md-6 border rounded-4 bg-white h-100">
                   <label className="form-label d-block mb-1">優惠碼</label>
@@ -404,6 +402,7 @@ const ShoppingCart = () => {
                   </div>
                 </div>
               </div>
+
               <div className="col-12 col-md-4">
                 <div className="p-5 p-md-6 border rounded-4 bg-white h-100">
                   <label className="form-label d-block mb-1">優惠券</label>

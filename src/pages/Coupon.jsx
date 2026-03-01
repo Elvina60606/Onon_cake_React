@@ -1,6 +1,18 @@
 import images from '@/assets/images/images.js';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+// coupon 暫存，後續再代入
+//import { getAsyncAdminCoupons } from '@/slices/adminCouponSlice';
 
 const Coupon =() => {
+    // const dispatch = useDispatch();
+    // const { adminCoupons } = useSelector(state => state.admincoupon)
+
+    // useEffect(()=>{
+    //     dispatch(getAsyncAdminCoupons())
+    // }, [dispatch])
+
     return(
         <>
             <div className="col-md-9">
@@ -36,6 +48,7 @@ const Coupon =() => {
                                             <h5 className="text-neutral-800 mb-6">優惠卷</h5>
                                         {/*mobile*/}
                                             <div className="d-lg-none">
+                                                
                                                 <div className="shadow rounded-4 mb-6">
                                                     <div className="d-flex justify-content-center coupon-card-up rounded-4 rounded-bottom-0">
                                                         <img className="me-3" 
@@ -84,12 +97,6 @@ const Coupon =() => {
                                                         </li>
                                                         <li className="page-item active">
                                                             <a className="page-link align-middle" href="#">1</a>
-                                                        </li>
-                                                        <li className="page-item">
-                                                            <a className="page-link" href="#">2</a>
-                                                        </li>
-                                                        <li className="page-item">
-                                                            <a className="page-link" href="#">3</a>
                                                         </li>
                                                         <li className="page-item">
                                                             <a className="page-link pagination-icon" href="#" aria-label="Next">
@@ -161,18 +168,6 @@ const Coupon =() => {
                                                         </li>
                                                         <li className="page-item active">
                                                             <a className="page-link align-middle" href="#">1</a>
-                                                        </li>
-                                                        <li className="page-item">
-                                                            <a className="page-link" href="#">2</a>
-                                                        </li>
-                                                        <li className="page-item">
-                                                            <a className="page-link" href="#">3</a>
-                                                        </li>
-                                                        <li className="page-item">
-                                                            <a className="page-link" href="#">4</a>
-                                                        </li>
-                                                        <li className="page-item">
-                                                            <a className="page-link" href="#">5</a>
                                                         </li>
                                                         <li className="page-item">
                                                             <a className="page-link pagination-icon" href="#" aria-label="Next">

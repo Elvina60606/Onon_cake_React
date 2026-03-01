@@ -13,7 +13,7 @@ const NotFound = () => {
             navigate('/',{
                 replace: true,
             })
-        }, 2500)
+        }, 2000)
     }, [navigate]);
 
     return (

@@ -5,6 +5,7 @@ import loginReducer from './slices/loginSlice';
 import productsReducer from './slices/productsSlice';
 import cartReducer from './slices/cartSlice';
 import ordersReducer from './slices/ordersSlice';
+import couponReducer from './slices/couponSlice';
 import adminAuthReducer from './slices/adminAuthSlice';
 import adminProductsReducer from './slices/adminProductsSlice';
 import adminOrdersReducer from './slices/adminOrdersSlice';
@@ -17,6 +18,7 @@ export const store = configureStore({
         product: productsReducer,
         cart: cartReducer,
         order: ordersReducer,
+        coupon: couponReducer,
         adminauth: adminAuthReducer, 
         adminproduct: adminProductsReducer,
         adminorder: adminOrdersReducer,

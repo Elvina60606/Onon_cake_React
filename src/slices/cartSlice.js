@@ -22,9 +22,10 @@ const cartSlice = createSlice({
     carts: []
   },
   extraReducers: (builder) => {
-    builder.addCase(getAsyncCart.fulfilled, (state, action) => {
+    builder
+    .addCase(getAsyncCart.fulfilled, (state, action) => {
       state.carts = action.payload.carts;
-    });
+    })
   }
 });
 

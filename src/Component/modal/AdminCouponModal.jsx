@@ -14,7 +14,12 @@ const AdminCouponModal =({isModalOpen, onClose}) => {
     });
 
     const handleCreateCoupon =async() => {
-        await dispatch(createAsyncCoupon(formData));
+        const payload = {
+            ...formData,
+            due_date: Math.floor(new Date(formData.due_date).getTime() / 1000),
+        };
+
+        await dispatch(createAsyncCoupon(payload));
         dispatch(getAsyncAdminCoupons());
         onClose();
     }
@@ -64,8 +69,8 @@ const AdminCouponModal =({isModalOpen, onClose}) => {
                                        className="form-label mx-3">是否啟用
                                 </label>
                             </div>
-                            <div className="mb-3"> {/* 日期型別錯誤 */}
-                                <label htmlFor="due_date" className="form-label">到期日</label>
+                            <div className="mb-3"> 
+                                <label htmlFor="due_date" className="form-label">成立時間</label>
                                 <input
                                     type="date"
                                     className="form-control"
